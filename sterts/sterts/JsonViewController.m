@@ -13,9 +13,13 @@
 - (id) init
 {
     self = [super init];
+    allStertsURL =  @"http://sterts.humboldttechgroup.com/web/app_dev.php/json/test";
+    postStertURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/dump";
+
+    
     
     if (self) {
-        //[self fetchEntries];
+        [self fetchEntries:allStertsURL];
     }
     return self;
 }
@@ -49,33 +53,47 @@
 
 - (void) connectionDidFinishLoading:(NSURLConnection *) connection
 {
+  NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
+  NSLog(@"ReturnedData=%@", json);
+  
+  if ([json objectForKey:@"stats"]){
+      NSLog(@"Sterts JSON");
+      [hitpointSlider setValue:[json[@"stats"][0][@"hitpoints"]  floatValue ]];
+      [manaSlider setValue:[json[@"stats"][0][@"mana"]  floatValue ]];
     
-    
-    NSLog(@"ReturnedData=%@", jsonData);
-    
-   NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
-  [hitpointSlider setValue:[json[@"stats"][0][@"hitpoints"]  floatValue ]];
-  [manaSlider setValue:[json[@"stats"][0][@"mana"]  floatValue ]];
-    
-  [hitpointLabel setText: json[@"stats"][0][@"hitpoints"]];
-  [manaLabel setText:  json[@"stats"][0][@"mana"] ];
-    NSLog(@"ReturnedData=%@", json);
-
+      [hitpointLabel setText: json[@"stats"][0][@"hitpoints"]];
+      [manaLabel setText:  json[@"stats"][0][@"mana"] ];
+  } else {
+       NSLog(@"Status JSON");
+  }
 }
 
 - (void) postData:(NSString *) urlString
 {
+    // Create a new data container for the stuff that comes back from the service
+    jsonData = [[NSMutableData alloc] init];
+    
     NSURL *url = [NSURL URLWithString: urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
-    NSString* string= @"Some String";
-    NSData* data=[string dataUsingEncoding:NSUTF8StringEncoding];
+    
+    int hitpoints = [hitpointSlider value];
+    int mana =[manaSlider value];
+    
+    NSString* newData = [[NSString alloc] initWithFormat: @"{\"stert\":{ \"hitpoints\":\"%d\", \"mana\":\"%d\" }}", hitpoints, mana];
+    
+    
+    NSData* postData=[newData dataUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    
+    
     
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"%d", [data length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody: data];
+    [request setValue:[NSString stringWithFormat:@"%d", [postData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody: postData];
     
     // Create a connection that will exchange this request for data from the URL
     connection = [[NSURLConnection alloc] initWithRequest:request
@@ -89,21 +107,11 @@
     // Create a new data container for the stuff that comes back from the service
     jsonData = [[NSMutableData alloc] init];
     
-    //NSURL *url = [NSURL URLWithString: @"http://sterts.humboldttechgroup.com/web/app_dev.php/json/test"];
-    
     NSURL *url = [NSURL URLWithString: urlString];
-    
     
     //Put the URL into an NSUrlRequest
     NSURLRequest *req = [NSURLRequest requestWithURL:url];
 
-    
-    
-    
-     
-    
-    
-    
     
     // Create a connection that will exchange this request for data from the URL
     connection = [[NSURLConnection alloc] initWithRequest:req
@@ -112,22 +120,24 @@
 }
 
 
-
-
 - (IBAction)getButton:(id)sender
 {
-    [self fetchEntries:@"http://sterts.humboldttechgroup.com/web/app_dev.php/json/test"];
-    
+    [self fetchEntries:allStertsURL];
 }
 
 - (IBAction)postButton:(id)sender
 {
-    
-    
-    [self postData:@"http://sterts.humboldttechgroup.com/web/app_dev.php/dump"];
-
-    
+    [self postData:postStertURL];
 }
 
+- (IBAction)updateHitpointsLabel:(id)sender
+{
+    [hitpointLabel setText:[[NSString alloc] initWithFormat:@"%f",[hitpointSlider value ]]];
+}
+
+- (IBAction)updateManaLabel:(id)sender
+{
+     [manaLabel setText:[[NSString alloc] initWithFormat:@"%f",[manaSlider value ]]];
+}
 
 @end 

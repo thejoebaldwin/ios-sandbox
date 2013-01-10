@@ -12,6 +12,10 @@
 {
     NSURLConnection *connection;
     NSMutableData *jsonData;
+    NSString *allStertsURL;
+    NSString *postStertURL;
+    
+    
     __weak IBOutlet UISlider *manaSlider;
    
     __weak IBOutlet UILabel *hitpointLabel;
@@ -24,4 +28,8 @@
 
 - (IBAction)getButton:(id)sender;
 - (IBAction)postButton:(id)sender;
+
+- (IBAction) updateHitpointsLabel:(id)sender;
+- (IBAction) updateManaLabel:(id)sender;
+
 @end

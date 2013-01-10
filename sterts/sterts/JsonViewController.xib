@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1536</int>
-		<string key="IBDocument.SystemVersion">12C60</string>
+		<string key="IBDocument.SystemVersion">11G63b</string>
 		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
-		<string key="IBDocument.AppKitVersion">1187.34</string>
-		<string key="IBDocument.HIToolboxVersion">625.00</string>
+		<string key="IBDocument.AppKitVersion">1138.51</string>
+		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">1930</string>
@@ -123,7 +123,7 @@
 					<object class="IBUILabel" id="475424027">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{139, 85}, {42, 21}}</string>
+						<string key="NSFrame">{{139, 85}, {104, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1039661864"/>
@@ -144,7 +144,7 @@
 					<object class="IBUILabel" id="284241529">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">303</int>
-						<string key="NSFrame">{{139, 229}, {42, 21}}</string>
+						<string key="NSFrame">{{139, 229}, {113, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="704059967"/>
@@ -204,7 +204,6 @@
 						<string key="NSFrame">{{197, 333}, {73, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -298,6 +297,24 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">updateHitpointsLabel:</string>
+						<reference key="source" ref="583440837"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">13</int>
+					</object>
+					<int key="connectionID">63</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">updateManaLabel:</string>
+						<reference key="source" ref="568557766"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">13</int>
+					</object>
+					<int key="connectionID">64</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">getButton:</string>
 						<reference key="source" ref="704059967"/>
 						<reference key="destination" ref="372490531"/>
@@ -330,11 +347,11 @@
 							<reference ref="1039661864"/>
 							<reference ref="249085225"/>
 							<reference ref="583440837"/>
-							<reference ref="568557766"/>
 							<reference ref="475424027"/>
 							<reference ref="284241529"/>
 							<reference ref="704059967"/>
 							<reference ref="666505127"/>
+							<reference ref="568557766"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -414,7 +431,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">62</int>
+			<int key="maxID">64</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -424,6 +441,8 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="getButton:">id</string>
 						<string key="postButton:">id</string>
+						<string key="updateHitpointsLabel:">id</string>
+						<string key="updateManaLabel:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="getButton:">
@@ -432,6 +451,14 @@
 						</object>
 						<object class="IBActionInfo" key="postButton:">
 							<string key="name">postButton:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="updateHitpointsLabel:">
+							<string key="name">updateHitpointsLabel:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="updateManaLabel:">
+							<string key="name">updateManaLabel:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 					</dictionary>
