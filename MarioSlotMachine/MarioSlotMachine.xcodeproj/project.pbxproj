@@ -12,6 +12,12 @@
 		D82025F3169F278E0099B7B9 /* one.png in Resources */ = {isa = PBXBuildFile; fileRef = D82025F2169F278E0099B7B9 /* one.png */; };
 		D82025F5169F27960099B7B9 /* two.png in Resources */ = {isa = PBXBuildFile; fileRef = D82025F4169F27960099B7B9 /* two.png */; };
 		D82025F7169F279D0099B7B9 /* three.png in Resources */ = {isa = PBXBuildFile; fileRef = D82025F6169F279D0099B7B9 /* three.png */; };
+		D82025FF169F510B0099B7B9 /* radish.png in Resources */ = {isa = PBXBuildFile; fileRef = D82025FC169F510B0099B7B9 /* radish.png */; };
+		D8202600169F510B0099B7B9 /* shyguy.png in Resources */ = {isa = PBXBuildFile; fileRef = D82025FD169F510B0099B7B9 /* shyguy.png */; };
+		D8202601169F510B0099B7B9 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = D82025FE169F510B0099B7B9 /* star.png */; };
+		D8202603169F51450099B7B9 /* slot2.png in Resources */ = {isa = PBXBuildFile; fileRef = D8202602169F51450099B7B9 /* slot2.png */; };
+		D8202605169F52C40099B7B9 /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = D8202604169F52C40099B7B9 /* coin.png */; };
+		D8202607169F53020099B7B9 /* words.png in Resources */ = {isa = PBXBuildFile; fileRef = D8202606169F53020099B7B9 /* words.png */; };
 		D8E7DB46169F25E5008955E6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E7DB45169F25E5008955E6 /* UIKit.framework */; };
 		D8E7DB48169F25E5008955E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E7DB47169F25E5008955E6 /* Foundation.framework */; };
 		D8E7DB4A169F25E5008955E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8E7DB49169F25E5008955E6 /* CoreGraphics.framework */; };
@@ -30,6 +36,12 @@
 		D82025F2169F278E0099B7B9 /* one.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = one.png; path = MarioSlotMachine/one.png; sourceTree = "<group>"; };
 		D82025F4169F27960099B7B9 /* two.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = two.png; sourceTree = "<group>"; };
 		D82025F6169F279D0099B7B9 /* three.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = three.png; sourceTree = "<group>"; };
+		D82025FC169F510B0099B7B9 /* radish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = radish.png; sourceTree = "<group>"; };
+		D82025FD169F510B0099B7B9 /* shyguy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shyguy.png; sourceTree = "<group>"; };
+		D82025FE169F510B0099B7B9 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		D8202602169F51450099B7B9 /* slot2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slot2.png; sourceTree = "<group>"; };
+		D8202604169F52C40099B7B9 /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coin.png; sourceTree = "<group>"; };
+		D8202606169F53020099B7B9 /* words.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = words.png; sourceTree = "<group>"; };
 		D8E7DB41169F25E5008955E6 /* MarioSlotMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarioSlotMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8E7DB45169F25E5008955E6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D8E7DB47169F25E5008955E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -93,6 +105,12 @@
 		D8E7DB4B169F25E5008955E6 /* MarioSlotMachine */ = {
 			isa = PBXGroup;
 			children = (
+				D8202606169F53020099B7B9 /* words.png */,
+				D8202604169F52C40099B7B9 /* coin.png */,
+				D8202602169F51450099B7B9 /* slot2.png */,
+				D82025FC169F510B0099B7B9 /* radish.png */,
+				D82025FD169F510B0099B7B9 /* shyguy.png */,
+				D82025FE169F510B0099B7B9 /* star.png */,
 				D82025F6169F279D0099B7B9 /* three.png */,
 				D82025F4169F27960099B7B9 /* two.png */,
 				D8E7DB54169F25E5008955E6 /* marioslotAppDelegate.h */,
@@ -176,6 +194,12 @@
 				D82025F3169F278E0099B7B9 /* one.png in Resources */,
 				D82025F5169F27960099B7B9 /* two.png in Resources */,
 				D82025F7169F279D0099B7B9 /* three.png in Resources */,
+				D82025FF169F510B0099B7B9 /* radish.png in Resources */,
+				D8202600169F510B0099B7B9 /* shyguy.png in Resources */,
+				D8202601169F510B0099B7B9 /* star.png in Resources */,
+				D8202603169F51450099B7B9 /* slot2.png in Resources */,
+				D8202605169F52C40099B7B9 /* coin.png in Resources */,
+				D8202607169F53020099B7B9 /* words.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

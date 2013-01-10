@@ -31,12 +31,12 @@
         //DID THEY WIN?
         NSLog(@"%d,%d,%d", indexOne, indexTwo, indexThree);
         if (indexOne == indexTwo && indexTwo == indexThree) {
-            [testLabel setText:@"WIN"];
+           // [testLabel setText:@"WIN"];
             extraLife++;
             [helloLabel setText:[[NSString alloc] initWithFormat:@"%d", extraLife]];
             
         } else {
-            [testLabel setText:@"LOSS"];
+            //[testLabel setText:@"LOSS"];
         }
         
     }
@@ -75,7 +75,7 @@
 
 - (void) viewDidLoad
 {
-      [testLabel setText:@""];
+    
 }
 
 - (id) init
@@ -84,9 +84,9 @@
        
     arrImages = [[NSMutableArray alloc] init];
     
-    [arrImages addObject:[UIImage imageNamed: @"one.png"]];
-    [arrImages addObject:[UIImage imageNamed: @"two.png"]];
-    [arrImages addObject:[UIImage imageNamed: @"three.png"]];
+    [arrImages addObject:[UIImage imageNamed: @"star.png"]];
+    [arrImages addObject:[UIImage imageNamed: @"radish.png"]];
+    [arrImages addObject:[UIImage imageNamed: @"shyguy.png"]];
     
     
     indexOne = [self getRandomImageIndex];

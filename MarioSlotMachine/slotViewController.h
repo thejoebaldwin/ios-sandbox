@@ -13,7 +13,7 @@
 
     __weak IBOutlet UIImageView *firstImage;
     __weak IBOutlet UIImageView *secondImage;
-    __weak IBOutlet UILabel *testLabel;
+   
     __weak IBOutlet UILabel *helloLabel;
     
     __weak IBOutlet UIImageView *thirdImage;
