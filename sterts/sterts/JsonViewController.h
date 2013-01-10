@@ -18,5 +18,10 @@
     __weak IBOutlet UISlider *hitpointSlider;
     __weak IBOutlet UILabel *manaLabel;
 }
-- (void) fetchEntries;
+- (void) fetchEntries:(NSString *) urlString;
+- (void) postData:(NSString *) urlString;
+
+
+- (IBAction)getButton:(id)sender;
+- (IBAction)postButton:(id)sender;
 @end
