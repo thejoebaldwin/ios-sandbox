@@ -51,6 +51,14 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<float key="IBUIValue">50</float>
 						<float key="IBUIMaxValue">100</float>
+						<object class="NSColor" key="IBUIMinimumTrackTintColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MSAwLjA0ODEwMDkxMjI5IDAuMDk1Mjc5MTEwNwA</bytes>
+						</object>
+						<object class="NSColor" key="IBUIMaximumTrackTintColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MSAwLjA0ODEwMDkxMjI5IDAuMDk1Mjc5MTEwNwA</bytes>
+						</object>
 					</object>
 					<object class="IBUISlider" id="568557766">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -66,6 +74,14 @@
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<float key="IBUIValue">50</float>
 						<float key="IBUIMaxValue">100</float>
+						<object class="NSColor" key="IBUIMinimumTrackTintColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4wNTczNzU2MDkyNSAwLjAyMjUwNTk2NDYgMQA</bytes>
+						</object>
+						<object class="NSColor" key="IBUIMaximumTrackTintColor">
+							<int key="NSColorSpace">1</int>
+							<bytes key="NSRGB">MC4wNTczNzU2MDkyNSAwLjAyMjUwNTk2NDYgMQA</bytes>
+						</object>
 					</object>
 					<object class="IBUILabel" id="249085225">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -347,11 +363,11 @@
 							<reference ref="249085225"/>
 							<reference ref="1039661864"/>
 							<reference ref="666505127"/>
-							<reference ref="583440837"/>
 							<reference ref="704059967"/>
 							<reference ref="568557766"/>
 							<reference ref="284241529"/>
 							<reference ref="475424027"/>
+							<reference ref="583440837"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
