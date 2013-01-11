@@ -132,12 +132,12 @@
 
 - (IBAction)updateHitpointsLabel:(id)sender
 {
-    [hitpointLabel setText:[[NSString alloc] initWithFormat:@"%f",[hitpointSlider value ]]];
+    [hitpointLabel setText:[[NSString alloc] initWithFormat:@"%i", (int)[hitpointSlider value ]]];
 }
 
 - (IBAction)updateManaLabel:(id)sender
 {
-     [manaLabel setText:[[NSString alloc] initWithFormat:@"%f",[manaSlider value ]]];
+     [manaLabel setText:[[NSString alloc] initWithFormat:@"%i", (int)[manaSlider value ]]];
 }
 
 @end 
