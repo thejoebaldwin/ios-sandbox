@@ -1,0 +1,300 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		97B40B85169FC3600000EA92 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97B40B84169FC3600000EA92 /* UIKit.framework */; };
+		97B40B87169FC3600000EA92 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97B40B86169FC3600000EA92 /* Foundation.framework */; };
+		97B40B89169FC3600000EA92 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97B40B88169FC3600000EA92 /* CoreGraphics.framework */; };
+		97B40B8F169FC3600000EA92 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 97B40B8D169FC3600000EA92 /* InfoPlist.strings */; };
+		97B40B91169FC3600000EA92 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B40B90169FC3600000EA92 /* main.m */; };
+		97B40B95169FC3600000EA92 /* brontoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B40B94169FC3600000EA92 /* brontoAppDelegate.m */; };
+		97B40B97169FC3600000EA92 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B40B96169FC3600000EA92 /* Default.png */; };
+		97B40B99169FC3600000EA92 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B40B98169FC3600000EA92 /* Default@2x.png */; };
+		97B40B9B169FC3600000EA92 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B40B9A169FC3600000EA92 /* Default-568h@2x.png */; };
+		97B40BA4169FC3820000EA92 /* brontoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B40BA2169FC3820000EA92 /* brontoViewController.m */; };
+		97B40BA5169FC3820000EA92 /* brontoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97B40BA3169FC3820000EA92 /* brontoViewController.xib */; };
+		97B40BA7169FD28F0000EA92 /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B40BA6169FD28F0000EA92 /* grass.png */; };
+		97B40BA9169FD2950000EA92 /* foot.png in Resources */ = {isa = PBXBuildFile; fileRef = 97B40BA8169FD2950000EA92 /* foot.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		97B40B80169FC3600000EA92 /* BrontoPronto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrontoPronto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		97B40B84169FC3600000EA92 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		97B40B86169FC3600000EA92 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		97B40B88169FC3600000EA92 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		97B40B8C169FC3600000EA92 /* BrontoPronto-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BrontoPronto-Info.plist"; sourceTree = "<group>"; };
+		97B40B8E169FC3600000EA92 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		97B40B90169FC3600000EA92 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		97B40B92169FC3600000EA92 /* BrontoPronto-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BrontoPronto-Prefix.pch"; sourceTree = "<group>"; };
+		97B40B93169FC3600000EA92 /* brontoAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = brontoAppDelegate.h; sourceTree = "<group>"; };
+		97B40B94169FC3600000EA92 /* brontoAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = brontoAppDelegate.m; sourceTree = "<group>"; };
+		97B40B96169FC3600000EA92 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		97B40B98169FC3600000EA92 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		97B40B9A169FC3600000EA92 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		97B40BA1169FC3820000EA92 /* brontoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = brontoViewController.h; sourceTree = "<group>"; };
+		97B40BA2169FC3820000EA92 /* brontoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = brontoViewController.m; sourceTree = "<group>"; };
+		97B40BA3169FC3820000EA92 /* brontoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = brontoViewController.xib; sourceTree = "<group>"; };
+		97B40BA6169FD28F0000EA92 /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grass.png; sourceTree = "<group>"; };
+		97B40BA8169FD2950000EA92 /* foot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foot.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		97B40B7D169FC3600000EA92 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97B40B85169FC3600000EA92 /* UIKit.framework in Frameworks */,
+				97B40B87169FC3600000EA92 /* Foundation.framework in Frameworks */,
+				97B40B89169FC3600000EA92 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		97B40B75169FC3600000EA92 = {
+			isa = PBXGroup;
+			children = (
+				97B40BA1169FC3820000EA92 /* brontoViewController.h */,
+				97B40BA2169FC3820000EA92 /* brontoViewController.m */,
+				97B40BA3169FC3820000EA92 /* brontoViewController.xib */,
+				97B40B8A169FC3600000EA92 /* BrontoPronto */,
+				97B40B83169FC3600000EA92 /* Frameworks */,
+				97B40B81169FC3600000EA92 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		97B40B81169FC3600000EA92 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				97B40B80169FC3600000EA92 /* BrontoPronto.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		97B40B83169FC3600000EA92 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				97B40B84169FC3600000EA92 /* UIKit.framework */,
+				97B40B86169FC3600000EA92 /* Foundation.framework */,
+				97B40B88169FC3600000EA92 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		97B40B8A169FC3600000EA92 /* BrontoPronto */ = {
+			isa = PBXGroup;
+			children = (
+				97B40BA8169FD2950000EA92 /* foot.png */,
+				97B40B93169FC3600000EA92 /* brontoAppDelegate.h */,
+				97B40BA6169FD28F0000EA92 /* grass.png */,
+				97B40B94169FC3600000EA92 /* brontoAppDelegate.m */,
+				97B40B8B169FC3600000EA92 /* Supporting Files */,
+			);
+			path = BrontoPronto;
+			sourceTree = "<group>";
+		};
+		97B40B8B169FC3600000EA92 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				97B40B8C169FC3600000EA92 /* BrontoPronto-Info.plist */,
+				97B40B8D169FC3600000EA92 /* InfoPlist.strings */,
+				97B40B90169FC3600000EA92 /* main.m */,
+				97B40B92169FC3600000EA92 /* BrontoPronto-Prefix.pch */,
+				97B40B96169FC3600000EA92 /* Default.png */,
+				97B40B98169FC3600000EA92 /* Default@2x.png */,
+				97B40B9A169FC3600000EA92 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		97B40B7F169FC3600000EA92 /* BrontoPronto */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 97B40B9E169FC3600000EA92 /* Build configuration list for PBXNativeTarget "BrontoPronto" */;
+			buildPhases = (
+				97B40B7C169FC3600000EA92 /* Sources */,
+				97B40B7D169FC3600000EA92 /* Frameworks */,
+				97B40B7E169FC3600000EA92 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BrontoPronto;
+			productName = BrontoPronto;
+			productReference = 97B40B80169FC3600000EA92 /* BrontoPronto.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		97B40B77169FC3600000EA92 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = bronto;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Humboldt Technology Group, LLC";
+			};
+			buildConfigurationList = 97B40B7A169FC3600000EA92 /* Build configuration list for PBXProject "BrontoPronto" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 97B40B75169FC3600000EA92;
+			productRefGroup = 97B40B81169FC3600000EA92 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				97B40B7F169FC3600000EA92 /* BrontoPronto */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		97B40B7E169FC3600000EA92 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97B40B8F169FC3600000EA92 /* InfoPlist.strings in Resources */,
+				97B40B97169FC3600000EA92 /* Default.png in Resources */,
+				97B40B99169FC3600000EA92 /* Default@2x.png in Resources */,
+				97B40B9B169FC3600000EA92 /* Default-568h@2x.png in Resources */,
+				97B40BA5169FC3820000EA92 /* brontoViewController.xib in Resources */,
+				97B40BA7169FD28F0000EA92 /* grass.png in Resources */,
+				97B40BA9169FD2950000EA92 /* foot.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		97B40B7C169FC3600000EA92 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97B40B91169FC3600000EA92 /* main.m in Sources */,
+				97B40B95169FC3600000EA92 /* brontoAppDelegate.m in Sources */,
+				97B40BA4169FC3820000EA92 /* brontoViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		97B40B8D169FC3600000EA92 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				97B40B8E169FC3600000EA92 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		97B40B9C169FC3600000EA92 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		97B40B9D169FC3600000EA92 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		97B40B9F169FC3600000EA92 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BrontoPronto/BrontoPronto-Prefix.pch";
+				INFOPLIST_FILE = "BrontoPronto/BrontoPronto-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		97B40BA0169FC3600000EA92 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BrontoPronto/BrontoPronto-Prefix.pch";
+				INFOPLIST_FILE = "BrontoPronto/BrontoPronto-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		97B40B7A169FC3600000EA92 /* Build configuration list for PBXProject "BrontoPronto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				97B40B9C169FC3600000EA92 /* Debug */,
+				97B40B9D169FC3600000EA92 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		97B40B9E169FC3600000EA92 /* Build configuration list for PBXNativeTarget "BrontoPronto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				97B40B9F169FC3600000EA92 /* Debug */,
+				97B40BA0169FC3600000EA92 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 97B40B77169FC3600000EA92 /* Project object */;
+}
