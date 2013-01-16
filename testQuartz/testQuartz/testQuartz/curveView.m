@@ -23,8 +23,12 @@
 
 - (void) drawRect: (CGRect) dirtyRect
 {
+    [super drawRect:dirtyRect];
+    
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-   CGRect bounds = [self bounds];
+    //CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);
+    CGContextSetFillColorWithColor(ctx, [UIColor clearColor].CGColor);
+    CGRect bounds = [self bounds];
     
     
     
@@ -39,15 +43,16 @@
     CGContextSetLineWidth(ctx, 10);
     
     [[UIColor redColor] setStroke];
+    [[UIColor redColor] setFill];
     
     // Draw concetric circles from the outside in
-    for (float currentRadius = maxRadius; currentRadius > 0; currentRadius -= 20) {
+    //for (float currentRadius = maxRadius; currentRadius > 0; currentRadius -= 20) {
         // Add a path to the context
-        CGContextAddArc(ctx, center.x, center.y,
-                        currentRadius, 0.0, M_PI * 2.0, YES);
+      //  CGContextAddArc(ctx, center.x, center.y,
+                      //  currentRadius, 0.0, M_PI * 2.0, YES);
         // Performs drawing instruction; removes path
-        CGContextStrokePath(ctx);
-    }
+        //CGContextStrokePath(ctx);
+    //}
     
     UIBezierPath *aPath = [UIBezierPath bezierPath];
     
@@ -60,6 +65,8 @@
     [aPath addLineToPoint:CGPointMake(40.0, 140)];
     [aPath addLineToPoint:CGPointMake(0.0, 40.0)];
     [aPath closePath];
+    [aPath stroke];
+    [aPath fill];
     
     
 }
