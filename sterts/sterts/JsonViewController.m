@@ -7,6 +7,7 @@
 //
 
 #import "JsonViewController.h"
+#import "openGLViewController.h"
 
 @implementation JsonViewController
 
@@ -138,6 +139,15 @@
 - (IBAction)updateManaLabel:(id)sender
 {
      [manaLabel setText:[[NSString alloc] initWithFormat:@"%i", (int)[manaSlider value ]]];
+}
+
+- (IBAction)go3DView:(id)sender
+{
+    
+    openGLViewController *ovc = [[openGLViewController alloc] init];
+    
+    [[self navigationController] pushViewController:ovc animated:YES];
+
 }
 
 @end 

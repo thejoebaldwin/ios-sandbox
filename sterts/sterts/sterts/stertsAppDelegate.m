@@ -9,6 +9,7 @@
 #import "stertsAppDelegate.h"
 
 #import "JsonViewController.h"
+#import "3dView.h"
 
 @implementation stertsAppDelegate
 
@@ -18,8 +19,14 @@
     // Override point for customization after application launch.
     
     JsonViewController *jvc = [[JsonViewController alloc] init];
+
     
-    [[self window] setRootViewController:jvc];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:jvc];
+
+    
+    
+        
+    [[self window] setRootViewController:navController];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

@@ -31,5 +31,6 @@
 
 - (IBAction) updateHitpointsLabel:(id)sender;
 - (IBAction) updateManaLabel:(id)sender;
+- (IBAction) go3DView:(id) sender;
 
 @end
