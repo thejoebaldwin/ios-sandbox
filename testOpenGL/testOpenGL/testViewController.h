@@ -10,5 +10,11 @@
 #import <GLKit/GLKit.h>
 
 @interface testViewController : GLKViewController
+{
+
+}
+
+@property (nonatomic) float scaleSize;
+@property (nonatomic) float speed;
 
 @end

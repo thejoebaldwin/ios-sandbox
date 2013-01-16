@@ -25,6 +25,9 @@
     testViewController *tvc =  [[testViewController alloc] init]; //[[testViewController alloc] initWithNibName:@"testViewController_iPhone" bundle:nil];
     mainMenuController *mmc = [[mainMenuController alloc] init];
     
+    [mmc setMyTVC:tvc];
+    
+    
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
     
     NSArray *viewControllers = [NSArray arrayWithObjects: mmc, tvc, nil];

@@ -98,7 +98,8 @@ GLfloat gCubeVertexData[216] =
 
 @implementation testViewController
 
-
+@synthesize scaleSize;
+@synthesize speed;
 
 - (id) init
 {
@@ -108,6 +109,8 @@ GLfloat gCubeVertexData[216] =
         
         // Give it a label
         [tbi setTitle:@"Cubes"];
+        scaleSize = 2.0f;
+        speed = 0.0f;
 
     }
     return self;
@@ -219,19 +222,27 @@ GLfloat gCubeVertexData[216] =
     GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -1.5f);
     modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
+    //scale
+    modelViewMatrix = GLKMatrix4Scale(modelViewMatrix, scaleSize,scaleSize, scaleSize);
+
     
     self.effect.transform.modelviewMatrix = modelViewMatrix;
     
     // Compute the model view matrix for the object rendered with ES2
+   
     modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
     modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
     modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
+   
+    //scale
+    modelViewMatrix = GLKMatrix4Scale(modelViewMatrix, scaleSize,scaleSize, scaleSize);
+    
     
     _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
     
     _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
     
-    _rotation += self.timeSinceLastUpdate * 0.5f;
+    _rotation += (self.timeSinceLastUpdate * 0.5f) + speed;
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect

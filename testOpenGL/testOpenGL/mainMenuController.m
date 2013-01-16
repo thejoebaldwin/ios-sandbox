@@ -14,6 +14,8 @@
 
 @implementation mainMenuController
 
+@synthesize myTVC;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -48,6 +50,23 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+-(IBAction)updateSlider:(id)sender
+{
+    float scaleSize =  [scaleSlider value];
+    [valueLabel setText:[[NSString alloc] initWithFormat:@"%f", (float) scaleSize]];
+    scaleSize = scaleSize / 10.0f;
+    [myTVC setScaleSize:scaleSize];
+}
+
+-(IBAction)updateSpeedSlider:(id)sender
+{
+    float speed =  [speedSlider value];
+    [speedLabel setText:[[NSString alloc] initWithFormat:@"%f", (float) speed]];
+    speed = speed / 100.0f;
+    [myTVC setSpeed:speed];
 }
 
 @end
