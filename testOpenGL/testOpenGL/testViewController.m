@@ -101,6 +101,27 @@ GLfloat gCubeVertexData[216] =
 @synthesize scaleSize;
 @synthesize speed;
 
+
+- (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
+    if (self) {
+        UITabBarItem *tbi = [self tabBarItem];
+        
+        // Give it a label
+        [tbi setTitle:@"Cubes"];
+        scaleSize = 2.0f;
+        speed = 0.0f;
+        
+              
+     
+        
+    }
+    return self;
+    
+}
+
 - (id) init
 {
     self = [super init];
@@ -130,6 +151,16 @@ GLfloat gCubeVertexData[216] =
     GLKView *view = (GLKView *)self.view;
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+    
+    
+    NSString *pageHTML = @"<html  style=\"background-color:transparent;\"><body style=\"background-color:transparent;\"><h1 style=\"color:white;\">Hello World</h1></body></html>";
+    
+    content.opaque = NO;
+    
+    [content setBackgroundColor:[UIColor clearColor]];
+    
+    [content loadHTMLString:pageHTML  baseURL: nil];
+
     
     [self setupGL];
 }

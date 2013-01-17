@@ -22,7 +22,10 @@
     //} else {
      //   self.viewController = [[testViewController alloc] initWithNibName:@"testViewController_iPad" bundle:nil];
     //}
-    testViewController *tvc =  [[testViewController alloc] init]; //[[testViewController alloc] initWithNibName:@"testViewController_iPhone" bundle:nil];
+      testViewController *tvc  = [[testViewController alloc] initWithNibName:@"testViewController_iPhone" bundle:nil];
+    
+    
+   //testViewController *tvc =  [[testViewController alloc] init]; //[[testViewController alloc] initWithNibName:@"testViewController_iPhone" bundle:nil];
     mainMenuController *mmc = [[mainMenuController alloc] init];
     
     [mmc setMyTVC:tvc];

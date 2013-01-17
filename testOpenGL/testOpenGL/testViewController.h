@@ -12,6 +12,7 @@
 @interface testViewController : GLKViewController
 {
 
+    __weak IBOutlet UIWebView *content;
 }
 
 @property (nonatomic) float scaleSize;
