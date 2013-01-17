@@ -9,24 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface Shape_04ViewController : UIViewController {
-
-	CALayer						*rootLayer;
-	
-	CAShapeLayer			*shapeLayer;
-    CAShapeLayer			*shapeLayer2;
-	
-	//CGMutablePathRef		squarePath;
-	//CGMutablePathRef		roundPath;
-    //	CGMutablePathRef		boxPath;
-    
-    //CGMutablePathRef		boxPath2;
+@interface Shape_04ViewController : UIViewController
+{
+	CALayer	*rootLayer;
     NSMutableArray *paths;
     BOOL ranOnce;
-
+    NSMutableArray *animations;
 }
 
--(void)startAnimation;
+-(void)startAnimation:(int) atIndex;
 -(void)setupTrunk;
 
 @end

@@ -17,7 +17,9 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application 
 {    
-    [window addSubview:viewController.view];
+    Shape_04ViewController *svc = [[Shape_04ViewController alloc] init];
+    
+    [[self window] setRootViewController:svc];
     [window makeKeyAndVisible];
 }
 
