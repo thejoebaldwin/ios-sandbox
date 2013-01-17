@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface testViewController : UIViewController
-
+{
+    
+    __weak IBOutlet UIButton *testButton;
+    int parentWindowHeight,parentWindowWidth;
+}
 @end

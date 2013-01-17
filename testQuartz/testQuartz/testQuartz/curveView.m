@@ -16,6 +16,9 @@
     if (self) {
         // Initialization code
     }
+    
+        self.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.0];
+    
     return self;
 }
 
@@ -33,7 +36,7 @@
     
     
     CGPoint center;
-    center.x = bounds.origin.x + bounds.size.width / 2.0;
+    center.x = bounds.origin.x + bounds.size.width/ 2.0;
     center.y = bounds.origin.y + bounds.size.height / 2.0;
     
     // The radius of the circle should be nearly as big as the view
@@ -45,28 +48,42 @@
     [[UIColor redColor] setStroke];
     [[UIColor redColor] setFill];
     
-    // Draw concetric circles from the outside in
-    //for (float currentRadius = maxRadius; currentRadius > 0; currentRadius -= 20) {
-        // Add a path to the context
-      //  CGContextAddArc(ctx, center.x, center.y,
-                      //  currentRadius, 0.0, M_PI * 2.0, YES);
-        // Performs drawing instruction; removes path
-        //CGContextStrokePath(ctx);
-    //}
     
     UIBezierPath *aPath = [UIBezierPath bezierPath];
     
     // Set the starting point of the shape.
-    [aPath moveToPoint:CGPointMake(100.0, 0.0)];
-    
+      
     // Draw the lines.
-    [aPath addLineToPoint:CGPointMake(200.0, 40.0)];
-    [aPath addLineToPoint:CGPointMake(160, 140)];
-    [aPath addLineToPoint:CGPointMake(40.0, 140)];
-    [aPath addLineToPoint:CGPointMake(0.0, 40.0)];
-    [aPath closePath];
+    //[aPath addLineToPoint:CGPointMake(200.0, 40.0)];
+    
+    
+    //[aPath CGContextAddCurveToPoint(context, 0, 50, 300, 250, 300, 400)];
+    CGPoint start = CGPointMake(0.0, 0.0);
+    CGPoint end = CGPointMake(100.0, 100.0);
+    CGPoint controlOne = CGPointMake(200.0, 40.0);
+    CGPoint controlTwo = CGPointMake(200.0, 60.0);
+    
+    
+    
+    // Add a path to the context
+    CGContextAddArc(ctx, controlOne.x, controlOne.y, 2.0, 0.0, M_PI * 2.0, YES);
+    CGContextStrokePath(ctx);
+    CGContextAddArc(ctx, controlTwo.x, controlTwo.y, 2.0, 0.0, M_PI * 2.0, YES);
+    CGContextStrokePath(ctx);
+    CGContextAddArc(ctx, start.x, start.y, 2.0, 0.0, M_PI * 2.0, YES);
+    CGContextStrokePath(ctx);
+    CGContextAddArc(ctx, end.x, end.y, 2.0, 0.0, M_PI * 2.0, YES);
+    CGContextStrokePath(ctx);
+    
+    // Performs drawing instruction; removes path
+    [aPath moveToPoint:start];
+    [aPath addCurveToPoint:end controlPoint1:controlOne controlPoint2:controlTwo];
+    //[aPath addLineToPoint:CGPointMake(160, 140)];
+    //[aPath addLineToPoint:CGPointMake(40.0, 140)];
+    //[aPath addLineToPoint:CGPointMake(0.0, 40.0)];
+    //[aPath closePath];
     [aPath stroke];
-    [aPath fill];
+    //[aPath fill];
     
     
 }

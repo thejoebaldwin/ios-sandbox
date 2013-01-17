@@ -20,14 +20,14 @@
     CGRect screenRect = [[self window] bounds];
     
     CGRect bigRect = screenRect;
-    bigRect.size.width /= 2.0;
-    bigRect.size.height /= 2.0;
+    //bigRect.size.width /= 2.0;
+    //bigRect.size.height /= 2.0;
 
     
     curveView *cv = [[curveView alloc] initWithFrame:bigRect];
   
- 
-    
+     //backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.3];
+    //cv.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.3];
     
     testViewController *tvc = [[testViewController alloc] init];
     

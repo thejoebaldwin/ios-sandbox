@@ -28,8 +28,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-
-    
+    //[self bringSubviewToFront:testButton];
+    [[self view] bringSubviewToFront:testButton];
 }
 
 - (void)didReceiveMemoryWarning
