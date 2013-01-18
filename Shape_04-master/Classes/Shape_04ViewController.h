@@ -15,10 +15,13 @@
     NSMutableArray *paths;
     BOOL ranOnce;
     NSMutableArray *animations;
+    int currentAnimationIndex;
+    CGFloat animationTimeOffset;
+    CGFloat animationDuration;
 }
 
 -(void)startAnimation:(int) atIndex;
--(void)setupTrunk;
+//-(void)setupTrunk;
 
 @end
 

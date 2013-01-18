@@ -10,10 +10,19 @@
 
 @implementation Shape_04ViewController
 
+- (id)init
+{
+    self = [super init];
+    if (self){
+        currentAnimationIndex = 0;
+    }
+    return self;
+    }
 
-- (void) setupBranch
+- (void) setupBranchWithAngle:(float)angle withTranslateX:(float)translateX withTranslateY:(float)translateY withScaleX:(float)scaleX withScaleY:(float)scaleY
 {
     CGPoint center = self.view.center;
+    
         
     float bottomWidth = 5.0;
     float topWidth = bottomWidth/ 2;
@@ -23,23 +32,15 @@
     float bottomGrow = 3.00;
     float heightGrow = 40.0;
     
-    
-    CGFloat angle = M_PI * -35 / 180.0;
-    //angle = 0;
-    CGAffineTransform rotate =  CGAffineTransformMakeRotation(angle);
-    CGAffineTransform translate =  CGAffineTransformMakeTranslation(-150, -20);
-    CGAffineTransform m = CGAffineTransformConcat(translate, rotate);
-    //CGAffineTransform m = CGAff
-    
-    CGPoint topLeft = CGPointMake(center.x - topWidth, center.y - initialHeight);
-    CGPoint topRight = CGPointMake(center.x + topWidth, center.y - initialHeight);
-    CGPoint bottomRight = CGPointMake(center.x + bottomWidth, center.y + initialHeight);
-    CGPoint bottomLeft = CGPointMake(center.x - bottomWidth, center.y + initialHeight);
-	
-	//Box Path
+    CGAffineTransform m = CGAffineTransformIdentity;
+
+    //Initial Shape State for animation
+    CGPoint topLeft = CGPointMake(center.x - topWidth / 2, center.y - initialHeight);
+    CGPoint topRight = CGPointMake(center.x + topWidth / 2, center.y - initialHeight);
+    CGPoint bottomRight = CGPointMake(center.x + bottomWidth / 2, center.y + initialHeight);
+    CGPoint bottomLeft = CGPointMake(center.x - bottomWidth / 2, center.y + initialHeight);
 	
 	CGMutablePathRef tempPath1 = CGPathCreateMutable();
-  
     CGPathMoveToPoint(tempPath1, &m, topLeft.x, topLeft.y);
     CGPathAddLineToPoint(tempPath1, &m, topRight.x, topRight.y);
     CGPathAddLineToPoint(tempPath1, &m, bottomRight.x, bottomRight.y);
@@ -47,143 +48,88 @@
     CGPathCloseSubpath(tempPath1);
 	
     
-    //Box Path 2
-    topLeft.x -= topWidth * topGrow;
+    //Ending Shape State for animation
+    topLeft.x -= topWidth / 2 * topGrow;
     topLeft.y -= initialHeight * heightGrow;
-    
-    topRight.x += topWidth * topGrow;
+    topRight.x += topWidth / 2 * topGrow;
     topRight.y -= initialHeight * heightGrow;
-	
-    bottomRight.x += bottomWidth * bottomGrow;
-    bottomLeft.x -= bottomWidth * bottomGrow;
+    bottomRight.x += bottomWidth / 2 * bottomGrow;
+    bottomLeft.x -= bottomWidth / 2 * bottomGrow;
     
  	CGMutablePathRef tempPath2 = CGPathCreateMutable();
-
-    
     CGPathMoveToPoint(tempPath2, &m, topLeft.x, topLeft.y);
     CGPathAddLineToPoint(tempPath2, &m, topRight.x, topRight.y);
     CGPathAddLineToPoint(tempPath2, &m, bottomRight.x, bottomRight.y);
     CGPathAddLineToPoint(tempPath2, &m, bottomLeft.x, bottomLeft.y);
     CGPathCloseSubpath(tempPath2);
     
-    CABasicAnimation *animation1 = [CABasicAnimation animationWithKeyPath:@"path"];
-    [animation1 setDelegate:self];
-    animation1.duration = 2.0;
-    animation1.removedOnCompletion = NO;
-	animation1.fillMode = kCAFillModeForwards;
-    animation1.fromValue = (id)tempPath1;
-	animation1.toValue = (id)tempPath2;
-    
-    [animations addObject:animation1];
-}
+    //Build animation
+    CABasicAnimation *tempAnimation1 = [CABasicAnimation animationWithKeyPath:@"path"];
 
+    tempAnimation1.duration = animationDuration;
+    tempAnimation1.beginTime = animationTimeOffset;
+    tempAnimation1.removedOnCompletion = NO;
+	tempAnimation1.fillMode = kCAFillModeForwards;
+    tempAnimation1.fromValue = (id)tempPath1;
+	tempAnimation1.toValue = (id)tempPath2;
+    
+    
+    CABasicAnimation *rotateAnim=[CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotateAnim.beginTime = animationTimeOffset;
+    rotateAnim.fromValue=[NSNumber numberWithDouble:angle];
+    rotateAnim.toValue=[NSNumber numberWithDouble:angle];
 
-- (void) setupTrunk
-{
-    CGPoint center = self.view.center;
-    center.y += 100;
-	
-    float bottomWidth = 5.0;
-    float topWidth = bottomWidth/ 2;
-    float initialHeight = 5.0;
+    CAAnimationGroup *group = [CAAnimationGroup animation];
+    group.autoreverses = NO;
+    group.duration = animationDuration + animationTimeOffset;
     
-    float topGrow = 3.5;
-    float bottomGrow = 3.00;
-    float heightGrow = 40.0;
-    
-    
-    
-    CGPoint topLeft = CGPointMake(center.x - topWidth, center.y - initialHeight);
-    CGPoint topRight = CGPointMake(center.x + topWidth, center.y - initialHeight);
-    CGPoint bottomRight = CGPointMake(center.x + bottomWidth, center.y + initialHeight);
-    CGPoint bottomLeft = CGPointMake(center.x - bottomWidth, center.y + initialHeight);
-	
-	//temp Path
-	
-    CGMutablePathRef tempPath1 = CGPathCreateMutable();
-    CGPathMoveToPoint(tempPath1, nil, topLeft.x, topLeft.y);
-    CGPathAddLineToPoint(tempPath1, nil, topRight.x, topRight.y);
-    CGPathAddLineToPoint(tempPath1, nil, bottomRight.x, bottomRight.y);
-    CGPathAddLineToPoint(tempPath1, nil, bottomLeft.x, bottomLeft.y);
-    CGPathCloseSubpath(tempPath1);
-	
-    
-    //Temp Path 2
-    topLeft.x -= topWidth * topGrow;
-    topLeft.y -= initialHeight * heightGrow;
-    
-    topRight.x += topWidth * topGrow;
-    topRight.y -= initialHeight * heightGrow;
-	
-    bottomRight.x += bottomWidth * bottomGrow;
-    bottomLeft.x -= bottomWidth * bottomGrow;
-    
-    CGMutablePathRef tempPath2 = CGPathCreateMutable();
-    
-    
-    CGPathMoveToPoint(tempPath2, nil, topLeft.x, topLeft.y);
-    CGPathAddLineToPoint(tempPath2, nil, topRight.x, topRight.y);
-    CGPathAddLineToPoint(tempPath2, nil, bottomRight.x, bottomRight.y);
-    CGPathAddLineToPoint(tempPath2, nil, bottomLeft.x, bottomLeft.y);
-    CGPathCloseSubpath(tempPath2);
-
-    
-    CABasicAnimation *animation1 = [CABasicAnimation animationWithKeyPath:@"path"];
-    [animation1 setDelegate:self];
-    animation1.duration = 2.0;
-    animation1.removedOnCompletion = NO;
-	animation1.fillMode = kCAFillModeForwards;    
-    animation1.fromValue = (id)tempPath1;
-	animation1.toValue = (id)tempPath2;
-    
-    [animations addObject:animation1];
+    group.fillMode = kCAFillModeForwards;
+    group.removedOnCompletion = NO;
+    group.animations = [NSArray arrayWithObjects:tempAnimation1, rotateAnim,  nil];
  
+    NSLog(@"adding animation # %i with a begin time of %f and a length of %f", 0, animationTimeOffset, animationDuration );
+       animationTimeOffset += animationDuration;
+    [animations addObject:group];
 }
+
+
 
 
 - (void)loadView 
 {
 	
+    animationDuration = 3.0;
+    animationTimeOffset = 0;
+
+    
 	UIView *appView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	
 	appView.backgroundColor = [UIColor blackColor];
-	
 	self.view = appView;
-	
 	[appView release];
 	
 	rootLayer	= [CALayer layer];
-	
 	rootLayer.frame = self.view.bounds;
-	
 	[self.view.layer addSublayer:rootLayer];
 
-    
-    paths = [[NSMutableArray alloc] init];
-    
     animations = [[NSMutableArray alloc] init];
 
-	CGPoint center = self.view.center;
-    center.y += 100;
+    CGFloat angle = M_PI * -5 / 180.0;
+   
+    [self setupBranchWithAngle:-angle withTranslateX:0.0f withTranslateY:0 withScaleX:0.25f withScaleY:0.25f];
 
-    [self setupTrunk];
-    [self setupBranch];
-
-	//Create Shape
-	
-	[self trunkAnimation];	
+    [self setupBranchWithAngle:angle withTranslateX:0 withTranslateY:0 withScaleX:0.25f withScaleY:0.25f];
     
+    [self setupBranchWithAngle:0 withTranslateX:0 withTranslateY:0.0f withScaleX:1.0f withScaleY:1.0f];
     
+    [self nextAnimation];
 }
 
- - (void) animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+
+- (void) animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
     NSLog(@"Finished %@ %d", anim, flag );
-    if (!ranOnce) {
-        [self branchAnimation];
-    }
-    ranOnce = YES;
 }
+
 
 
 -(void) trunkAnimation
@@ -196,25 +142,51 @@
     [self startAnimation:1];
 }
 
+-(void) nextAnimation
+{
+    for (int i = 0; i < [animations count]; i++) {
+        
+        [self startAnimation:i];
+       
+    }
+
+}
+
 -(void)startAnimation:(int)atIndex
 {
     CAShapeLayer *tempLayer = [CAShapeLayer layer];
 	UIColor *fillColor = [UIColor colorWithHue:0.584 saturation:0.8 brightness:0.9 alpha:1.0];
-	
-	tempLayer.fillColor = fillColor.CGColor;
-	
-	UIColor *strokeColor = [UIColor colorWithHue:0.557 saturation:0.55 brightness:0.96 alpha:1.0];
-	
-	tempLayer.strokeColor = strokeColor.CGColor;
-	
-	tempLayer.lineWidth = 3.0;
-	
-	tempLayer.fillRule = kCAFillRuleNonZero;
-	
-	[rootLayer addSublayer:tempLayer];
     
-    CAAnimation *tempAnimation =  [animations objectAtIndex:atIndex];
-    [tempLayer addAnimation:tempAnimation forKey:nil];
+    
+    switch (atIndex)
+    {
+        case 0:
+            fillColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
+            break;
+        case 1:
+            fillColor = [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:1.0];
+            break;
+        case 2:
+            fillColor = [UIColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:1.0];
+            break;
+    }
+    
+	tempLayer.fillColor = fillColor.CGColor;
+	//UIColor *strokeColor = [UIColor colorWithHue:0.557 saturation:0.55 brightness:0.96 alpha:1.0];
+	UIColor *strokeColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+
+	tempLayer.strokeColor = strokeColor.CGColor;
+	tempLayer.lineWidth = 3.0;
+	tempLayer.fillRule = kCAFillRuleNonZero;
+    
+    CGPoint center = self.view.center;
+    [tempLayer setAnchorPoint:CGPointMake(center.x , center.y + 100)];
+    [rootLayer addSublayer:tempLayer];
+    CAAnimationGroup *group = [animations objectAtIndex:atIndex];
+    NSString *key = [[NSString alloc] initWithFormat:@"allMyAnimations%i", atIndex];
+    [tempLayer addAnimation:group forKey: key];
+    NSLog(@"Finished adding animation group #%i", atIndex);
+
 }
 
 
