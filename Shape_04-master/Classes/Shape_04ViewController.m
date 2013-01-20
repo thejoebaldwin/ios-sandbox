@@ -19,6 +19,25 @@
     return self;
     }
 
+
+- (void) startOver
+{
+    /*
+     for (int i = [[rootLayer sublayers] count] - 1; i >= 0 ; i-- ) {
+     [[[rootLayer sublayers] objectAtIndex: i] removeFromSuperlayer];
+     }
+     */
+    [self nextAnimation];
+}
+
+-(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *t = [touches anyObject];
+    orgLastTouch = [t locationInView:self.view];
+    [self startOver];
+    NSLog(@"clicked");
+}
+
 - (void) setupBranchWithAngle:(float)angle withTranslateX:(float)translateX withTranslateY:(float)translateY withScaleX:(float)scaleX withScaleY:(float)scaleY
 {
     CGPoint center = self.view.center;
@@ -155,8 +174,7 @@
 -(void)startAnimation:(int)atIndex
 {
     CAShapeLayer *tempLayer = [CAShapeLayer layer];
-	UIColor *fillColor = [UIColor colorWithHue:0.584 saturation:0.8 brightness:0.9 alpha:1.0];
-    
+	UIColor *fillColor;
     
     switch (atIndex)
     {
@@ -171,22 +189,33 @@
             break;
     }
     
-	tempLayer.fillColor = fillColor.CGColor;
-	//UIColor *strokeColor = [UIColor colorWithHue:0.557 saturation:0.55 brightness:0.96 alpha:1.0];
+	
+    tempLayer.fillColor = fillColor.CGColor;
+	
 	UIColor *strokeColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-
+    
 	tempLayer.strokeColor = strokeColor.CGColor;
 	tempLayer.lineWidth = 3.0;
 	tempLayer.fillRule = kCAFillRuleNonZero;
     
-    CGPoint center = self.view.center;
-    [tempLayer setAnchorPoint:CGPointMake(center.x , center.y + 100)];
+    lastTouch = orgLastTouch;
+    
+    lastTouch.x -= 150;
+    lastTouch.y -= 250;
+    
+
+    tempLayer.position = lastTouch;
+    
+    //CALayer *quartzViewRootLayer = [quartzView layer];
+    //[quartzViewRootLayer addSublayer:tempLayer];
+    
     [rootLayer addSublayer:tempLayer];
+    
     CAAnimationGroup *group = [animations objectAtIndex:atIndex];
     NSString *key = [[NSString alloc] initWithFormat:@"allMyAnimations%i", atIndex];
     [tempLayer addAnimation:group forKey: key];
-    NSLog(@"Finished adding animation group #%i", atIndex);
-
+    //NSLog(@"Finished adding animation group #%i", atIndex);
+    
 }
 
 

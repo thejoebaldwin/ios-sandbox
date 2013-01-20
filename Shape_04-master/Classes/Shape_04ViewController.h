@@ -18,6 +18,10 @@
     int currentAnimationIndex;
     CGFloat animationTimeOffset;
     CGFloat animationDuration;
+    
+    
+    CGPoint orgLastTouch;
+    CGPoint lastTouch;
 }
 
 -(void)startAnimation:(int) atIndex;
