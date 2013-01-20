@@ -20,6 +20,7 @@
     CGFloat animationDuration;
     
     
+    IBOutlet UIButton *mainButton;
     CGPoint orgLastTouch;
     CGPoint lastTouch;
 }

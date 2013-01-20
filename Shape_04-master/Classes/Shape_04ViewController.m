@@ -8,17 +8,29 @@
 
 #import "Shape_04ViewController.h"
 
+#import "clearView.h"
+
 @implementation Shape_04ViewController
 
 - (id)init
 {
     self = [super init];
+    
+    
+    
     if (self){
         currentAnimationIndex = 0;
     }
     return self;
     }
 
+/*
+-(BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    
+            return NO;
+    
+}
+ */
 
 - (void) startOver
 {
@@ -30,12 +42,28 @@
     [self nextAnimation];
 }
 
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    
+  //  [[self view] touchesBegan:touches withEvent:event];
+    [[self nextResponder] touchesBegan:touches withEvent:event];
+    
+    
+}
+
+- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+       [[self nextResponder] touchesMoved:touches withEvent:event];  
+}
+
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *t = [touches anyObject];
     orgLastTouch = [t locationInView:self.view];
     [self startOver];
-    NSLog(@"clicked");
+    //NSLog(@"clicked");
+    
+   [[self nextResponder] touchesEnded:touches withEvent:event];    
 }
 
 - (void) setupBranchWithAngle:(float)angle withTranslateX:(float)translateX withTranslateY:(float)translateY withScaleX:(float)scaleX withScaleY:(float)scaleY
@@ -121,10 +149,17 @@
     animationTimeOffset = 0;
 
     
-	UIView *appView = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    UIView *behindView = [[[NSBundle mainBundle] loadNibNamed:@"behindView" owner:self options:nil ] lastObject];
+    behindView.backgroundColor = [UIColor clearColor];
+    
+    
+	clearView *appView = [[clearView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	appView.backgroundColor = [UIColor blackColor];
 	self.view = appView;
-	[appView release];
+	
+    [[self view] addSubview:behindView];
+    
+    [appView release];
 	
 	rootLayer	= [CALayer layer];
 	rootLayer.frame = self.view.bounds;
@@ -208,7 +243,7 @@
     
     //CALayer *quartzViewRootLayer = [quartzView layer];
     //[quartzViewRootLayer addSublayer:tempLayer];
-    
+//   tempLayer.i
     [rootLayer addSublayer:tempLayer];
     
     CAAnimationGroup *group = [animations objectAtIndex:atIndex];
@@ -228,6 +263,7 @@
 
 - (void)dealloc 
 {
+    [mainButton release];
     [super dealloc];
 }
 
