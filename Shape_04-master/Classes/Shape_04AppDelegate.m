@@ -19,7 +19,7 @@
 {    
     Shape_04ViewController *svc = [[Shape_04ViewController alloc] init];
 
-    [[svc view] setBackgroundColor:[UIColor clearColor]];
+//    [[svc view] setBackgroundColor:[UIColor clearColor]];
     
     [[self window] setRootViewController:svc];
     

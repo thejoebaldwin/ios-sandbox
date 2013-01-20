@@ -19,6 +19,7 @@
     CGFloat animationTimeOffset;
     CGFloat animationDuration;
     
+    IBOutlet UIButton *clearButton;
     
     IBOutlet UIButton *mainButton;
     CGPoint orgLastTouch;
@@ -26,7 +27,7 @@
 }
 
 -(void)startAnimation:(int) atIndex;
-//-(void)setupTrunk;
+- (IBAction) clearButtonClick:(id) sender;
 
 @end
 

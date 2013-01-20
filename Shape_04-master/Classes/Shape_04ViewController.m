@@ -42,6 +42,15 @@
     [self nextAnimation];
 }
 
+
+- (void) clearAll
+{
+    for (int i = [[rootLayer sublayers] count] - 1; i >= 0 ; i-- ) {
+        [[[rootLayer sublayers] objectAtIndex: i] removeFromSuperlayer];
+    }
+}
+
+
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     
@@ -140,15 +149,22 @@
 }
 
 
-
+- (IBAction) clearButtonClick
+{
+    NSLog(@"yup");
+    
+    
+    [self clearAll];
+}
 
 - (void)loadView 
 {
 	
     animationDuration = 3.0;
     animationTimeOffset = 0;
-
-    
+/*
+    [clearButton addTarget:self action:@selector(clearButtonClick) forControlEvents:UIControlEventTouchUpInside];
+  */  
     UIView *behindView = [[[NSBundle mainBundle] loadNibNamed:@"behindView" owner:self options:nil ] lastObject];
     behindView.backgroundColor = [UIColor clearColor];
     
@@ -264,6 +280,7 @@
 - (void)dealloc 
 {
     [mainButton release];
+    [clearButton release];
     [super dealloc];
 }
 
