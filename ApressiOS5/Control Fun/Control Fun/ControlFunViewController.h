@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ControlFunViewController : UIViewController
+@interface ControlFunViewController : UIViewController <UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *numberField;
 - (IBAction) textFieldDoneEditing:(id)sender;

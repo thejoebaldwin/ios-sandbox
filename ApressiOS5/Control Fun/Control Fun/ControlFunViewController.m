@@ -20,6 +20,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    UIImage *buttonImageNormal = [UIImage imageNamed:@"whiteButton.png"];
+    UIImage *stretchableButtonImageNormal = [buttonImageNormal stretchableImageWithLeftCapWidth:12 topCapHeight:0];
+    [doSomethingButton setBackgroundImage:stretchableButtonImageNormal forState:UIControlStateNormal];
+    UIImage *buttonImagePressed = [UIImage imageNamed:@"blueButton.png"];
+    UIImage *stretchableButtonImagePressed = [buttonImagePressed stretchableImageWithLeftCapWidth:12 topCapHeight:0];
+    [doSomethingButton setBackgroundImage:stretchableButtonImagePressed forState:UIControlStateNormal];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,37 +65,50 @@
 - (IBAction)toggleControl:(id)sender {
     
      if([sender selectedSegmentIndex] == 0) {
-         [leftSwitch setHidden:YES];
-         [rightSwitch setHidden:YES];
+         [leftSwitch setHidden:NO];
+         [rightSwitch setHidden:NO];
          [doSomethingButton setHidden:YES];
 
          
      } else {
          
-         [leftSwitch setHidden:NO];
-         [rightSwitch setHidden:NO];
+         [leftSwitch setHidden:YES];
+         [rightSwitch setHidden:YES];
          [doSomethingButton setHidden:NO];
 
      }
     
 }
 
-- (IBAction)toggleControls:(id)sender {
-    
-    //0 = switches index
-    if([sender selectedIndex] == 0) {
-        //[leftSwitch setHidden:YES];
-        //[rightSwitch setHidden:YES];
-        //[doSomethingButton setHidden:YES];
-    } else {
-        //[leftSwitch setHidden:NO];
-        //[rightSwitch setHidden:NO];
-        //[doSomethingButton setHidden:NO];
 
-        
-    }
+- (IBAction)buttonPressed:(id)sender {
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                initWithTitle:@"Are you sure?"
+                                  delegate:self
+                                  cancelButtonTitle:@"No Way!"
+                                  destructiveButtonTitle:@"Yes, I'm Sure"
+                                  otherButtonTitles:nil];
+    [actionSheet showInView:self.view];
+                        
+    
     
 }
-- (IBAction)buttonPressed:(id)sender {
+
+- (void) actionSheet:(UIActionSheet *) actionSheet
+            didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != [actionSheet cancelButtonIndex]) {
+        NSString *msg = nil;
+        
+        if (nameField.text.length > 0) {
+            msg = [[NSString alloc] initWithFormat:@"You can breathe easy %@, everything went ok", nameField.text];
+        } else {
+            msg = @"You can breathe easy, everything went ok.";
+        }
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Something was done" message:msg delegate:self cancelButtonTitle:@"Phew!" otherButtonTitles:nil];
+        [alert show];
+}
 }
 @end

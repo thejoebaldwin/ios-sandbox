@@ -19,6 +19,8 @@
 		97F3B7B216AD195400B1D7C9 /* ControlFunViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F3B7B116AD195400B1D7C9 /* ControlFunViewController.m */; };
 		97F3B7B516AD195400B1D7C9 /* ControlFunViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97F3B7B316AD195400B1D7C9 /* ControlFunViewController.xib */; };
 		97F3B7BC16AD19DD00B1D7C9 /* Brontosaurus.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 97F3B7BB16AD19DD00B1D7C9 /* Brontosaurus.jpg */; };
+		D81A480016ADE9A100010C3E /* whiteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D81A47FF16ADE9A100010C3E /* whiteButton.png */; };
+		D81A480316ADE9A900010C3E /* blueButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D81A480216ADE9A900010C3E /* blueButton.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		97F3B7B116AD195400B1D7C9 /* ControlFunViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ControlFunViewController.m; sourceTree = "<group>"; };
 		97F3B7B416AD195400B1D7C9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ControlFunViewController.xib; sourceTree = "<group>"; };
 		97F3B7BB16AD19DD00B1D7C9 /* Brontosaurus.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Brontosaurus.jpg; sourceTree = "<group>"; };
+		D81A47FF16ADE9A100010C3E /* whiteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = whiteButton.png; sourceTree = "<group>"; };
+		D81A480216ADE9A900010C3E /* blueButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +89,9 @@
 		97F3B79E16AD195400B1D7C9 /* Control Fun */ = {
 			isa = PBXGroup;
 			children = (
+				D81A47FF16ADE9A100010C3E /* whiteButton.png */,
 				97F3B7BB16AD19DD00B1D7C9 /* Brontosaurus.jpg */,
+				D81A480216ADE9A900010C3E /* blueButton.png */,
 				97F3B7A716AD195400B1D7C9 /* ControlFunAppDelegate.h */,
 				97F3B7A816AD195400B1D7C9 /* ControlFunAppDelegate.m */,
 				97F3B7B016AD195400B1D7C9 /* ControlFunViewController.h */,
@@ -168,6 +174,8 @@
 				97F3B7AF16AD195400B1D7C9 /* Default-568h@2x.png in Resources */,
 				97F3B7B516AD195400B1D7C9 /* ControlFunViewController.xib in Resources */,
 				97F3B7BC16AD19DD00B1D7C9 /* Brontosaurus.jpg in Resources */,
+				D81A480016ADE9A100010C3E /* whiteButton.png in Resources */,
+				D81A480316ADE9A900010C3E /* blueButton.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +305,7 @@
 				97F3B7BA16AD195400B1D7C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
