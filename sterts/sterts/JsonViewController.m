@@ -82,6 +82,16 @@
       [manaLabel setText:  json[@"stats"][0][@"mana"] ];
   } else {
        NSLog(@"Status JSON");
+      
+      
+      UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Success"
+                                                   message:@"Your stats have been updated."
+                                                  delegate:self
+                                         cancelButtonTitle:@"OK"
+                                         otherButtonTitles:nil];
+      [av show];
+
+      
   }
 }
 
@@ -99,12 +109,7 @@
     
     NSString* newData = [[NSString alloc] initWithFormat: @"{\"stert\":{ \"hitpoints\":\"%d\", \"mana\":\"%d\" }}", hitpoints, mana];
     
-    
     NSData* postData=[newData dataUsingEncoding:NSUTF8StringEncoding];
-    
-    
-    
-    
     
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -144,8 +149,40 @@
 
 - (IBAction)postButton:(id)sender
 {
-    [self postData:postStertURL];
+   
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:@"Are you sure?"
+                                  delegate:self
+                                  cancelButtonTitle:@"Cancel"
+                                  destructiveButtonTitle:@"Submit"
+                                  otherButtonTitles:nil];
+    
+    
+
+    
+    
+       
+    [actionSheet showInView:self.tabBarController.view];
+    
 }
+
+
+
+- (void) actionSheet:(UIActionSheet *) actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != [actionSheet cancelButtonIndex]) {
+            [self postData:postStertURL];
+    } else {
+        UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Cancelled"
+                                                     message:@"Submission Cancelled"
+                                                    delegate:self
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles:nil];
+        [av show];
+
+    }
+}
+
 
 - (IBAction)updateHitpointsLabel:(id)sender
 {

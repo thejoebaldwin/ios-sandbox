@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface JsonViewController : UIViewController
+@interface JsonViewController : UIViewController <UIActionSheetDelegate>
+
 {
     NSURLConnection *connection;
     NSMutableData *jsonData;
