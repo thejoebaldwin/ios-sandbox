@@ -12,4 +12,16 @@
 @property (weak, nonatomic) IBOutlet UITextField *nameField;
 @property (weak, nonatomic) IBOutlet UITextField *numberField;
 - (IBAction) textFieldDoneEditing:(id)sender;
+- (IBAction)backgroundTap:(id)sender;
+- (IBAction)sliderChanged:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *sliderLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *leftSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *rightSwitch;
+- (IBAction)switchChanged:(id)sender;
+
+- (IBAction)toggleControl:(id)sender;
+
+
+@property (weak, nonatomic) IBOutlet UIButton *doSomethingButton;
+- (IBAction)buttonPressed:(id)sender;
 @end
