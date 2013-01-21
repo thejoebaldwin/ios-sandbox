@@ -21,6 +21,22 @@
     
     if (self) {
         [self fetchEntries:allStertsURL];
+        
+        
+        UITabBarItem *tbi = [self tabBarItem];
+        
+        // Give it a label
+        [tbi setTitle:@"Main"];
+        
+        // Crea a UIImage from a file
+        // This will use Hypno@2x.png on retina display devices
+       // UIImage *i = [UIImage imageNamed:@"Hypno.png"];
+        
+        // Put that image on the tab bar item
+       // [tbi setImage:i];
+
+        
+        
     }
     return self;
 }

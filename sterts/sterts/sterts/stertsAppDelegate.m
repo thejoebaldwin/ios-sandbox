@@ -9,7 +9,8 @@
 #import "stertsAppDelegate.h"
 
 #import "JsonViewController.h"
-#import "3dView.h"
+#import "graphViewController.h"
+#import "openGLViewController.h"
 
 @implementation stertsAppDelegate
 
@@ -19,14 +20,17 @@
     // Override point for customization after application launch.
     
     JsonViewController *jvc = [[JsonViewController alloc] init];
+    graphViewController *gvc = [[graphViewController alloc] init];
+    openGLViewController *ovc = [[openGLViewController alloc] init];
+    
+    
+    NSArray *viewControllers = [NSArray arrayWithObjects:jvc,gvc,ovc, nil];
+    
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
 
-    
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:jvc];
-
-    
-    
-        
-    [[self window] setRootViewController:navController];
+    [tabBarController setViewControllers:viewControllers];
+    [[self window] setRootViewController:tabBarController];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

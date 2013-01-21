@@ -110,6 +110,21 @@ GLfloat gCubeVertexData[216] =
         //[tbi setTitle:@"Cubes"];
         //scaleSize = 2.0f;
         //speed = 0.0f;
+        UITabBarItem *tbi = [self tabBarItem];
+        
+        // Give it a label
+        [tbi setTitle:@"3D"];
+        
+        // Crea a UIImage from a file
+        // This will use Hypno@2x.png on retina display devices
+        // UIImage *i = [UIImage imageNamed:@"Hypno.png"];
+        
+        // Put that image on the tab bar item
+        // [tbi setImage:i];
+
+        
+        
+        
         
     }
     return self;
