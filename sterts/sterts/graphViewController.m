@@ -42,18 +42,24 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void) refreshWebView
 {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    NSString *urlAddress = @"http://sterts.humboldttechgroup.com/web/app_dev.php/charts";
+    urlAddress = @"http://sterts.humboldttechgroup.com/web/app_dev.php/charts";
     //Create a URL object.
     NSURL *url = [NSURL URLWithString:urlAddress];
     //URL Request Object
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     //Load the request in the UIWebView.
     [graphWebView loadRequest:requestObj];
+
 }
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    [self refreshWebView];
+ }
 
 - (void)didReceiveMemoryWarning
 {
@@ -61,4 +67,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)refreshButtonClick:(id)sender
+{
+    [self refreshWebView];
+}
 @end

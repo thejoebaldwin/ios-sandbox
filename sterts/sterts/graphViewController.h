@@ -11,7 +11,8 @@
 @interface graphViewController : UIViewController
 {
     
-    
+    NSString *urlAddress;
     __weak IBOutlet UIWebView *graphWebView;
 }
+- (IBAction)refreshButtonClick:(id)sender;
 @end
