@@ -24,7 +24,7 @@
     openGLViewController *ovc = [[openGLViewController alloc] init];
     
     
-    NSArray *viewControllers = [NSArray arrayWithObjects:jvc,gvc,ovc, nil];
+    NSArray *viewControllers = [NSArray arrayWithObjects:jvc,gvc, nil];
     
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];

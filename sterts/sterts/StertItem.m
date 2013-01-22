@@ -13,4 +13,18 @@
 
 @synthesize hitpoints, mana , created, userID;
 
+
+
+
+- (NSString *) description
+{
+    NSString *descriptionString = [NSString stringWithFormat:@"Hitpoints:%i, Mana:%i, Created:%@",
+                                   hitpoints,
+                                   mana,
+                                   created];
+    
+    return descriptionString;
+}
+
+
 @end

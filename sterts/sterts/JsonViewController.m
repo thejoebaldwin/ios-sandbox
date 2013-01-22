@@ -18,29 +18,20 @@
 - (id) init
 {
     self = [super init];
-    allStertsURL =  @"http://sterts.humboldttechgroup.com/web/app_dev.php/json/test";
-    postStertURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/dump";
-
-    
     
     if (self) {
+        allStertsURL =  @"http://sterts.humboldttechgroup.com/web/app_dev.php/json/test";
+        postStertURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/dump";
+
+        allSterts = [[NSMutableArray alloc] init];
         [self fetchEntries:allStertsURL];
         
-        
+        //set up tab
         UITabBarItem *tbi = [self tabBarItem];
-        
-        // Give it a label
         [tbi setTitle:@"Main"];
-        
-        // Crea a UIImage from a file
-        // This will use Hypno@2x.png on retina display devices
-       // UIImage *i = [UIImage imageNamed:@"Hypno.png"];
-        
-        // Put that image on the tab bar item
-       // [tbi setImage:i];
+        UIImage *image = [UIImage imageNamed:@"sterts_tab.png"];
+        [tbi setImage:image];
 
-        
-        
     }
     return self;
 }
@@ -77,28 +68,31 @@
   NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
   NSLog(@"ReturnedData=%@", json);
   
-  if ([json objectForKey:@"stats"]){
+  if ([json objectForKey:@"sterts"]){
       NSLog(@"Sterts JSON");
 
-      NSDateFormatter *df = [[NSDateFormatter alloc] init];
-      [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+      NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+      [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
       
-      for (int i = 0; i < [json[@"stats"] count]; i++ )
+      for (int i = 0; i < [json[@"sterts"] count]; i++ )
       {
           StertItem *tempStertItem = [[StertItem alloc] init];
-          [tempStertItem setHitpoints:[json[@"stats"][0][@"hitpoints"]  intValue ]];
-          [tempStertItem setMana:[json[@"stats"][0][@"mana"]  intValue ]];
-          [tempStertItem setCreated:[df dateFromString: [NSString stringWithFormat:@"%@", json[@"stats"][0][@"created"] ] ]];
-          //use only most recent stert
+          [tempStertItem setHitpoints:[json[@"sterts"][i][@"hitpoints"]  intValue ]];
+          [tempStertItem setMana:[json[@"sterts"][i][@"mana"]  intValue ]];
+          [tempStertItem setCreated:[dateFormatter dateFromString: [NSString stringWithFormat:@"%@", json[@"sterts"][i][@"created"] ] ]];
+           //display the most recent stert
           if (i == 0) {
+
               [hitpointSlider setValue:(float)[tempStertItem hitpoints]];
               [hitpointLabel setText: [NSString stringWithFormat:@"%i", [tempStertItem hitpoints]] ];
               
-              [hitpointSlider setValue:(float)[tempStertItem mana]];
+              [manaSlider setValue:(float)[tempStertItem mana]];
               [manaLabel setText: [NSString stringWithFormat:@"%i", [tempStertItem mana]] ];
               
               [lastUpdatedLabel setText:[NSString stringWithFormat:@"%@", [tempStertItem created]]];
+              NSLog(@"%@", tempStertItem);
           }
+          [allSterts addObject:tempStertItem];
       }
 
   } else {

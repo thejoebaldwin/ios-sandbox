@@ -15,7 +15,7 @@
     NSMutableData *jsonData;
     NSString *allStertsURL;
     NSString *postStertURL;
-    
+    NSMutableArray *allSterts;
     
     __weak IBOutlet UISlider *manaSlider;
    
@@ -27,7 +27,7 @@
 - (void) postData:(NSString *) urlString;
 
 
-- (IBAction)getButton:(id)sender;
+
 - (IBAction)postButton:(id)sender;
 
 - (IBAction) updateHitpointsLabel:(id)sender;

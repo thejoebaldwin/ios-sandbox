@@ -20,18 +20,13 @@
     self = [super init];
     
     if (self) {
-        
+             
+        //set up tab
         UITabBarItem *tbi = [self tabBarItem];
-        
-        // Give it a label
         [tbi setTitle:@"Graph"];
-        
-        // Crea a UIImage from a file
-        // This will use Hypno@2x.png on retina display devices
-        // UIImage *i = [UIImage imageNamed:@"Hypno.png"];
-        
-        // Put that image on the tab bar item
-        // [tbi setImage:i];
+        UIImage *image = [UIImage imageNamed:@"sterts_graph_tab.png"];
+        [tbi setImage:image];
+
      
     }
     
