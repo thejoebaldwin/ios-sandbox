@@ -88,8 +88,7 @@
           StertItem *tempStertItem = [[StertItem alloc] init];
           [tempStertItem setHitpoints:[json[@"stats"][0][@"hitpoints"]  intValue ]];
           [tempStertItem setMana:[json[@"stats"][0][@"mana"]  intValue ]];
-          NSString *tempJSONCreated = [NSString stringWithFormat:@"%@", json[@"stats"][0][@"created"] ];
-          [tempStertItem setCreated:[df dateFromString: tempJSONCreated ]];
+          [tempStertItem setCreated:[df dateFromString: [NSString stringWithFormat:@"%@", json[@"stats"][0][@"created"] ] ]];
           //use only most recent stert
           if (i == 0) {
               [hitpointSlider setValue:(float)[tempStertItem hitpoints]];
