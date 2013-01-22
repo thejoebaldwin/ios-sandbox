@@ -8,9 +8,12 @@
 
 #import "JsonViewController.h"
 #import "openGLViewController.h"
-#
+#import "StertItem.h"
 
 @implementation JsonViewController
+
+
+@synthesize lastUpdatedLabel;
 
 - (id) init
 {
@@ -76,11 +79,29 @@
   
   if ([json objectForKey:@"stats"]){
       NSLog(@"Sterts JSON");
-      [hitpointSlider setValue:[json[@"stats"][0][@"hitpoints"]  floatValue ]];
-      [manaSlider setValue:[json[@"stats"][0][@"mana"]  floatValue ]];
-    
-      [hitpointLabel setText: json[@"stats"][0][@"hitpoints"]];
-      [manaLabel setText:  json[@"stats"][0][@"mana"] ];
+
+      NSDateFormatter *df = [[NSDateFormatter alloc] init];
+      [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+      
+      for (int i = 0; i < [json[@"stats"] count]; i++ )
+      {
+          StertItem *tempStertItem = [[StertItem alloc] init];
+          [tempStertItem setHitpoints:[json[@"stats"][0][@"hitpoints"]  intValue ]];
+          [tempStertItem setMana:[json[@"stats"][0][@"mana"]  intValue ]];
+          NSString *tempJSONCreated = [NSString stringWithFormat:@"%@", json[@"stats"][0][@"created"] ];
+          [tempStertItem setCreated:[df dateFromString: tempJSONCreated ]];
+          //use only most recent stert
+          if (i == 0) {
+              [hitpointSlider setValue:(float)[tempStertItem hitpoints]];
+              [hitpointLabel setText: [NSString stringWithFormat:@"%i", [tempStertItem hitpoints]] ];
+              
+              [hitpointSlider setValue:(float)[tempStertItem mana]];
+              [manaLabel setText: [NSString stringWithFormat:@"%i", [tempStertItem mana]] ];
+              
+              [lastUpdatedLabel setText:[NSString stringWithFormat:@"%@", [tempStertItem created]]];
+          }
+      }
+
   } else {
        NSLog(@"Status JSON");
       
