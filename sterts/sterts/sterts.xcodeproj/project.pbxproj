@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F56C85F16AE392E00996567 /* stert.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F56C85E16AE392E00996567 /* stert.m */; };
 		972FD53416A672CC00FC69A1 /* openGLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 972FD53216A672CC00FC69A1 /* openGLViewController.m */; };
 		972FD53516A672CC00FC69A1 /* openGLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 972FD53316A672CC00FC69A1 /* openGLViewController.xib */; };
 		972FD53B16A6743300FC69A1 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972FD53A16A6743300FC69A1 /* GLKit.framework */; };
@@ -27,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F56C85D16AE392E00996567 /* stert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stert.h; sourceTree = "<group>"; };
+		3F56C85E16AE392E00996567 /* stert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = stert.m; sourceTree = "<group>"; };
 		972FD53116A672CC00FC69A1 /* openGLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openGLViewController.h; sourceTree = "<group>"; };
 		972FD53216A672CC00FC69A1 /* openGLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = openGLViewController.m; sourceTree = "<group>"; };
 		972FD53316A672CC00FC69A1 /* openGLViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = openGLViewController.xib; sourceTree = "<group>"; };
@@ -75,6 +78,8 @@
 				97F3B77C16AD10FA00B1D7C9 /* graphViewController.h */,
 				97F3B77D16AD10FA00B1D7C9 /* graphViewController.m */,
 				97F3B77E16AD10FA00B1D7C9 /* graphViewController.xib */,
+				3F56C85D16AE392E00996567 /* stert.h */,
+				3F56C85E16AE392E00996567 /* stert.m */,
 				972FD53C16A6753D00FC69A1 /* OpenGLES.framework */,
 				972FD53A16A6743300FC69A1 /* GLKit.framework */,
 				972FD53116A672CC00FC69A1 /* openGLViewController.h */,
@@ -205,6 +210,7 @@
 				D88D7A30169E0B1C00F81CAF /* JsonViewController.m in Sources */,
 				972FD53416A672CC00FC69A1 /* openGLViewController.m in Sources */,
 				97F3B77F16AD10FA00B1D7C9 /* graphViewController.m in Sources */,
+				3F56C85F16AE392E00996567 /* stert.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
