@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+
+@class StertItemStore;
+
 @interface JsonViewController : UIViewController <UIActionSheetDelegate>
 
 {
@@ -22,6 +25,10 @@
     __weak IBOutlet UILabel *hitpointLabel;
     __weak IBOutlet UISlider *hitpointSlider;
     __weak IBOutlet UILabel *manaLabel;
+    
+    
+   
+    
 }
 - (void) fetchEntries:(NSString *) urlString;
 - (void) postData:(NSString *) urlString;

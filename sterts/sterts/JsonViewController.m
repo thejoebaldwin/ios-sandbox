@@ -9,6 +9,7 @@
 #import "JsonViewController.h"
 #import "openGLViewController.h"
 #import "StertItem.h"
+#import "StertItemStore.h"
 
 @implementation JsonViewController
 
@@ -32,6 +33,9 @@
         UIImage *image = [UIImage imageNamed:@"sterts_tab.png"];
         [tbi setImage:image];
 
+         
+        
+        
     }
     return self;
 }
@@ -93,6 +97,9 @@
               NSLog(@"%@", tempStertItem);
           }
           [allSterts addObject:tempStertItem];
+          
+          [[StertItemStore sharedStore] addItems:tempStertItem];
+          
       }
 
   } else {

@@ -11,6 +11,8 @@
 		972FD53516A672CC00FC69A1 /* openGLViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 972FD53316A672CC00FC69A1 /* openGLViewController.xib */; };
 		972FD53B16A6743300FC69A1 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972FD53A16A6743300FC69A1 /* GLKit.framework */; };
 		972FD53D16A6753D00FC69A1 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972FD53C16A6753D00FC69A1 /* OpenGLES.framework */; };
+		97F04F6A16B10E010038C81D /* HistoryItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F04F6916B10E010038C81D /* HistoryItemsViewController.m */; };
+		97F04F6D16B10F910038C81D /* StertItemStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F04F6C16B10F910038C81D /* StertItemStore.m */; };
 		97F3B77F16AD10FA00B1D7C9 /* graphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F3B77D16AD10FA00B1D7C9 /* graphViewController.m */; };
 		97F3B78016AD10FA00B1D7C9 /* graphViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97F3B77E16AD10FA00B1D7C9 /* graphViewController.xib */; };
 		97F3B7C816AE827100B1D7C9 /* StertItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F3B7C716AE827100B1D7C9 /* StertItem.m */; };
@@ -39,18 +41,22 @@
 		972FD53316A672CC00FC69A1 /* openGLViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = openGLViewController.xib; sourceTree = "<group>"; };
 		972FD53A16A6743300FC69A1 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		972FD53C16A6753D00FC69A1 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		97F04F6816B10E010038C81D /* HistoryItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryItemsViewController.h; sourceTree = "<group>"; };
+		97F04F6916B10E010038C81D /* HistoryItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryItemsViewController.m; sourceTree = "<group>"; };
+		97F04F6B16B10F910038C81D /* StertItemStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StertItemStore.h; sourceTree = "<group>"; };
+		97F04F6C16B10F910038C81D /* StertItemStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StertItemStore.m; sourceTree = "<group>"; };
 		97F3B77C16AD10FA00B1D7C9 /* graphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = graphViewController.h; sourceTree = "<group>"; };
 		97F3B77D16AD10FA00B1D7C9 /* graphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = graphViewController.m; sourceTree = "<group>"; };
 		97F3B77E16AD10FA00B1D7C9 /* graphViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = graphViewController.xib; sourceTree = "<group>"; };
 		97F3B7C616AE827100B1D7C9 /* StertItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StertItem.h; sourceTree = "<group>"; };
 		97F3B7C716AE827100B1D7C9 /* StertItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StertItem.m; sourceTree = "<group>"; };
-		D8206D6916AEF1AD001B6F09 /* sterts_tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sterts_tab.png; sourceTree = "<group>"; };
-		D8206D6E16AEF463001B6F09 /* sterts_graph_tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sterts_graph_tab.png; sourceTree = "<group>"; };
-		D8206D8816AEFB9B001B6F09 /* sterts_icon_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sterts_icon_57.png; sourceTree = "<group>"; };
-		D8206D8916AEFB9B001B6F09 /* sterts_icon_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sterts_icon_72.png; sourceTree = "<group>"; };
-		D8206D8A16AEFB9B001B6F09 /* sterts_icon_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sterts_icon_114.png; sourceTree = "<group>"; };
-		D8206D8B16AEFB9B001B6F09 /* sterts_icon_144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sterts_icon_144.png; sourceTree = "<group>"; };
-		D88D7A0A169E0AB900F81CAF /* sterts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = sterts.app; path = Sterts.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8206D6916AEF1AD001B6F09 /* sterts_tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sterts_tab.png; sourceTree = SOURCE_ROOT; };
+		D8206D6E16AEF463001B6F09 /* sterts_graph_tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sterts_graph_tab.png; sourceTree = SOURCE_ROOT; };
+		D8206D8816AEFB9B001B6F09 /* sterts_icon_57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sterts_icon_57.png; sourceTree = SOURCE_ROOT; };
+		D8206D8916AEFB9B001B6F09 /* sterts_icon_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sterts_icon_72.png; sourceTree = SOURCE_ROOT; };
+		D8206D8A16AEFB9B001B6F09 /* sterts_icon_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sterts_icon_114.png; sourceTree = SOURCE_ROOT; };
+		D8206D8B16AEFB9B001B6F09 /* sterts_icon_144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sterts_icon_144.png; sourceTree = SOURCE_ROOT; };
+		D88D7A0A169E0AB900F81CAF /* Sterts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sterts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D88D7A0E169E0AB900F81CAF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D88D7A10169E0AB900F81CAF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D88D7A12169E0AB900F81CAF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -87,6 +93,10 @@
 		D88D79FF169E0AB900F81CAF = {
 			isa = PBXGroup;
 			children = (
+				97F04F6816B10E010038C81D /* HistoryItemsViewController.h */,
+				97F04F6916B10E010038C81D /* HistoryItemsViewController.m */,
+				97F04F6B16B10F910038C81D /* StertItemStore.h */,
+				97F04F6C16B10F910038C81D /* StertItemStore.m */,
 				D88D7A0D169E0AB900F81CAF /* Frameworks */,
 				972FD53A16A6743300FC69A1 /* GLKit.framework */,
 				97F3B77C16AD10FA00B1D7C9 /* graphViewController.h */,
@@ -98,24 +108,18 @@
 				972FD53C16A6753D00FC69A1 /* OpenGLES.framework */,
 				972FD53116A672CC00FC69A1 /* openGLViewController.h */,
 				972FD53216A672CC00FC69A1 /* openGLViewController.m */,
-				D8206D8816AEFB9B001B6F09 /* sterts_icon_57.png */,
-				D8206D8916AEFB9B001B6F09 /* sterts_icon_72.png */,
-				D8206D8A16AEFB9B001B6F09 /* sterts_icon_114.png */,
-				D8206D8B16AEFB9B001B6F09 /* sterts_icon_144.png */,
 				972FD53316A672CC00FC69A1 /* openGLViewController.xib */,
 				D88D7A0B169E0AB900F81CAF /* Products */,
 				97F3B7C616AE827100B1D7C9 /* StertItem.h */,
 				97F3B7C716AE827100B1D7C9 /* StertItem.m */,
 				D88D7A14169E0AB900F81CAF /* sterts */,
-				D8206D6E16AEF463001B6F09 /* sterts_graph_tab.png */,
-				D8206D6916AEF1AD001B6F09 /* sterts_tab.png */,
 			);
 			sourceTree = "<group>";
 		};
 		D88D7A0B169E0AB900F81CAF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D88D7A0A169E0AB900F81CAF /* sterts.app */,
+				D88D7A0A169E0AB900F81CAF /* Sterts.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,6 +137,12 @@
 		D88D7A14169E0AB900F81CAF /* sterts */ = {
 			isa = PBXGroup;
 			children = (
+				D8206D8816AEFB9B001B6F09 /* sterts_icon_57.png */,
+				D8206D8916AEFB9B001B6F09 /* sterts_icon_72.png */,
+				D8206D8A16AEFB9B001B6F09 /* sterts_icon_114.png */,
+				D8206D8B16AEFB9B001B6F09 /* sterts_icon_144.png */,
+				D8206D6E16AEF463001B6F09 /* sterts_graph_tab.png */,
+				D8206D6916AEF1AD001B6F09 /* sterts_tab.png */,
 				D88D7A1D169E0AB900F81CAF /* stertsAppDelegate.h */,
 				D88D7A1E169E0AB900F81CAF /* stertsAppDelegate.m */,
 				D88D7A15169E0AB900F81CAF /* Supporting Files */,
@@ -171,7 +181,7 @@
 			);
 			name = Sterts;
 			productName = sterts;
-			productReference = D88D7A0A169E0AB900F81CAF /* sterts.app */;
+			productReference = D88D7A0A169E0AB900F81CAF /* Sterts.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -235,6 +245,8 @@
 				972FD53416A672CC00FC69A1 /* openGLViewController.m in Sources */,
 				97F3B77F16AD10FA00B1D7C9 /* graphViewController.m in Sources */,
 				97F3B7C816AE827100B1D7C9 /* StertItem.m in Sources */,
+				97F04F6A16B10E010038C81D /* HistoryItemsViewController.m in Sources */,
+				97F04F6D16B10F910038C81D /* StertItemStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

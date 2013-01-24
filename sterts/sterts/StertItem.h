@@ -15,6 +15,6 @@
 @property (nonatomic) int mana;
 @property (nonatomic) NSDate *created;
 @property (nonatomic) int userID;
-
+-(NSString *) descriptionQuick;
 
 @end

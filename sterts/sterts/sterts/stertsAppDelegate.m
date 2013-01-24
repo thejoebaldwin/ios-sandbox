@@ -12,6 +12,9 @@
 #import "graphViewController.h"
 #import "openGLViewController.h"
 
+#import "HistoryItemsViewController.h"
+
+
 @implementation stertsAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -22,9 +25,11 @@
     JsonViewController *jvc = [[JsonViewController alloc] init];
     graphViewController *gvc = [[graphViewController alloc] init];
     openGLViewController *ovc = [[openGLViewController alloc] init];
+    HistoryItemsViewController *hvc = [[HistoryItemsViewController alloc] init];
     
     
-    NSArray *viewControllers = [NSArray arrayWithObjects:jvc,gvc, nil];
+    
+    NSArray *viewControllers = [NSArray arrayWithObjects:jvc,gvc,hvc, nil];
     
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
