@@ -10,6 +10,8 @@
 
 #import "clearView.h"
 
+#import "AnimationWrapper.h"
+
 @implementation Shape_04ViewController
 
 - (id)init
@@ -146,6 +148,15 @@
     NSLog(@"adding animation # %i with a begin time of %f and a length of %f", 0, animationTimeOffset, animationDuration );
        animationTimeOffset += animationDuration;
     [animations addObject:group];
+    
+    AnimationWrapper *tempWrapper = [[AnimationWrapper alloc] init];
+    [tempWrapper setAnimations:group];
+    [tempWrapper setLocation:CGPointMake(translateX, translateY)];
+    [tempWrapper setAngle:angle];
+    
+    
+    [smartAnimations addObject:tempWrapper];
+    
 }
 
 
@@ -162,9 +173,7 @@
 	
     animationDuration = 3.0;
     animationTimeOffset = 0;
-/*
-    [clearButton addTarget:self action:@selector(clearButtonClick) forControlEvents:UIControlEventTouchUpInside];
-  */  
+
     UIView *behindView = [[[NSBundle mainBundle] loadNibNamed:@"behindView" owner:self options:nil ] lastObject];
     behindView.backgroundColor = [UIColor clearColor];
     
@@ -182,6 +191,7 @@
 	[self.view.layer addSublayer:rootLayer];
 
     animations = [[NSMutableArray alloc] init];
+    smartAnimations = [[NSMutableArray alloc] init];
 
     CGFloat angle = M_PI * -5 / 180.0;
    
@@ -214,7 +224,7 @@
 
 -(void) nextAnimation
 {
-    for (int i = 0; i < [animations count]; i++) {
+    for (int i = 0; i < [smartAnimations count]; i++) {
         
         [self startAnimation:i];
        
@@ -262,7 +272,9 @@
 //   tempLayer.i
     [rootLayer addSublayer:tempLayer];
     
-    CAAnimationGroup *group = [animations objectAtIndex:atIndex];
+    AnimationWrapper *tempWrapper = [smartAnimations objectAtIndex:atIndex];
+    
+    CAAnimationGroup *group = [tempWrapper animations];
     NSString *key = [[NSString alloc] initWithFormat:@"allMyAnimations%i", atIndex];
     [tempLayer addAnimation:group forKey: key];
     //NSLog(@"Finished adding animation group #%i", atIndex);

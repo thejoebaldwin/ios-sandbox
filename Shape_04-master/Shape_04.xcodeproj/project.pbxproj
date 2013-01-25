@@ -16,6 +16,7 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D7ACF80DDB3853001CB0EB /* Shape_04ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* Shape_04ViewController.m */; };
 		52C9759C1051778700CD1B7D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52C9759B1051778700CD1B7D /* QuartzCore.framework */; };
+		9749B5AD16B322A400F3FC26 /* AnimationWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9749B5AC16B322A400F3FC26 /* AnimationWrapper.m */; };
 		97F3B75216AC5DFA00B1D7C9 /* clearView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F3B75116AC5DFA00B1D7C9 /* clearView.m */; };
 		97F3B75516AC5E6E00B1D7C9 /* behindView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97F3B75416AC5E6E00B1D7C9 /* behindView.xib */; };
 /* End PBXBuildFile section */
@@ -35,6 +36,8 @@
 		32CA4F630368D1EE00C91783 /* Shape_04_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shape_04_Prefix.pch; sourceTree = "<group>"; };
 		52C9759B1051778700CD1B7D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* Shape_04-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Shape_04-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		9749B5AB16B322A400F3FC26 /* AnimationWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationWrapper.h; sourceTree = "<group>"; };
+		9749B5AC16B322A400F3FC26 /* AnimationWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationWrapper.m; sourceTree = "<group>"; };
 		97F3B75016AC5DFA00B1D7C9 /* clearView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = clearView.h; sourceTree = "<group>"; };
 		97F3B75116AC5DFA00B1D7C9 /* clearView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = clearView.m; sourceTree = "<group>"; };
 		97F3B75416AC5E6E00B1D7C9 /* behindView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = behindView.xib; sourceTree = "<group>"; };
@@ -62,6 +65,8 @@
 				1D3623250D0F684500981E51 /* Shape_04AppDelegate.m */,
 				28D7ACF60DDB3853001CB0EB /* Shape_04ViewController.h */,
 				28D7ACF70DDB3853001CB0EB /* Shape_04ViewController.m */,
+				9749B5AB16B322A400F3FC26 /* AnimationWrapper.h */,
+				9749B5AC16B322A400F3FC26 /* AnimationWrapper.m */,
 				97F3B75016AC5DFA00B1D7C9 /* clearView.h */,
 				97F3B75116AC5DFA00B1D7C9 /* clearView.m */,
 				97F3B75416AC5E6E00B1D7C9 /* behindView.xib */,
@@ -182,6 +187,7 @@
 				1D3623260D0F684500981E51 /* Shape_04AppDelegate.m in Sources */,
 				28D7ACF80DDB3853001CB0EB /* Shape_04ViewController.m in Sources */,
 				97F3B75216AC5DFA00B1D7C9 /* clearView.m in Sources */,
+				9749B5AD16B322A400F3FC26 /* AnimationWrapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

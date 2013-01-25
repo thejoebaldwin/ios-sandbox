@@ -15,6 +15,9 @@
     NSMutableArray *paths;
     BOOL ranOnce;
     NSMutableArray *animations;
+    
+    NSMutableArray *smartAnimations;
+    
     int currentAnimationIndex;
     CGFloat animationTimeOffset;
     CGFloat animationDuration;
