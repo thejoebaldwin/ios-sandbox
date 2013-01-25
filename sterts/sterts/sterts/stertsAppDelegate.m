@@ -29,7 +29,7 @@
     
     
     
-    NSArray *viewControllers = [NSArray arrayWithObjects:jvc,gvc,hvc, nil];
+    NSArray *viewControllers = [NSArray arrayWithObjects:jvc,hvc, gvc, nil];
     
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];

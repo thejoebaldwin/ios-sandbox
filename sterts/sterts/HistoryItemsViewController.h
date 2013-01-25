@@ -9,5 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface HistoryItemsViewController : UITableViewController
+{
+    IBOutlet UIView *headerView;
+}
+- (UIView *) headerView;
+- (IBAction)toggleEditingMode:(id)sender;
 
 @end

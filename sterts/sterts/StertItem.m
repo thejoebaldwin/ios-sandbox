@@ -11,14 +11,15 @@
 @implementation StertItem
 
 
-@synthesize hitpoints, mana , created, userID;
+@synthesize hitpoints, mana , created, userID, ID;
 
 
 
 
 - (NSString *) description
 {
-    NSString *descriptionString = [NSString stringWithFormat:@"Hitpoints:%i, Mana:%i, Created:%@",
+    NSString *descriptionString = [NSString stringWithFormat:@"ID:%i Hitpoints:%i, Mana:%i, Created:%@",
+                                   ID,
                                    hitpoints,
                                    mana,
                                    created];

@@ -21,6 +21,7 @@
         allItems = [[NSMutableArray alloc] init];
         allStertsURL =  @"http://sterts.humboldttechgroup.com/web/app_dev.php/json/test";
         postStertURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/dump";
+        removeStertURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/remove";
 
     }
     return self;
@@ -109,14 +110,13 @@
             [tempStertItem setHitpoints:[json[@"sterts"][i][@"hitpoints"]  intValue ]];
             [tempStertItem setMana:[json[@"sterts"][i][@"mana"]  intValue ]];
             [tempStertItem setCreated:[dateFormatter dateFromString: [NSString stringWithFormat:@"%@", json[@"sterts"][i][@"created"] ] ]];
+            [tempStertItem setID:[json[@"sterts"][i][@"id"]  intValue ]];
             //display the most recent stert
             if (i == 0) {
                 
                 NSLog(@"%@", tempStertItem);
                 
             }
-            [allItems addObject:tempStertItem];
-            
             [[StertItemStore sharedStore] addItems:tempStertItem];
             
         }
@@ -138,10 +138,23 @@
    //  [owner performSelector:@selector(loadCall)];
 }
 
+
+
 - (void) addItemWithHitpoints:(int) hitpoints withMana:(int) mana
 {
     NSString* JSON = [[NSString alloc] initWithFormat: @"{\"stert\":{ \"hitpoints\":\"%d\", \"mana\":\"%d\" }}", hitpoints, mana];
     [self postDataWithUrl:postStertURL withJSON:JSON];
+}
+
+- (void) removeItem:(StertItem *)s
+{
+    
+    NSString* JSON = [[NSString alloc] initWithFormat: @"{\"stert\":{ \"hitpoints\":\"%d\", \"mana\":\"%d\", \"id\":\"%i\" }}", [s hitpoints], [s mana], [s ID]];
+    NSLog(@"%@", JSON);
+    [allItems  removeObjectIdenticalTo:s];
+    [self postDataWithUrl:removeStertURL withJSON:JSON];
+    NSLog(@"This FAR");
+
 }
 
 -(void) loadWithOwner:(UIViewController *) withOwner withSelector:(NSString *) withSelector;
