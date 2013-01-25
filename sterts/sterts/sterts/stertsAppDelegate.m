@@ -8,7 +8,7 @@
 
 #import "stertsAppDelegate.h"
 
-#import "JsonViewController.h"
+#import "mainViewController.h"
 #import "graphViewController.h"
 #import "openGLViewController.h"
 
@@ -22,7 +22,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    JsonViewController *jvc = [[JsonViewController alloc] init];
+    mainViewController *jvc = [[mainViewController alloc] init];
     graphViewController *gvc = [[graphViewController alloc] init];
     openGLViewController *ovc = [[openGLViewController alloc] init];
     HistoryItemsViewController *hvc = [[HistoryItemsViewController alloc] init];

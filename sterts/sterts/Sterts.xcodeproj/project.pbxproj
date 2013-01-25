@@ -31,8 +31,8 @@
 		D88D7A21169E0ABA00F81CAF /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D88D7A20169E0ABA00F81CAF /* Default.png */; };
 		D88D7A23169E0ABA00F81CAF /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D88D7A22169E0ABA00F81CAF /* Default@2x.png */; };
 		D88D7A25169E0ABA00F81CAF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D88D7A24169E0ABA00F81CAF /* Default-568h@2x.png */; };
-		D88D7A30169E0B1C00F81CAF /* JsonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D88D7A2E169E0B1C00F81CAF /* JsonViewController.m */; };
-		D88D7A31169E0B1C00F81CAF /* JsonViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D88D7A2F169E0B1C00F81CAF /* JsonViewController.xib */; };
+		D88D7A30169E0B1C00F81CAF /* mainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D88D7A2E169E0B1C00F81CAF /* mainViewController.m */; };
+		D88D7A31169E0B1C00F81CAF /* mainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D88D7A2F169E0B1C00F81CAF /* mainViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,9 +69,9 @@
 		D88D7A20169E0ABA00F81CAF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		D88D7A22169E0ABA00F81CAF /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		D88D7A24169E0ABA00F81CAF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		D88D7A2D169E0B1C00F81CAF /* JsonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonViewController.h; sourceTree = "<group>"; };
-		D88D7A2E169E0B1C00F81CAF /* JsonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonViewController.m; sourceTree = "<group>"; };
-		D88D7A2F169E0B1C00F81CAF /* JsonViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = JsonViewController.xib; sourceTree = "<group>"; };
+		D88D7A2D169E0B1C00F81CAF /* mainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainViewController.h; sourceTree = "<group>"; };
+		D88D7A2E169E0B1C00F81CAF /* mainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mainViewController.m; sourceTree = "<group>"; };
+		D88D7A2F169E0B1C00F81CAF /* mainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = mainViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,9 +102,9 @@
 				97F3B77C16AD10FA00B1D7C9 /* graphViewController.h */,
 				97F3B77D16AD10FA00B1D7C9 /* graphViewController.m */,
 				97F3B77E16AD10FA00B1D7C9 /* graphViewController.xib */,
-				D88D7A2D169E0B1C00F81CAF /* JsonViewController.h */,
-				D88D7A2E169E0B1C00F81CAF /* JsonViewController.m */,
-				D88D7A2F169E0B1C00F81CAF /* JsonViewController.xib */,
+				D88D7A2D169E0B1C00F81CAF /* mainViewController.h */,
+				D88D7A2E169E0B1C00F81CAF /* mainViewController.m */,
+				D88D7A2F169E0B1C00F81CAF /* mainViewController.xib */,
 				972FD53C16A6753D00FC69A1 /* OpenGLES.framework */,
 				972FD53116A672CC00FC69A1 /* openGLViewController.h */,
 				972FD53216A672CC00FC69A1 /* openGLViewController.m */,
@@ -220,7 +220,7 @@
 				D88D7A21169E0ABA00F81CAF /* Default.png in Resources */,
 				D88D7A23169E0ABA00F81CAF /* Default@2x.png in Resources */,
 				D88D7A25169E0ABA00F81CAF /* Default-568h@2x.png in Resources */,
-				D88D7A31169E0B1C00F81CAF /* JsonViewController.xib in Resources */,
+				D88D7A31169E0B1C00F81CAF /* mainViewController.xib in Resources */,
 				972FD53516A672CC00FC69A1 /* openGLViewController.xib in Resources */,
 				97F3B78016AD10FA00B1D7C9 /* graphViewController.xib in Resources */,
 				D8206D6A16AEF1AD001B6F09 /* sterts_tab.png in Resources */,
@@ -241,7 +241,7 @@
 			files = (
 				D88D7A1B169E0AB900F81CAF /* main.m in Sources */,
 				D88D7A1F169E0AB900F81CAF /* stertsAppDelegate.m in Sources */,
-				D88D7A30169E0B1C00F81CAF /* JsonViewController.m in Sources */,
+				D88D7A30169E0B1C00F81CAF /* mainViewController.m in Sources */,
 				972FD53416A672CC00FC69A1 /* openGLViewController.m in Sources */,
 				97F3B77F16AD10FA00B1D7C9 /* graphViewController.m in Sources */,
 				97F3B7C816AE827100B1D7C9 /* StertItem.m in Sources */,

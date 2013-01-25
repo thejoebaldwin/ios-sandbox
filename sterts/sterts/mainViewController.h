@@ -11,15 +11,10 @@
 
 @class StertItemStore;
 
-@interface JsonViewController : UIViewController <UIActionSheetDelegate>
+@interface mainViewController : UIViewController <UIActionSheetDelegate>
 
 {
-    NSURLConnection *connection;
-    NSMutableData *jsonData;
-    NSString *allStertsURL;
-    NSString *postStertURL;
-    NSMutableArray *allSterts;
-    
+
     __weak IBOutlet UISlider *manaSlider;
    
     __weak IBOutlet UILabel *hitpointLabel;
@@ -30,8 +25,7 @@
    
     
 }
-- (void) fetchEntries:(NSString *) urlString;
-- (void) postData:(NSString *) urlString;
+
 
 
 
