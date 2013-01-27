@@ -12,12 +12,14 @@
 
 @interface StertItemStore : NSObject
 {
+    
     NSMutableArray *allItems;
     NSURLConnection *connection;
     NSMutableData *jsonData;
     NSString *allStertsURL;
     NSString *postStertURL;
     NSString *removeStertURL;
+    NSString *authURL;
 
     UIViewController *owner;
     NSString *loadCompleteSelector;
@@ -25,10 +27,13 @@
 
 - (NSMutableArray *) allItems;
 - (StertItem *) createItem;
+- (NSString *) authToken;
 - (void) addItems:(StertItem * ) addItem;
 - (void) addItemWithHitpoints:(int) hitpoints withMana:(int) mana;
 - (void) loadWithOwner:(UIViewController *) withOwner withSelector:(NSString*) withSelector;
 - (void) removeItem:(StertItem *) s;
+- (NSString *) getAuthToken:(NSString *) username withHash:(NSString *) hash;
+
 + (StertItemStore *) sharedStore;
 
 

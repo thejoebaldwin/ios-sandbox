@@ -11,6 +11,7 @@
 #import "mainViewController.h"
 #import "graphViewController.h"
 #import "openGLViewController.h"
+#import "loginViewController.h"
 
 #import "HistoryItemsViewController.h"
 
@@ -27,15 +28,21 @@
     openGLViewController *ovc = [[openGLViewController alloc] init];
     HistoryItemsViewController *hvc = [[HistoryItemsViewController alloc] init];
     
+    loginViewController *lvc = [[loginViewController alloc] init];
+       
     
-    
-    NSArray *viewControllers = [NSArray arrayWithObjects:jvc,hvc, gvc, nil];
+    NSArray *viewControllers = [NSArray arrayWithObjects: lvc,jvc,hvc, gvc, nil];
     
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
 
     [tabBarController setViewControllers:viewControllers];
     [[self window] setRootViewController:tabBarController];
+    
+    
+    
+    
+    
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

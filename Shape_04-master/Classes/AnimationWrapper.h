@@ -13,14 +13,25 @@
 {
     CGPoint _location;
     CGFloat _angle;
+    CGFloat _lineWidth;
+    CGFloat _scaleX, _scaleY;
 }
 
-@property (assign, nonatomic) CAAnimationGroup *animations;
-@property (assign, nonatomic) UIColor *fillColor;
-@property (assign, nonatomic) UIColor *strokeColor;
+@property (nonatomic, retain) CAAnimationGroup *Animations;
+@property (nonatomic, retain) UIColor *FillColor;
+@property (nonatomic, retain) UIColor *StrokeColor;
+@property (nonatomic, retain) NSMutableArray *Layers;
 
 -(void) setLocation: (CGPoint) withPoint;
 -(void) setAngle: (CGFloat) withAngle;
+-(void) setLineWidth: (CGFloat) withLineWidth;
+-(void) setScale:(CGFloat) scaleX withY:(CGFloat) scaleY;
+
 -(CGPoint) Location;
 -(CGFloat) Angle;
+-(CGFloat) LineWidth;
+-(CGFloat) ScaleX;
+-(CGFloat) ScaleY;
+-(void) addAnimationGroupLayers:(CGPoint) position;
+
 @end

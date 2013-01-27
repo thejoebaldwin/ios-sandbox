@@ -11,6 +11,7 @@
 #import "StertItem.h"
 #import "StertItemStore.h"
 
+
 @implementation mainViewController
 
 
@@ -33,7 +34,8 @@
     return self;
 }
 
--(void) loadComplete
+
+-(void) viewDidLoad
 {
     StertItem *tempStertItem = [[[StertItemStore sharedStore] allItems] objectAtIndex:0];
     
@@ -42,6 +44,14 @@
     
     [manaSlider setValue:(float)[tempStertItem mana]];
     [manaLabel setText: [NSString stringWithFormat:@"%i", [tempStertItem mana]] ];
+
+}
+
+-(void) loadComplete
+{
+  // ?
+    
+    
 }
 
 

@@ -44,7 +44,7 @@
 
 - (void) refreshWebView
 {
-    urlAddress = @"http://sterts.humboldttechgroup.com/web/app_dev.php/charts";
+    urlAddress = @"http://sterts.humboldttechgroup.com/web/app_dev.php/v1/charts";
     //Create a URL object.
     NSURL *url = [NSURL URLWithString:urlAddress];
     //URL Request Object

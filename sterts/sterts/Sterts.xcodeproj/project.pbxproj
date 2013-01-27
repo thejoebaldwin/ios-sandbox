@@ -12,6 +12,8 @@
 		972FD53B16A6743300FC69A1 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972FD53A16A6743300FC69A1 /* GLKit.framework */; };
 		972FD53D16A6753D00FC69A1 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 972FD53C16A6753D00FC69A1 /* OpenGLES.framework */; };
 		9749B5A516B30E2000F3FC26 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9749B5A416B30E2000F3FC26 /* HeaderView.xib */; };
+		97953BC716B4F7F3002EFC3B /* loginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97953BC516B4F7F3002EFC3B /* loginViewController.m */; };
+		97953BC816B4F7F3002EFC3B /* loginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97953BC616B4F7F3002EFC3B /* loginViewController.xib */; };
 		97F04F6A16B10E010038C81D /* HistoryItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F04F6916B10E010038C81D /* HistoryItemsViewController.m */; };
 		97F04F6D16B10F910038C81D /* StertItemStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F04F6C16B10F910038C81D /* StertItemStore.m */; };
 		97F3B77F16AD10FA00B1D7C9 /* graphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F3B77D16AD10FA00B1D7C9 /* graphViewController.m */; };
@@ -43,6 +45,9 @@
 		972FD53A16A6743300FC69A1 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		972FD53C16A6753D00FC69A1 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		9749B5A416B30E2000F3FC26 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
+		97953BC416B4F7F3002EFC3B /* loginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loginViewController.h; sourceTree = "<group>"; };
+		97953BC516B4F7F3002EFC3B /* loginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = loginViewController.m; sourceTree = "<group>"; };
+		97953BC616B4F7F3002EFC3B /* loginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = loginViewController.xib; sourceTree = "<group>"; };
 		97F04F6816B10E010038C81D /* HistoryItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryItemsViewController.h; sourceTree = "<group>"; };
 		97F04F6916B10E010038C81D /* HistoryItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryItemsViewController.m; sourceTree = "<group>"; };
 		97F04F6B16B10F910038C81D /* StertItemStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StertItemStore.h; sourceTree = "<group>"; };
@@ -115,6 +120,9 @@
 				97F3B7C716AE827100B1D7C9 /* StertItem.m */,
 				97F04F6B16B10F910038C81D /* StertItemStore.h */,
 				97F04F6C16B10F910038C81D /* StertItemStore.m */,
+				97953BC416B4F7F3002EFC3B /* loginViewController.h */,
+				97953BC516B4F7F3002EFC3B /* loginViewController.m */,
+				97953BC616B4F7F3002EFC3B /* loginViewController.xib */,
 				D88D7A14169E0AB900F81CAF /* sterts */,
 			);
 			sourceTree = "<group>";
@@ -233,6 +241,7 @@
 				D8206D8E16AEFB9B001B6F09 /* sterts_icon_114.png in Resources */,
 				D8206D8F16AEFB9B001B6F09 /* sterts_icon_144.png in Resources */,
 				9749B5A516B30E2000F3FC26 /* HeaderView.xib in Resources */,
+				97953BC816B4F7F3002EFC3B /* loginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +260,7 @@
 				97F3B7C816AE827100B1D7C9 /* StertItem.m in Sources */,
 				97F04F6A16B10E010038C81D /* HistoryItemsViewController.m in Sources */,
 				97F04F6D16B10F910038C81D /* StertItemStore.m in Sources */,
+				97953BC716B4F7F3002EFC3B /* loginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

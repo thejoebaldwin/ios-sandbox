@@ -8,6 +8,7 @@
 
 #import "StertItemStore.h"
 #import "StertItem.h"
+#include <CommonCrypto/CommonDigest.h>
 
 @implementation StertItemStore
 
@@ -19,10 +20,10 @@
     self = [super init];
     if (self) {
         allItems = [[NSMutableArray alloc] init];
-        allStertsURL =  @"http://sterts.humboldttechgroup.com/web/app_dev.php/json/test";
-        postStertURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/dump";
-        removeStertURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/remove";
-
+        allStertsURL =  @"http://sterts.humboldttechgroup.com/web/app_dev.php/v1/get/sterts";
+        postStertURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/v1/post";
+        removeStertURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/v1/remove";
+        authURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/v1/auth";
     }
     return self;
 }
@@ -122,8 +123,12 @@
         }
         [owner performSelector:NSSelectorFromString(loadCompleteSelector)];
 
-    } else {
-        NSLog(@"Status JSON");
+    } else if ([json objectForKey:@"auth"]){
+        
+        NSLog(@"%@", json[@"auth"][0][@"token"]);
+        
+    }else {
+        NSLog(@"response JSON");
         
         
         UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Success"
@@ -174,8 +179,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
                                                            cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
     
-    //NSString* newData = [[NSString alloc] initWithFormat: @"{\"stert\":{ \"hitpoints\":\"%d\", \"mana\":\"%d\" }}", hitpoints, mana];
-    
+       
     NSData* postData=[JSON dataUsingEncoding:NSUTF8StringEncoding];
     
     [request setHTTPMethod:@"POST"];
@@ -209,6 +213,22 @@
 }
 
 
+- (NSString *) getAuthToken:(NSString *) username withHash:(NSString *) hash
+{
+    NSData *data = [username dataUsingEncoding:NSUTF8StringEncoding];
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    CC_SHA1(data.bytes, data.length, digest);
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
+    {
+        [output appendFormat:@"%02x", digest[i]];
+    }
+    NSString* JSON = [[NSString alloc] initWithFormat: @"{\"auth\":{ \"username\":\"%@\", \"hash\":\"%@\"}}", username, output];
+    NSLog(@"%@", JSON);
+    [self postDataWithUrl:authURL withJSON:JSON];
+    return @"nothing yet";
+    
+}
 
 
 @end

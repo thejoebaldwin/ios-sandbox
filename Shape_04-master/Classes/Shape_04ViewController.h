@@ -14,7 +14,7 @@
 	CALayer	*rootLayer;
     NSMutableArray *paths;
     BOOL ranOnce;
-    NSMutableArray *animations;
+   
     
     NSMutableArray *smartAnimations;
     
