@@ -14,5 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
 - (IBAction)loginButtonClick:(id)sender;
 - (IBAction)cancelButtonClick:(id)sender;
+- (IBAction)usernameFieldDone:(id)sender;
+- (IBAction)passwordFieldDone:(id)sender;
 
 @end

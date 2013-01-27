@@ -23,15 +23,15 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     
-    mainViewController *jvc = [[mainViewController alloc] init];
+    mainViewController *mvc = [[mainViewController alloc] init];
     graphViewController *gvc = [[graphViewController alloc] init];
-    openGLViewController *ovc = [[openGLViewController alloc] init];
+    //openGLViewController *ovc = [[openGLViewController alloc] init];
     HistoryItemsViewController *hvc = [[HistoryItemsViewController alloc] init];
     
     loginViewController *lvc = [[loginViewController alloc] init];
        
     
-    NSArray *viewControllers = [NSArray arrayWithObjects: lvc,jvc,hvc, gvc, nil];
+    NSArray *viewControllers = [NSArray arrayWithObjects: mvc,hvc, gvc, lvc, nil];
     
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];

@@ -14,5 +14,5 @@
 }
 - (UIView *) headerView;
 - (IBAction)toggleEditingMode:(id)sender;
-
+-(IBAction)refresh :(id)sender;
 @end

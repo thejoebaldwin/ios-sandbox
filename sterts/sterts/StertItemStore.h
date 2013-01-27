@@ -29,10 +29,11 @@
 - (StertItem *) createItem;
 - (NSString *) authToken;
 - (void) addItems:(StertItem * ) addItem;
+- (void) insertItem:(StertItem * ) insertItem;
 - (void) addItemWithHitpoints:(int) hitpoints withMana:(int) mana;
 - (void) loadWithOwner:(UIViewController *) withOwner withSelector:(NSString*) withSelector;
 - (void) removeItem:(StertItem *) s;
-- (NSString *) getAuthToken:(NSString *) username withHash:(NSString *) hash;
+- (NSString *) getAuthToken:(NSString *) username withPassword:(NSString *) password;
 
 + (StertItemStore *) sharedStore;
 

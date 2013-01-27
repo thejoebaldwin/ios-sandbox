@@ -48,6 +48,11 @@
     [allItems addObject:addItem];
 }
 
+- (void) insertItem:(StertItem *) insertItem
+{
+    [allItems insertObject:insertItem atIndex:0];
+}
+
 +(StertItemStore *) sharedStore
 {
     static StertItemStore *sharedStore = nil;
@@ -118,7 +123,10 @@
                 NSLog(@"%@", tempStertItem);
                 
             }
+            
             [[StertItemStore sharedStore] addItems:tempStertItem];
+            
+
             
         }
         [owner performSelector:NSSelectorFromString(loadCompleteSelector)];
@@ -128,15 +136,50 @@
         NSLog(@"%@", json[@"auth"][0][@"token"]);
         
     }else {
+        //this is returned on item create
         NSLog(@"response JSON");
         
         
-        UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Success"
-                                                     message:@"Your stats have been updated."
-                                                    delegate:self
-                                           cancelButtonTitle:@"OK"
-                                           otherButtonTitles:nil];
-        [av show];
+        NSLog(@"%@", json[@"response"][@"operation"] );
+        
+        if (   [json[@"response"][@"operation"]  isEqualToString: @"add"] ) {
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            
+            StertItem *tempStertItem = [[StertItem alloc] init];
+            [tempStertItem setHitpoints:[json[@"response"][@"hitpoints"]  intValue ]];
+            [tempStertItem setMana:[json[@"response"][@"mana"]  intValue ]];
+            [tempStertItem setCreated:[dateFormatter dateFromString: [NSString stringWithFormat:@"%@", json[@"response"][@"created"] ] ]];
+            [tempStertItem setID:[json[@"response"][@"id"]  intValue ]];
+            //display the most recent stert
+            [[StertItemStore sharedStore] insertItem:tempStertItem];
+            
+            
+            
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Success"
+                                                         message:@"Your stats have been updated."
+                                                        delegate:self
+                                               cancelButtonTitle:@"OK"
+                                               otherButtonTitles:nil];
+            
+            
+            [av show];
+        }
+        else if (  [json[@"response"][@"operation"]  isEqualToString: @"delete"]  ) {
+            
+            UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Success"
+                                                         message:@"Your stats have been deleted."
+                                                        delegate:self
+                                               cancelButtonTitle:@"OK"
+                                               otherButtonTitles:nil];
+            
+            
+            [av show];
+
+        }
+        
+        
+
     }
     
        
@@ -213,8 +256,10 @@
 }
 
 
-- (NSString *) getAuthToken:(NSString *) username withHash:(NSString *) hash
+- (NSString *) getAuthToken:(NSString *) username withPassword:(NSString *) password
 {
+    
+    //ADD THE PASSWORD TO THE CURENT DATE STRING AND ENCRYPT
     NSData *data = [username dataUsingEncoding:NSUTF8StringEncoding];
     uint8_t digest[CC_SHA1_DIGEST_LENGTH];
     CC_SHA1(data.bytes, data.length, digest);

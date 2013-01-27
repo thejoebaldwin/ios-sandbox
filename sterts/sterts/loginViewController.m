@@ -35,10 +35,20 @@
         [tbi setTitle:@"Account"];
         //UIImage *image = [UIImage imageNamed:@"sterts_tab.png"];
         //[tbi setImage:image];
+        
+
+        //self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width - 30, self.view.frame.size.height - 30);
+        
     }
     
     return self;
     
+}
+
+
+- (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:TRUE];
 }
 
 - (void)viewDidLoad
@@ -60,21 +70,35 @@
     NSString *password = [passwordField text];
     //use the password to encrypt something. username plus date?
     
-    //stertitemstore for auth? or just do it all here?
+
     
     //contruct json request to post
     
-    //response should contain authentication token
     
     //if successful, save username and password
     
-    [[StertItemStore sharedStore] getAuthToken:username withHash:password];
+    //if not need to communication bad login to user
     
+    
+    
+    //need a completion block on this call!!!
+    
+    [[StertItemStore sharedStore] getAuthToken:username withPassword:password];
+    
+    //[[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+
     
 }
 
 - (IBAction)cancelButtonClick:(id)sender {
     
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     
+}
+
+- (IBAction)usernameFieldDone:(id)sender {
+}
+
+- (IBAction)passwordFieldDone:(id)sender {
 }
 @end

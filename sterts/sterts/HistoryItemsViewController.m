@@ -14,6 +14,25 @@
 @implementation HistoryItemsViewController
 
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    [[self tableView] reloadData];
+    NSLog(@"%@", [[[StertItemStore sharedStore] allItems] lastObject]);
+}
+
+
+
+-(void) viewDidLoad
+{
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+
+   //  [[self tableView] reloadData];
+    
+}
+
+
+
 - (UIView *) headerView
 {
        if (!headerView) {
@@ -30,8 +49,7 @@
         //set up tab
         UITabBarItem *tbi = [self tabBarItem];
         [tbi setTitle:@"History"];
-
-    }
+           }
     return self;
 }
 
@@ -102,6 +120,12 @@
         [[StertItemStore sharedStore] removeItem:s];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
+}
+
+
+-(void) refresh:(id)sender
+{
+     [[self tableView] reloadData];
 }
 
 @end

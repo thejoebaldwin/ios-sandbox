@@ -10,7 +10,7 @@
 #import "openGLViewController.h"
 #import "StertItem.h"
 #import "StertItemStore.h"
-
+#import "loginViewController.h"
 
 @implementation mainViewController
 
@@ -35,8 +35,14 @@
 }
 
 
--(void) viewDidLoad
+//-(void) viewDidLoad
+//{
+    
+//}
+
+-(void) loadComplete
 {
+  // ?
     StertItem *tempStertItem = [[[StertItemStore sharedStore] allItems] objectAtIndex:0];
     
     [hitpointSlider setValue:(float)[tempStertItem hitpoints]];
@@ -45,12 +51,6 @@
     [manaSlider setValue:(float)[tempStertItem mana]];
     [manaLabel setText: [NSString stringWithFormat:@"%i", [tempStertItem mana]] ];
 
-}
-
--(void) loadComplete
-{
-  // ?
-    
     
 }
 
@@ -108,6 +108,13 @@
     
     [[self navigationController] pushViewController:ovc animated:YES];
 
+}
+
+- (IBAction)loginButtonClick:(id)sender {
+    loginViewController *lvc = [[loginViewController alloc] init];
+    UINavigationController *navController  = [[UINavigationController alloc] initWithRootViewController:lvc];
+    [self presentViewController:navController animated:YES completion:nil];
+    
 }
 
 @end 
