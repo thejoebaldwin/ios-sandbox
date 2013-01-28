@@ -20,7 +20,7 @@
     NSString *postStertURL;
     NSString *removeStertURL;
     NSString *authURL;
-
+    NSString *authToken;
     UIViewController *owner;
     NSString *loadCompleteSelector;
 }

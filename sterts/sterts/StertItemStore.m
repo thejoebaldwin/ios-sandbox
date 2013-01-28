@@ -132,8 +132,13 @@
         [owner performSelector:NSSelectorFromString(loadCompleteSelector)];
 
     } else if ([json objectForKey:@"auth"]){
+        if (json[@"auth"][@"success"]) {
+            authToken =  json[@"auth"][@"token"];
+        } else {
+            NSLog(@"Auth Token Fail");
+        }
         
-        NSLog(@"%@", json[@"auth"][0][@"token"]);
+        NSLog(@"AuthToken:%@", authToken);
         
     }else {
         //this is returned on item create
@@ -256,19 +261,46 @@
 }
 
 
-- (NSString *) getAuthToken:(NSString *) username withPassword:(NSString *) password
+
+- (NSString *) getAuthHash:(NSString *) password
 {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY-MM-dd"];
+    NSString* today = [formatter stringFromDate:[NSDate date]];
     
-    //ADD THE PASSWORD TO THE CURENT DATE STRING AND ENCRYPT
-    NSData *data = [username dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *data = [password dataUsingEncoding:NSUTF8StringEncoding];
     uint8_t digest[CC_SHA1_DIGEST_LENGTH];
     CC_SHA1(data.bytes, data.length, digest);
-    NSMutableString *output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    NSMutableString *hash = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
     for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
     {
-        [output appendFormat:@"%02x", digest[i]];
+        [hash appendFormat:@"%02x", digest[i]];
     }
-    NSString* JSON = [[NSString alloc] initWithFormat: @"{\"auth\":{ \"username\":\"%@\", \"hash\":\"%@\"}}", username, output];
+    
+    //add the date at the end
+    [hash appendString:today];
+    
+    
+    //hash it again!
+    
+    NSData *data2 = [hash dataUsingEncoding:NSUTF8StringEncoding];
+    uint8_t digest2[CC_SHA1_DIGEST_LENGTH];
+    CC_SHA1(data2.bytes, data2.length, digest2);
+    NSMutableString *hash2 = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    for (int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
+    {
+        [hash2 appendFormat:@"%02x", digest2[i]];
+    }
+    return hash2;
+
+}
+
+- (NSString *) getAuthToken:(NSString *) username withPassword:(NSString *) password
+{
+   
+    NSString *hash = [self getAuthHash:password];
+    
+    NSString* JSON = [[NSString alloc] initWithFormat: @"{\"auth\":{ \"username\":\"%@\", \"hash\":\"%@\"}}", username, hash];
     NSLog(@"%@", JSON);
     [self postDataWithUrl:authURL withJSON:JSON];
     return @"nothing yet";

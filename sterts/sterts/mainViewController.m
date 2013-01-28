@@ -50,7 +50,13 @@
     
     [manaSlider setValue:(float)[tempStertItem mana]];
     [manaLabel setText: [NSString stringWithFormat:@"%i", [tempStertItem mana]] ];
-
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"M/d/YY h:mm a"];
+    
+    
+    NSString* createdString = [formatter stringFromDate:[tempStertItem created]];
+    [lastUpdatedLabel setText:createdString];
     
 }
 
