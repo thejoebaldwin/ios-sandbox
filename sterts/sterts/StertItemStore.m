@@ -179,7 +179,7 @@
                                                otherButtonTitles:nil];
             
             
-            [av show];
+          //  [av show];
 
         }
         
