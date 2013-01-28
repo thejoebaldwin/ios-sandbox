@@ -25,6 +25,9 @@
 		D8206D8D16AEFB9B001B6F09 /* sterts_icon_72.png in Resources */ = {isa = PBXBuildFile; fileRef = D8206D8916AEFB9B001B6F09 /* sterts_icon_72.png */; };
 		D8206D8E16AEFB9B001B6F09 /* sterts_icon_114.png in Resources */ = {isa = PBXBuildFile; fileRef = D8206D8A16AEFB9B001B6F09 /* sterts_icon_114.png */; };
 		D8206D8F16AEFB9B001B6F09 /* sterts_icon_144.png in Resources */ = {isa = PBXBuildFile; fileRef = D8206D8B16AEFB9B001B6F09 /* sterts_icon_144.png */; };
+		D8551C4C16B6EAF0004CB806 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D8551C4B16B6EAF0004CB806 /* User.m */; };
+		D8551C5116B6EBEC004CB806 /* accountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8551C4F16B6EBEC004CB806 /* accountViewController.m */; };
+		D8551C5216B6EBEC004CB806 /* accountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8551C5016B6EBEC004CB806 /* accountViewController.xib */; };
 		D88D7A0F169E0AB900F81CAF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88D7A0E169E0AB900F81CAF /* UIKit.framework */; };
 		D88D7A11169E0AB900F81CAF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88D7A10169E0AB900F81CAF /* Foundation.framework */; };
 		D88D7A13169E0AB900F81CAF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D88D7A12169E0AB900F81CAF /* CoreGraphics.framework */; };
@@ -63,6 +66,11 @@
 		D8206D8916AEFB9B001B6F09 /* sterts_icon_72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sterts_icon_72.png; sourceTree = SOURCE_ROOT; };
 		D8206D8A16AEFB9B001B6F09 /* sterts_icon_114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sterts_icon_114.png; sourceTree = SOURCE_ROOT; };
 		D8206D8B16AEFB9B001B6F09 /* sterts_icon_144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sterts_icon_144.png; sourceTree = SOURCE_ROOT; };
+		D8551C4A16B6EAF0004CB806 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		D8551C4B16B6EAF0004CB806 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		D8551C4E16B6EBEC004CB806 /* accountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = accountViewController.h; sourceTree = "<group>"; };
+		D8551C4F16B6EBEC004CB806 /* accountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = accountViewController.m; sourceTree = "<group>"; };
+		D8551C5016B6EBEC004CB806 /* accountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = accountViewController.xib; sourceTree = "<group>"; };
 		D88D7A0A169E0AB900F81CAF /* Sterts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sterts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D88D7A0E169E0AB900F81CAF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D88D7A10169E0AB900F81CAF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -100,6 +108,11 @@
 		D88D79FF169E0AB900F81CAF = {
 			isa = PBXGroup;
 			children = (
+				D8551C4A16B6EAF0004CB806 /* User.h */,
+				D8551C4B16B6EAF0004CB806 /* User.m */,
+				D8551C4E16B6EBEC004CB806 /* accountViewController.h */,
+				D8551C4F16B6EBEC004CB806 /* accountViewController.m */,
+				D8551C5016B6EBEC004CB806 /* accountViewController.xib */,
 				D88D7A0D169E0AB900F81CAF /* Frameworks */,
 				972FD53A16A6743300FC69A1 /* GLKit.framework */,
 				97F3B77C16AD10FA00B1D7C9 /* graphViewController.h */,
@@ -205,7 +218,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Humboldt Technology Group, LLC";
 			};
-			buildConfigurationList = D88D7A04169E0AB900F81CAF /* Build configuration list for PBXProject "sterts" */;
+			buildConfigurationList = D88D7A04169E0AB900F81CAF /* Build configuration list for PBXProject "Sterts" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -242,6 +255,7 @@
 				D8206D8F16AEFB9B001B6F09 /* sterts_icon_144.png in Resources */,
 				9749B5A516B30E2000F3FC26 /* HeaderView.xib in Resources */,
 				97953BC816B4F7F3002EFC3B /* loginViewController.xib in Resources */,
+				D8551C5216B6EBEC004CB806 /* accountViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +275,8 @@
 				97F04F6A16B10E010038C81D /* HistoryItemsViewController.m in Sources */,
 				97F04F6D16B10F910038C81D /* StertItemStore.m in Sources */,
 				97953BC716B4F7F3002EFC3B /* loginViewController.m in Sources */,
+				D8551C4C16B6EAF0004CB806 /* User.m in Sources */,
+				D8551C5116B6EBEC004CB806 /* accountViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,7 +373,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D88D7A04169E0AB900F81CAF /* Build configuration list for PBXProject "sterts" */ = {
+		D88D7A04169E0AB900F81CAF /* Build configuration list for PBXProject "Sterts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D88D7A26169E0ABA00F81CAF /* Debug */,

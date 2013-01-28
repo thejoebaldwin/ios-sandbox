@@ -12,8 +12,9 @@
 #import "graphViewController.h"
 #import "openGLViewController.h"
 #import "loginViewController.h"
-
+#import "StertItemStore.h"
 #import "HistoryItemsViewController.h"
+#import "accountViewController.h"
 
 
 @implementation stertsAppDelegate
@@ -28,10 +29,10 @@
     //openGLViewController *ovc = [[openGLViewController alloc] init];
     HistoryItemsViewController *hvc = [[HistoryItemsViewController alloc] init];
     
-    loginViewController *lvc = [[loginViewController alloc] init];
+    accountViewController *avc = [[accountViewController alloc] init];
        
     
-    NSArray *viewControllers = [NSArray arrayWithObjects: mvc,hvc, gvc, lvc, nil];
+    NSArray *viewControllers = [NSArray arrayWithObjects: mvc,hvc, gvc, avc, nil];
     
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
@@ -59,6 +60,15 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+   
+    /*
+    BOOL success = [[StertItemStore sharedStore] saveChanges];
+    if (success) {
+        NSLog(@"Saved the current user");
+    } else {
+        NSLog(@"Could not save the current user");
+    }
+    */
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

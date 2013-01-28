@@ -12,9 +12,7 @@
 
 @implementation StertItemStore
 
-
-
-
+@synthesize CurrentUser;
 - (id) init
 {
     self = [super init];
@@ -24,8 +22,24 @@
         postStertURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/v1/post";
         removeStertURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/v1/remove";
         authURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/v1/auth";
+      
+       // [self loadUserFromArchive];
+        
     }
     return self;
+}
+
+
+
+- (BOOL) isLoggedIn
+{
+    if (!CurrentUser) {
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
 }
 
 - (NSMutableArray *) allItems
@@ -33,6 +47,7 @@
     return allItems;
     
 }
+
 
 
 -(StertItem *) createItem
@@ -100,7 +115,7 @@
 - (void) connectionDidFinishLoading:(NSURLConnection *) connection
 {
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
-    NSLog(@"ReturnedData=%@", json);
+    //NSLog(@"ReturnedData=%@", json);
     
     if ([json objectForKey:@"sterts"]){
         [allItems removeAllObjects];
@@ -134,7 +149,11 @@
     } else if ([json objectForKey:@"auth"]){
         if (json[@"auth"][@"success"]) {
             authToken =  json[@"auth"][@"token"];
-        } else {
+            [CurrentUser setAuthToken:authToken];
+            [CurrentUser setUsername:json[@"auth"][@"username"]];
+
+            //[self saveChanges];
+                    } else {
             NSLog(@"Auth Token Fail");
         }
         
@@ -301,11 +320,47 @@
     NSString *hash = [self getAuthHash:password];
     
     NSString* JSON = [[NSString alloc] initWithFormat: @"{\"auth\":{ \"username\":\"%@\", \"hash\":\"%@\"}}", username, hash];
-    NSLog(@"%@", JSON);
+    //NSLog(@"%@", JSON);
     [self postDataWithUrl:authURL withJSON:JSON];
     return @"nothing yet";
     
 }
 
+/*
 
+- (NSString *) itemArchivePath
+{
+    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    //get one and only documemnt directory from that list
+    NSString *documentDirectory = [documentDirectories objectAtIndex:0];
+    return [documentDirectory stringByAppendingPathComponent:@"user.archive"];
+    
+}
+
+- (BOOL) saveChanges
+{
+    // returns success or failure
+    NSString *path = [self itemArchivePath];
+    //NSLog(@"%@", path);
+    
+    BOOL success = [NSKeyedArchiver archiveRootObject:currentUser toFile:path];
+    if (success) {
+        NSLog(@"Saved the current user");
+    } else {
+        NSLog(@"Could not save the current user");
+    }
+    //NSLog(@"Path:%@", path);
+    return success;
+}
+
+- (void) loadUserFromArchive
+{
+    NSString *path = [self itemArchivePath];
+    id temp = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    
+    if (!temp) {
+        NSLog(@"No Current User Found!--> %@", temp);
+    }
+}
+*/
 @end

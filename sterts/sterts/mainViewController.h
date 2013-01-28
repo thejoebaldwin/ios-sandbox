@@ -28,13 +28,14 @@
 
 
 
+- (BOOL) saveChanges;
 
 - (IBAction)postButton:(id)sender;
 
 - (IBAction) updateHitpointsLabel:(id)sender;
 - (IBAction) updateManaLabel:(id)sender;
 - (IBAction) go3DView:(id) sender;
-- (IBAction)loginButtonClick:(id)sender;
+
 @property (weak, nonatomic) IBOutlet UILabel *lastUpdatedLabel;
 
 @end

@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class mainViewController;
 @interface loginViewController : UIViewController
+{
+    mainViewController *main;
+}
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
@@ -16,5 +20,6 @@
 - (IBAction)cancelButtonClick:(id)sender;
 - (IBAction)usernameFieldDone:(id)sender;
 - (IBAction)passwordFieldDone:(id)sender;
+- (IBAction)checkButtonClick:(id)sender;
 
 @end

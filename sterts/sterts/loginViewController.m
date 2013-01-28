@@ -8,7 +8,8 @@
 
 #import "loginViewController.h"
 #import "StertItemStore.h"
-
+#import "mainViewController.h"
+#import "User.h"
 @interface loginViewController ()
 
 @end
@@ -31,14 +32,13 @@
     
     self = [super init];
     if (self) {
-        UITabBarItem *tbi = [self tabBarItem];
-        [tbi setTitle:@"Account"];
-        //UIImage *image = [UIImage imageNamed:@"sterts_tab.png"];
+            //UIImage *image = [UIImage imageNamed:@"sterts_tab.png"];
         //[tbi setImage:image];
         
 
         //self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width - 30, self.view.frame.size.height - 30);
-        
+        NSString *username = [[[StertItemStore sharedStore] CurrentUser] username ];
+        [usernameField setText:username];
     }
     
     return self;
@@ -61,6 +61,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) setMainController:(mainViewController *) mvc
+{
+    main = mvc;
 }
 
 - (IBAction)loginButtonClick:(id)sender {
@@ -90,15 +95,70 @@
     
 }
 
+
+
+- (NSString *) itemArchivePath
+{
+    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    //get one and only documemnt directory from that list
+    NSString *documentDirectory = [documentDirectories objectAtIndex:0];
+    return [documentDirectory stringByAppendingPathComponent:@"user.archive"];
+    
+}
+
+- (BOOL) saveChanges
+{
+    
+    NSLog(@"SAVING");
+    
+    // returns success or failure
+    NSString *path = [self itemArchivePath];
+    //NSLog(@"%@", path);
+    User *temp = [[User alloc] init];
+                  [temp setUsername:@"t"];
+                  [temp setPassword:@"t"];
+    temp = [[StertItemStore sharedStore] CurrentUser];
+    //OOL success = [NSKeyedArchiver archiveRootObject:[[StertItemStore sharedStore] CurrentUser] toFile:path];
+                  BOOL success = [NSKeyedArchiver archiveRootObject:temp toFile:path];
+    if (success) {
+        NSLog(@"Saved the current user");
+    } else {
+        NSLog(@"Could not save the current user");
+    }
+    //NSLog(@"Path:%@", path);
+    return success;
+}
+
+- (void) loadUserFromArchive
+{
+    NSString *path = [self itemArchivePath];
+    User *tempUser =  [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    [[StertItemStore sharedStore] setCurrentUser:tempUser];
+    NSLog(@"trying to load user");
+    if (!tempUser) {
+        NSLog(@"No User in archive");
+    }
+    else {
+        NSLog(@"User:%@", tempUser);
+    }
+}
+
+
 - (IBAction)cancelButtonClick:(id)sender {
     
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-    
+       
+   // [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    [self saveChanges];
 }
 
 - (IBAction)usernameFieldDone:(id)sender {
 }
 
 - (IBAction)passwordFieldDone:(id)sender {
+}
+
+- (IBAction)checkButtonClick:(id)sender {
+    [self loadUserFromArchive];
+
 }
 @end

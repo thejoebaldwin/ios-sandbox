@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "User.h"
 
 @class StertItem;
 
@@ -23,8 +24,10 @@
     NSString *authToken;
     UIViewController *owner;
     NSString *loadCompleteSelector;
+ 
 }
-
+- (void) loadUserFromArchive;
+- (BOOL) isLoggedIn;
 - (NSMutableArray *) allItems;
 - (StertItem *) createItem;
 - (NSString *) authToken;
@@ -34,8 +37,9 @@
 - (void) loadWithOwner:(UIViewController *) withOwner withSelector:(NSString*) withSelector;
 - (void) removeItem:(StertItem *) s;
 - (NSString *) getAuthToken:(NSString *) username withPassword:(NSString *) password;
-
+- (NSString *) itemArchivePath;
 + (StertItemStore *) sharedStore;
-
+- (BOOL) saveChanges;
+@property (nonatomic, retain) User *CurrentUser;
 
 @end
