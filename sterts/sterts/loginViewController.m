@@ -113,6 +113,23 @@
 
 
 
+- (void) returnToForm
+{
+    UITabBarController *test = [self presentingViewController];
+    mainViewController *m = [test selectedViewController];
+
+    
+    void (^block)(void) = ^{
+        NSLog(@"Insode block 2");
+        [m loadComplete];
+    };
+    
+    
+    
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:block];
+
+}
+
 //fires on json request to load user
 - (void) loadComplete
 {
@@ -122,23 +139,27 @@
     [tempUser setPassword:[passwordField text]];
     //NSLog(@"User Retrieved:%@", tempUser);
     [self saveChanges];
-    UIAlertView *uv = [[UIAlertView alloc] initWithTitle:@"Success" message:@"You Have Successfully Logged in" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-    [uv show];
+    //UIAlertView *uv = [[UIAlertView alloc] initWithTitle:@"Success" message:@"You Have Successfully Logged in" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    //[uv show];
     
-    UITabBarController *test = [self presentingViewController];
-    mainViewController *m = [test selectedViewController];
-    
+      
     void (^block)(void) = ^{
         NSLog(@"inside LVC calling block");
-        [m loadCompleteFromLogin];
+        //[m loadCompleteFromLogin];
+        [self returnToForm];
+              
+        
+        
+       
+        
+        
         //[[StertItemStore sharedStore] loadSterts:self withSelector:@"loadComplete"];
     };
     //  NSLog(@"%@    ||   %@", test, [test selectedViewController]);
 
+     [[StertItemStore sharedStore] loadSterts:nil withSelector:@"loadComplete" withBlock:block];
     
     
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:block];
-
 }
 
 

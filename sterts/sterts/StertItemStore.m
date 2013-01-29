@@ -47,11 +47,12 @@
     
 }
 
-- (void) loadSterts:(UIViewController *) withOwner withSelector:(NSString *) completionSelector;
+
+- (void) loadSterts:(UIViewController *) withOwner withSelector:(NSString *) completionSelector withBlock:(void(^)(void)) block;
 {
     owner = withOwner;
     loadCompleteSelector = completionSelector;
-    
+    completion = block;
     //if (CurrentUser) {
     
    [self fetchEntries:allStertsURL];
@@ -191,8 +192,8 @@
                 
                 
             }
-            [owner performSelector:NSSelectorFromString(loadCompleteSelector)];
-
+            //[owner performSelector:NSSelectorFromString(loadCompleteSelector)];
+            completion();
             
         }
         else if (  [operation isEqualToString: @"deletestert"]  ) {

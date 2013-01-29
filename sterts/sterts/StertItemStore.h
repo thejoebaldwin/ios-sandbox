@@ -24,10 +24,16 @@
     NSString *authToken;
     UIViewController *owner;
     NSString *loadCompleteSelector;
- 
+    //__block void (^_strong)(void) completion;
+    void (^completion)(void);
+
+    //__block  completion;
+
+
+    
 }
 
-- (void) loadSterts:(UIViewController *) withOwner withSelector:(NSString *) completionSelector;
+- (void) loadSterts:(UIViewController *) withOwner withSelector:(NSString *) completionSelector withBlock:(void(^)(void)) block;
 - (void) loadUserFromArchive;
 - (BOOL) isLoggedIn;
 - (NSMutableArray *) allItems;

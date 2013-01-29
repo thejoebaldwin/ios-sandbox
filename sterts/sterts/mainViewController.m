@@ -72,8 +72,12 @@
     }
     else {
         
+        void (^block)(void) = ^{
+            [self loadComplete];
+                };
         
-        [[StertItemStore sharedStore] loadSterts:self withSelector:@"loadComplete"];
+        
+        [[StertItemStore sharedStore] loadSterts:self withSelector:@"loadComplete" withBlock:block];
         
         
         
@@ -105,13 +109,14 @@
 
 
 -(void) loadCompleteFromLogin
-
 {
+  NSLog(@"Inside loadcompletefromlogin");
     
+    void (^block)(void) = ^{
+        [self loadComplete];
+    };
     
-    
-    NSLog(@"Inside load complete fromlogin");
-      [[StertItemStore sharedStore] loadSterts:self withSelector:@"loadComplete"];
+    [[StertItemStore sharedStore] loadSterts:self withSelector:@"loadComplete" withBlock:block];
 }
 
 
@@ -137,8 +142,9 @@
         
         NSString* createdString = [formatter stringFromDate:[tempStertItem created]];
         [lastUpdatedLabel setText:createdString];
-
-       
+ 
+        [self.tabBarController.tabBar setHidden:NO];
+    
          
 }
 

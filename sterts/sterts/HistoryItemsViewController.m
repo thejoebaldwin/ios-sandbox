@@ -126,6 +126,7 @@
 -(void) refresh:(id)sender
 {
      [[self tableView] reloadData];
+        NSLog(@"%@", [[[StertItemStore sharedStore] allItems] lastObject]);
 }
 
 @end

@@ -37,6 +37,8 @@
     
     UITabBarController *tabBarController = [[UITabBarController alloc] init];
 
+    tabBarController.tabBar.hidden = YES;
+    
     [tabBarController setViewControllers:viewControllers];
     [[self window] setRootViewController:tabBarController];
     
