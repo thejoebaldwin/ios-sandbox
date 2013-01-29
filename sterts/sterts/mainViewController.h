@@ -29,9 +29,9 @@
 
 
 - (BOOL) saveChanges;
-
+- (void) loadCompleteFromLogin;
 - (IBAction)postButton:(id)sender;
-
+-(void) loadComplete;
 - (IBAction) updateHitpointsLabel:(id)sender;
 - (IBAction) updateManaLabel:(id)sender;
 - (IBAction) go3DView:(id) sender;

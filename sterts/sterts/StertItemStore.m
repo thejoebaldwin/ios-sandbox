@@ -47,10 +47,22 @@
     
 }
 
-- (void) loadSterts
+- (void) loadSterts:(UIViewController *) withOwner withSelector:(NSString *) completionSelector;
 {
-
+    owner = withOwner;
+    loadCompleteSelector = completionSelector;
+    
+    //if (CurrentUser) {
+    
    [self fetchEntries:allStertsURL];
+        
+    //} else
+        
+    //{
+        //[owner performSelector:NSSelectorFromString(loadCompleteSelector)];
+
+    //}
+    
 }
 
 
@@ -121,70 +133,23 @@
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil];
     //NSLog(@"ReturnedData=%@", json);
     
-    if ([json objectForKey:@"sterts"]){
-        [allItems removeAllObjects];
-        
-        NSLog(@"Sterts JSON");
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        
-        for (int i = 0; i < [json[@"sterts"] count]; i++ )
-        {
-            StertItem *tempStertItem = [[StertItem alloc] init];
-            [tempStertItem setHitpoints:[json[@"sterts"][i][@"hitpoints"]  intValue ]];
-            [tempStertItem setMana:[json[@"sterts"][i][@"mana"]  intValue ]];
-            [tempStertItem setCreated:[dateFormatter dateFromString: [NSString stringWithFormat:@"%@", json[@"sterts"][i][@"created"] ] ]];
-            [tempStertItem setID:[json[@"sterts"][i][@"id"]  intValue ]];
-            //display the most recent stert
-            if (i == 0) {
-                
-                NSLog(@"%@", tempStertItem);
-                
-            }
-            
-            [[StertItemStore sharedStore] addItems:tempStertItem];
-            
-
-            
-        }
-        [owner performSelector:NSSelectorFromString(loadCompleteSelector)];
-
-    } else if ([json objectForKey:@"auth"]){
-        if (json[@"auth"][@"success"]) {
-            authToken =  json[@"auth"][@"token"];
-            if (!CurrentUser)
-            {
-                CurrentUser = [[User alloc] init];
-            }
-            [CurrentUser setAuthToken:json[@"auth"][@"token"]];
-            [CurrentUser setUsername:json[@"auth"][@"username"]];
-            NSLog(@"AuthToken:%@", authToken);
-            
-        } else {
-            NSLog(@"Auth Token Fail");
-          
-        }
-           [owner performSelector:NSSelectorFromString(loadCompleteSelector)];
-        
-    
-        
-    }else {
+    if ([json objectForKey:@"response"]){
+       
         //this is returned on item create
-        NSLog(@"response JSON");
+        //NSLog(@"response JSON");
+        NSString *operation = json[@"response"][@"operation"];
+        NSLog(@"Operation:%@", operation);
+        //NSLog(@"%@", json);
         
-        
-        NSLog(@"%@", json[@"response"][@"operation"] );
-        
-        if (   [json[@"response"][@"operation"]  isEqualToString: @"add"] ) {
+        if (  [operation isEqualToString: @"addstert"] ) {
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             
             StertItem *tempStertItem = [[StertItem alloc] init];
-            [tempStertItem setHitpoints:[json[@"response"][@"hitpoints"]  intValue ]];
-            [tempStertItem setMana:[json[@"response"][@"mana"]  intValue ]];
-            [tempStertItem setCreated:[dateFormatter dateFromString: [NSString stringWithFormat:@"%@", json[@"response"][@"created"] ] ]];
-            [tempStertItem setID:[json[@"response"][@"id"]  intValue ]];
+            [tempStertItem setHitpoints:[json[@"response"][@"sterts"][0][@"hitpoints"]  intValue ]];
+            [tempStertItem setMana:[json[@"response"][@"sterts"][0][@"mana"]  intValue ]];
+            [tempStertItem setCreated:[dateFormatter dateFromString: [NSString stringWithFormat:@"%@", json[@"response"][@"sterts"][0][@"created"] ] ]];
+            [tempStertItem setID:[json[@"response"][@"sterts"][0][@"id"]  intValue ]];
             //display the most recent stert
             [[StertItemStore sharedStore] insertItem:tempStertItem];
             
@@ -199,7 +164,38 @@
             
             [av show];
         }
-        else if (  [json[@"response"][@"operation"]  isEqualToString: @"delete"]  ) {
+        else if (  [operation isEqualToString: @"liststerts"]  ) {
+            
+            [allItems removeAllObjects];
+            
+                        
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            
+            for (int i = 0; i < [json[@"response"][@"sterts"] count]; i++ )
+            {
+                StertItem *tempStertItem = [[StertItem alloc] init];
+                [tempStertItem setHitpoints:[json[@"response"][@"sterts"][i][@"hitpoints"]  intValue ]];
+                [tempStertItem setMana:[json[@"response"][@"sterts"][i][@"mana"]  intValue ]];
+                [tempStertItem setCreated:[dateFormatter dateFromString: [NSString stringWithFormat:@"%@", json[@"response"][@"sterts"][i][@"created"] ] ]];
+                [tempStertItem setID:[json[@"response"][@"sterts"][i][@"id"]  intValue ]];
+                //display the most recent stert
+                if (i == 0) {
+                    
+                    NSLog(@"%@", tempStertItem);
+                    
+                }
+                
+                [[StertItemStore sharedStore] addItems:tempStertItem];
+                
+                
+                
+            }
+            [owner performSelector:NSSelectorFromString(loadCompleteSelector)];
+
+            
+        }
+        else if (  [operation isEqualToString: @"deletestert"]  ) {
             
             UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"Success"
                                                          message:@"Your stats have been deleted."
@@ -211,7 +207,24 @@
           //  [av show];
 
         }
-        
+           else if (  [operation isEqualToString: @"authuser"]  ) {
+               
+               
+               
+               
+               
+               authToken =  json[@"response"][@"user"][@"token"];
+               if (!CurrentUser)
+               {
+                   CurrentUser = [[User alloc] init];
+               }
+               [CurrentUser setAuthToken:json[@"response"][@"user"][@"token"]];
+               [CurrentUser setUsername:json[@"response"][@"user"][@"username"]];
+               NSLog(@"AuthToken:%@", authToken);
+
+             [owner performSelector:NSSelectorFromString(loadCompleteSelector)];
+           
+           }
         
 
     }
@@ -243,7 +256,6 @@
 {
     owner = withOwner;
     loadCompleteSelector = withSelector;
-    //[self fetchEntries:allStertsURL];
 }
 
 
@@ -328,49 +340,8 @@
 {
     owner = thisOwner;
     loadCompleteSelector = withSelector;
-
-    
-    
     NSString *hash = [self getAuthHash:password];
     NSString* JSON = [[NSString alloc] initWithFormat: @"{\"auth\":{ \"username\":\"%@\", \"hash\":\"%@\"}}", username, hash];
     [self postDataWithUrl:authURL withJSON:JSON];
 }
-
-/*
-
-- (NSString *) itemArchivePath
-{
-    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    //get one and only documemnt directory from that list
-    NSString *documentDirectory = [documentDirectories objectAtIndex:0];
-    return [documentDirectory stringByAppendingPathComponent:@"user.archive"];
-    
-}
-
-- (BOOL) saveChanges
-{
-    // returns success or failure
-    NSString *path = [self itemArchivePath];
-    //NSLog(@"%@", path);
-    
-    BOOL success = [NSKeyedArchiver archiveRootObject:currentUser toFile:path];
-    if (success) {
-        NSLog(@"Saved the current user");
-    } else {
-        NSLog(@"Could not save the current user");
-    }
-    //NSLog(@"Path:%@", path);
-    return success;
-}
-
-- (void) loadUserFromArchive
-{
-    NSString *path = [self itemArchivePath];
-    id temp = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-    
-    if (!temp) {
-        NSLog(@"No Current User Found!--> %@", temp);
-    }
-}
-*/
 @end

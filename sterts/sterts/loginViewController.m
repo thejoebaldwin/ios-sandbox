@@ -16,7 +16,7 @@
 
 @implementation loginViewController
 
-@synthesize usernameField, passwordField;
+@synthesize usernameField, passwordField, activity;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,13 +32,7 @@
     
     self = [super init];
     if (self) {
-            //UIImage *image = [UIImage imageNamed:@"sterts_tab.png"];
-        //[tbi setImage:image];
-        
-
-        //self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width - 30, self.view.frame.size.height - 30);
-        
-    }
+             }
     
     return self;
     
@@ -77,6 +71,8 @@
 - (IBAction)loginButtonClick:(id)sender {
     
     
+    [activity startAnimating];
+    
     NSString *username = [usernameField text];
     NSString *password = [passwordField text];
     //use the password to encrypt something. username plus date?
@@ -103,7 +99,7 @@
 {
     NSString *path = [self itemArchivePath];
     User *tempUser =  [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-    NSLog(@"trying to load user");
+    //NSLog(@"trying to load user");
     if (!tempUser) {
         NSLog(@"No User in archive");
     }
@@ -120,10 +116,29 @@
 //fires on json request to load user
 - (void) loadComplete
 {
+    [activity stopAnimating];
+    
     User *tempUser = [[StertItemStore sharedStore]  CurrentUser ];
     [tempUser setPassword:[passwordField text]];
-    NSLog(@"User Retrieved:%@", tempUser);
+    //NSLog(@"User Retrieved:%@", tempUser);
     [self saveChanges];
+    UIAlertView *uv = [[UIAlertView alloc] initWithTitle:@"Success" message:@"You Have Successfully Logged in" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [uv show];
+    
+    UITabBarController *test = [self presentingViewController];
+    mainViewController *m = [test selectedViewController];
+    
+    void (^block)(void) = ^{
+        NSLog(@"inside LVC calling block");
+        [m loadCompleteFromLogin];
+        //[[StertItemStore sharedStore] loadSterts:self withSelector:@"loadComplete"];
+    };
+    //  NSLog(@"%@    ||   %@", test, [test selectedViewController]);
+
+    
+    
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:block];
+
 }
 
 
@@ -131,17 +146,9 @@
 - (BOOL) saveChanges
 {
     
-    NSLog(@"SAVING");
-    
-    // returns success or failure
+      
     NSString *path = [self itemArchivePath];
     
-    
-    //THIS IS WORKING HERE
-    //IT KNOWS WHEN ITS STORED A NULL VALUE
-    
-    
-    //THIS IS NOT WORKING
     User *temp = [[StertItemStore sharedStore] CurrentUser];
     
     if (!temp) {
@@ -164,9 +171,9 @@
 
 - (IBAction)cancelButtonClick:(id)sender {
     
-       
+   
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-    //[self saveChanges];
+   
     
 }
 
@@ -179,6 +186,12 @@
 - (IBAction)checkButtonClick:(id)sender {
     
     [self loadUserFromArchive];
+    
+    UITabBarController *test = [self presentingViewController];
+    mainViewController *m = [test selectedViewController];
+    
+    NSLog(@"%@    ||   %@", test, [test selectedViewController]);
+    
 
 }
 @end

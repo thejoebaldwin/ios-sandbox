@@ -27,7 +27,7 @@
  
 }
 
-- (void) loadSterts;
+- (void) loadSterts:(UIViewController *) withOwner withSelector:(NSString *) completionSelector;
 - (void) loadUserFromArchive;
 - (BOOL) isLoggedIn;
 - (NSMutableArray *) allItems;

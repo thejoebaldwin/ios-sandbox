@@ -33,7 +33,7 @@
     //[aCoder encodeObject:email forKey:@"email"];
     [aCoder encodeObject:authToken forKey:@"authToken"];
     //[aCoder encodeObject:authTokenExpires forKey:@"authTokenExpires"];
-    NSLog(@"user getting encoded");
+    NSLog(@"user encoded");
     
 }
 
@@ -45,7 +45,18 @@
     return self;
 }
  */
-
+- (BOOL) IsLoggedIn
+{
+    if ([username isEqualToString:@""])
+    {
+        return NO;
+    }
+    else
+    {
+        return YES;
+    }
+    
+}
 
 - (id) initWithCoder:(NSCoder *)aDecoder
 {
@@ -59,7 +70,7 @@
        // [self setEmail:[aDecoder decodeObjectForKey:@"email"]];
         [self setAuthToken:[aDecoder decodeObjectForKey:@"authToken"]];
         //[self setAuthTokenExpires:[aDecoder decodeObjectForKey:@"authTokenExpires"]];
-        NSLog(@"user getting decoded");
+        NSLog(@"user decoded");
     }
     return self;
 }
