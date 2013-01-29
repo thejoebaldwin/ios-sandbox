@@ -17,12 +17,11 @@
 {
     self = [super init];
     if (self) {
-        allItems = [[NSMutableArray alloc] init];
         allStertsURL =  @"http://sterts.humboldttechgroup.com/web/app_dev.php/v1/get/sterts";
         postStertURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/v1/post";
         removeStertURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/v1/remove";
         authURL = @"http://sterts.humboldttechgroup.com/web/app_dev.php/v1/auth";
-      
+          allItems = [[NSMutableArray alloc] init];
        // [self loadUserFromArchive];
         
     }
@@ -48,6 +47,11 @@
     
 }
 
+- (void) loadSterts
+{
+
+   [self fetchEntries:allStertsURL];
+}
 
 
 -(StertItem *) createItem
@@ -149,15 +153,21 @@
     } else if ([json objectForKey:@"auth"]){
         if (json[@"auth"][@"success"]) {
             authToken =  json[@"auth"][@"token"];
-            [CurrentUser setAuthToken:authToken];
+            if (!CurrentUser)
+            {
+                CurrentUser = [[User alloc] init];
+            }
+            [CurrentUser setAuthToken:json[@"auth"][@"token"]];
             [CurrentUser setUsername:json[@"auth"][@"username"]];
-
-            //[self saveChanges];
-                    } else {
+            NSLog(@"AuthToken:%@", authToken);
+            
+        } else {
             NSLog(@"Auth Token Fail");
+          
         }
+           [owner performSelector:NSSelectorFromString(loadCompleteSelector)];
         
-        NSLog(@"AuthToken:%@", authToken);
+    
         
     }else {
         //this is returned on item create
@@ -229,11 +239,11 @@
 
 }
 
--(void) loadWithOwner:(UIViewController *) withOwner withSelector:(NSString *) withSelector;
+-(void) loadWithOwner:(UIViewController *) withOwner completionSelector:(NSString *) withSelector;
 {
     owner = withOwner;
     loadCompleteSelector = withSelector;
-    [self fetchEntries:allStertsURL];
+    //[self fetchEntries:allStertsURL];
 }
 
 
@@ -314,16 +324,16 @@
 
 }
 
-- (NSString *) getAuthToken:(NSString *) username withPassword:(NSString *) password
+- (void) getAuthToken:(NSString *) username withPassword:(NSString *) password withOwner:(UIViewController *) thisOwner completionSelector:(NSString*) withSelector
 {
-   
+    owner = thisOwner;
+    loadCompleteSelector = withSelector;
+
+    
+    
     NSString *hash = [self getAuthHash:password];
-    
     NSString* JSON = [[NSString alloc] initWithFormat: @"{\"auth\":{ \"username\":\"%@\", \"hash\":\"%@\"}}", username, hash];
-    //NSLog(@"%@", JSON);
     [self postDataWithUrl:authURL withJSON:JSON];
-    return @"nothing yet";
-    
 }
 
 /*

@@ -26,6 +26,8 @@
     NSString *loadCompleteSelector;
  
 }
+
+- (void) loadSterts;
 - (void) loadUserFromArchive;
 - (BOOL) isLoggedIn;
 - (NSMutableArray *) allItems;
@@ -34,9 +36,9 @@
 - (void) addItems:(StertItem * ) addItem;
 - (void) insertItem:(StertItem * ) insertItem;
 - (void) addItemWithHitpoints:(int) hitpoints withMana:(int) mana;
-- (void) loadWithOwner:(UIViewController *) withOwner withSelector:(NSString*) withSelector;
+- (void) loadWithOwner:(UIViewController *) withOwner completionSelector:(NSString*) withSelector;
 - (void) removeItem:(StertItem *) s;
-- (NSString *) getAuthToken:(NSString *) username withPassword:(NSString *) password;
+- (void) getAuthToken:(NSString *) username withPassword:(NSString *) password withOwner:(UIViewController *) thisOwner completionSelector:(NSString*) withSelector;
 - (NSString *) itemArchivePath;
 + (StertItemStore *) sharedStore;
 - (BOOL) saveChanges;

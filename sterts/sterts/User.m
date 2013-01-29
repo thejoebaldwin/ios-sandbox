@@ -27,7 +27,7 @@
 - (void) encodeWithCoder:(NSCoder *)aCoder
 {
     [aCoder encodeObject:username forKey:@"username"];
-    //[aCoder encodeObject:password forKey:@"password"];
+    [aCoder encodeObject:password forKey:@"password"];
     //[aCoder encodeObject:firstName forKey:@"firstName"];
     //[aCoder encodeObject:lastName forKey:@"lastName"];
     //[aCoder encodeObject:email forKey:@"email"];
@@ -37,14 +37,23 @@
     
 }
 
+/*
 - (id) initWithCoder:(NSCoder *)aDecoder
 {
-       NSLog(@"init with coder called");
+    NSLog(@"init with coder called");
+    self = [super init];
+    return self;
+}
+ */
+
+
+- (id) initWithCoder:(NSCoder *)aDecoder
+{
     self = [super init];
  
     if (self) {
         [self setUsername:[aDecoder decodeObjectForKey:@"username"]];
-        //[self setPassword:[aDecoder decodeObjectForKey:@"password"]];
+        [self setPassword:[aDecoder decodeObjectForKey:@"password"]];
         //[self setFirstName:[aDecoder decodeObjectForKey:@"firstName"]];
         //[self setLastName:[aDecoder decodeObjectForKey:@"lastName"]];
        // [self setEmail:[aDecoder decodeObjectForKey:@"email"]];

@@ -37,8 +37,7 @@
         
 
         //self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y, self.view.frame.size.width - 30, self.view.frame.size.height - 30);
-        NSString *username = [[[StertItemStore sharedStore] CurrentUser] username ];
-        [usernameField setText:username];
+        
     }
     
     return self;
@@ -55,6 +54,13 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    User *temp = [[StertItemStore sharedStore] CurrentUser];
+    if (temp) {
+        [usernameField setText:[temp username]];
+        [passwordField setText:[temp password]];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,22 +81,7 @@
     NSString *password = [passwordField text];
     //use the password to encrypt something. username plus date?
     
-
-    
-    //contruct json request to post
-    
-    
-    //if successful, save username and password
-    
-    //if not need to communication bad login to user
-    
-    
-    
-    //need a completion block on this call!!!
-    
-    [[StertItemStore sharedStore] getAuthToken:username withPassword:password];
-    
-    //[[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+  [[StertItemStore sharedStore] getAuthToken:username withPassword:password withOwner:self completionSelector:@"loadComplete"];
 
     
 }
@@ -106,6 +97,37 @@
     
 }
 
+
+
+- (void) loadUserFromArchive
+{
+    NSString *path = [self itemArchivePath];
+    User *tempUser =  [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    NSLog(@"trying to load user");
+    if (!tempUser) {
+        NSLog(@"No User in archive");
+    }
+    else {
+        NSLog(@"Restored User:%@", tempUser);
+    }
+    
+    [[StertItemStore sharedStore] setCurrentUser:tempUser];
+    
+}
+
+
+
+//fires on json request to load user
+- (void) loadComplete
+{
+    User *tempUser = [[StertItemStore sharedStore]  CurrentUser ];
+    [tempUser setPassword:[passwordField text]];
+    NSLog(@"User Retrieved:%@", tempUser);
+    [self saveChanges];
+}
+
+
+
 - (BOOL) saveChanges
 {
     
@@ -113,15 +135,25 @@
     
     // returns success or failure
     NSString *path = [self itemArchivePath];
-    //NSLog(@"%@", path);
-    User *temp = [[User alloc] init];
-                  [temp setUsername:@"t"];
-                  [temp setPassword:@"t"];
-    temp = [[StertItemStore sharedStore] CurrentUser];
-    //OOL success = [NSKeyedArchiver archiveRootObject:[[StertItemStore sharedStore] CurrentUser] toFile:path];
-                  BOOL success = [NSKeyedArchiver archiveRootObject:temp toFile:path];
+    
+    
+    //THIS IS WORKING HERE
+    //IT KNOWS WHEN ITS STORED A NULL VALUE
+    
+    
+    //THIS IS NOT WORKING
+    User *temp = [[StertItemStore sharedStore] CurrentUser];
+    
+    if (!temp) {
+        temp = [[User alloc] init];
+        [temp setUsername:@"t"];
+        [temp setPassword:@"t"];
+        
+    }
+   
+    BOOL success = [NSKeyedArchiver archiveRootObject:temp toFile:path];
     if (success) {
-        NSLog(@"Saved the current user");
+        NSLog(@"Saved the current user:%@", temp);
     } else {
         NSLog(@"Could not save the current user");
     }
@@ -129,26 +161,13 @@
     return success;
 }
 
-- (void) loadUserFromArchive
-{
-    NSString *path = [self itemArchivePath];
-    User *tempUser =  [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-    [[StertItemStore sharedStore] setCurrentUser:tempUser];
-    NSLog(@"trying to load user");
-    if (!tempUser) {
-        NSLog(@"No User in archive");
-    }
-    else {
-        NSLog(@"User:%@", tempUser);
-    }
-}
-
 
 - (IBAction)cancelButtonClick:(id)sender {
     
        
-   // [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
-    [self saveChanges];
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+    //[self saveChanges];
+    
 }
 
 - (IBAction)usernameFieldDone:(id)sender {
@@ -158,6 +177,7 @@
 }
 
 - (IBAction)checkButtonClick:(id)sender {
+    
     [self loadUserFromArchive];
 
 }

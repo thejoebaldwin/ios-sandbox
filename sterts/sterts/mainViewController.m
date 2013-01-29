@@ -22,8 +22,14 @@
     self = [super init];
     
     if (self) {
-        [[StertItemStore sharedStore] loadWithOwner:self withSelector:@"loadComplete"];
+        [[StertItemStore sharedStore] loadWithOwner:self completionSelector:@"loadComplete"];
+        
+        //[self loadUserFromArchive];
+        [[StertItemStore sharedStore] loadSterts];
+
+        
              //set up tab
+        //[[StertItemStore sharedStore] loadSterts];
         UITabBarItem *tbi = [self tabBarItem];
         [tbi setTitle:@"Main"];
         UIImage *image = [UIImage imageNamed:@"sterts_tab.png"];
@@ -33,6 +39,9 @@
     return self;
 }
 
+
+//this has to go somewhere else, duplicated in login view controller.
+//should login view be presented first with login animation, then if successful load to main?
 
 
 - (NSString *) itemArchivePath
@@ -44,52 +53,33 @@
     
 }
 
-- (BOOL) saveChanges
-{
-    
-    NSLog(@"SAVING");
-    
-    // returns success or failure
-    NSString *path = [self itemArchivePath];
-    //NSLog(@"%@", path);
-    
-    BOOL success = [NSKeyedArchiver archiveRootObject:[[StertItemStore sharedStore] CurrentUser] toFile:path];
-    if (success) {
-        NSLog(@"Saved the current user");
-    } else {
-        NSLog(@"Could not save the current user");
-    }
-    //NSLog(@"Path:%@", path);
-    return success;
-}
+
 
 - (void) loadUserFromArchive
 {
     NSString *path = [self itemArchivePath];
     User *tempUser =  [NSKeyedUnarchiver unarchiveObjectWithFile:path];
-    [[StertItemStore sharedStore] setCurrentUser:tempUser];
     NSLog(@"trying to load user");
     if (!tempUser) {
         NSLog(@"No User in archive");
     }
     else {
-        NSLog(@"User:%@", tempUser);
+        NSLog(@"Restored User:%@", tempUser);
     }
+    
+    [[StertItemStore sharedStore] setCurrentUser:tempUser];
+    
 }
 
 
-//-(void) viewDidLoad
-//{
-    
-//}
 
 -(void) loadComplete
 {
-
-    
-    //need to have it so this prevents loading if not logged in
+        //need to have it so this prevents loading if not logged in
     //also fix json request to require user id and auth token
     //also fix json post to contain user id and auth token
+    //[self loadUserFromArchive];
+    
     [self loadUserFromArchive];
     
     if (  [[StertItemStore sharedStore] isLoggedIn]) {
@@ -103,10 +93,6 @@
         
     }
 
-    
-    
-    
-    
     StertItem *tempStertItem = [[[StertItemStore sharedStore] allItems] objectAtIndex:0];
     
     [hitpointSlider setValue:(float)[tempStertItem hitpoints]];
@@ -121,10 +107,6 @@
     
     NSString* createdString = [formatter stringFromDate:[tempStertItem created]];
     [lastUpdatedLabel setText:createdString];
-    
-    
-    
-    
     
 }
 
