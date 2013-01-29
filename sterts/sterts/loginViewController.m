@@ -118,15 +118,26 @@
     UITabBarController *test = [self presentingViewController];
     mainViewController *m = [test selectedViewController];
 
+
     
-    void (^block)(void) = ^{
-        NSLog(@"Insode block 2");
-        [m loadComplete];
-    };
+    if (test.selectedIndex > 0)
+    {
+        [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+
+    }
+    else
+    {
+        void (^block)(void) = ^{
+            NSLog(@"Inside block 2");
+            [m loadComplete];
+        };
+        
+        
+        
+        [[self presentingViewController] dismissViewControllerAnimated:YES completion:block];
+    }
     
-    
-    
-    [[self presentingViewController] dismissViewControllerAnimated:YES completion:block];
+ 
 
 }
 
@@ -214,5 +225,15 @@
     NSLog(@"%@    ||   %@", test, [test selectedViewController]);
     
 
+}
+- (IBAction)logoutButtonClick:(id)sender {
+    
+      [[StertItemStore sharedStore] setCurrentUser:nil];
+    
+    [[[StertItemStore sharedStore] allItems] removeAllObjects];
+    
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *path = [self itemArchivePath];
+    [fm removeItemAtPath:path error:nil];
 }
 @end

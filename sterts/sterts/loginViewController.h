@@ -22,5 +22,6 @@
 - (IBAction)passwordFieldDone:(id)sender;
 - (IBAction)checkButtonClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
+- (IBAction)logoutButtonClick:(id)sender;
 
 @end

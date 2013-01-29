@@ -54,8 +54,7 @@
     
     if (![[[StertItemStore sharedStore] CurrentUser] IsLoggedIn])
     {
-        //VIEW DID LOAD NO USER EXIST
-        
+              
         
         NSLog(@"INSIDE VIEW DID NO USER EXIST");
         
@@ -71,14 +70,23 @@
         
     }
     else {
+
         
-        void (^block)(void) = ^{
-            [self loadComplete];
-                };
+        if ( [[[StertItemStore sharedStore] allItems] count] == 0)
+       {
+           void (^block)(void) = ^{
+               [self loadComplete];
+               
+           };
+           
+           
+           [[StertItemStore sharedStore] loadSterts:self withSelector:@"loadComplete" withBlock:block];
+
+           
+       }
         
         
-        [[StertItemStore sharedStore] loadSterts:self withSelector:@"loadComplete" withBlock:block];
-        
+              
         
         
     }
