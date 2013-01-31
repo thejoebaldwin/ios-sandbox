@@ -218,7 +218,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Humboldt Technology Group, LLC";
 			};
-			buildConfigurationList = D88D7A04169E0AB900F81CAF /* Build configuration list for PBXProject "Sterts" */;
+			buildConfigurationList = D88D7A04169E0AB900F81CAF /* Build configuration list for PBXProject "sterts" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -373,7 +373,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D88D7A04169E0AB900F81CAF /* Build configuration list for PBXProject "Sterts" */ = {
+		D88D7A04169E0AB900F81CAF /* Build configuration list for PBXProject "sterts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D88D7A26169E0ABA00F81CAF /* Debug */,

@@ -58,11 +58,8 @@
 		436F546013552C0400F6433F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436F545F13552C0400F6433F /* UIKit.framework */; };
 		436F546213552C0400F6433F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436F546113552C0400F6433F /* Foundation.framework */; };
 		436F546413552C0400F6433F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436F546313552C0400F6433F /* CoreGraphics.framework */; };
-		436F546813552C0400F6433F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F546713552C0400F6433F /* Default.png */; };
 		436F546A13552C0400F6433F /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F546913552C0400F6433F /* fps_images.png */; };
 		436F546C13552C0400F6433F /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F546B13552C0400F6433F /* Icon-72.png */; };
-		436F547413552C0400F6433F /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F547313552C0400F6433F /* Icon.png */; };
-		436F547613552C0400F6433F /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F547513552C0400F6433F /* Icon@2x.png */; };
 		436F547913552C0400F6433F /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 436F547813552C0400F6433F /* iTunesArtwork */; };
 		436F547D13552C0400F6433F /* CCAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F547C13552C0400F6433F /* CCAction.m */; };
 		436F548013552C0400F6433F /* CCActionCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F547F13552C0400F6433F /* CCActionCamera.m */; };
@@ -323,6 +320,8 @@
 		43D67F9F137E82BA00BC6A49 /* forest_birds_ambience.caf in Resources */ = {isa = PBXBuildFile; fileRef = 43D67F9E137E82BA00BC6A49 /* forest_birds_ambience.caf */; };
 		43EB1F4A1386CE3100FFBAD5 /* piano_black_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EB1F481386CE3100FFBAD5 /* piano_black_key.png */; };
 		43EB1F4B1386CE3100FFBAD5 /* piano_white_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EB1F491386CE3100FFBAD5 /* piano_white_key.png */; };
+		97953BE316BA44CC002EFC3B /* BlurryBlob.png in Resources */ = {isa = PBXBuildFile; fileRef = 97953BE216BA44CC002EFC3B /* BlurryBlob.png */; };
+		97953BE716BA4901002EFC3B /* DLRenderTexture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97953BE616BA4901002EFC3B /* DLRenderTexture.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -857,6 +856,9 @@
 		43D67F9E137E82BA00BC6A49 /* forest_birds_ambience.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = forest_birds_ambience.caf; sourceTree = "<group>"; };
 		43EB1F481386CE3100FFBAD5 /* piano_black_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piano_black_key.png; sourceTree = "<group>"; };
 		43EB1F491386CE3100FFBAD5 /* piano_white_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piano_white_key.png; sourceTree = "<group>"; };
+		97953BE216BA44CC002EFC3B /* BlurryBlob.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlurryBlob.png; sourceTree = "<group>"; };
+		97953BE516BA4901002EFC3B /* DLRenderTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRenderTexture.h; sourceTree = "<group>"; };
+		97953BE616BA4901002EFC3B /* DLRenderTexture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DLRenderTexture.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1021,6 +1023,7 @@
 				436F563A13552CAA00F6433F /* Includes.h */,
 				436F563B13552CAA00F6433F /* Helpers.h */,
 				436F563C13552CAA00F6433F /* Recipe.mm */,
+				97953BE216BA44CC002EFC3B /* BlurryBlob.png */,
 				436F563D13552CAA00F6433F /* Recipe.h */,
 				436F563E13552CAA00F6433F /* MainLayer.mm */,
 				436F563F13552CAA00F6433F /* MainLayer.h */,
@@ -1502,6 +1505,8 @@
 			isa = PBXGroup;
 			children = (
 				436F56CA13552CD800F6433F /* Ch4_BasicSetup.h */,
+				97953BE516BA4901002EFC3B /* DLRenderTexture.h */,
+				97953BE616BA4901002EFC3B /* DLRenderTexture.mm */,
 			);
 			path = Recipes;
 			sourceTree = "<group>";
@@ -1650,11 +1655,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				436F546813552C0400F6433F /* Default.png in Resources */,
 				436F546A13552C0400F6433F /* fps_images.png in Resources */,
 				436F546C13552C0400F6433F /* Icon-72.png in Resources */,
-				436F547413552C0400F6433F /* Icon.png in Resources */,
-				436F547613552C0400F6433F /* Icon@2x.png in Resources */,
 				436F547913552C0400F6433F /* iTunesArtwork in Resources */,
 				436F562B13552C0700F6433F /* blocks.png in Resources */,
 				436F568613552CBD00F6433F /* actor_shadow.png in Resources */,
@@ -1785,6 +1787,7 @@
 				43CF1A7613C284F200D2AF2C /* book4_huge.jpg in Resources */,
 				43CF1A7713C284F200D2AF2C /* book5_huge.jpg in Resources */,
 				43AAE95C13C2A6AC00F8D766 /* Entitlements.plist in Resources */,
+				97953BE316BA44CC002EFC3B /* BlurryBlob.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1965,6 +1968,7 @@
 				4345AA7B13865EE5004E010E /* modulation.cpp in Sources */,
 				4345AA7D13865EE5004E010E /* oscillator.cpp in Sources */,
 				4345AA7F13865EE5004E010E /* parameter.cpp in Sources */,
+				97953BE716BA4901002EFC3B /* DLRenderTexture.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2029,12 +2033,12 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = RecipeCollection02/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = "Cocos2d Cookbook Ch4-6";
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = RecipeCollection02/libs;
 				WRAPPER_EXTENSION = app;
 			};
@@ -2053,12 +2057,12 @@
 				"GCC_THUMB_SUPPORT[arch=armv6]" = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = RecipeCollection02/Resources/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-lz";
 				PRODUCT_NAME = "Cocos2d Cookbook Ch4-6";
 				PROVISIONING_PROFILE = "4F4B5F70-EBC2-4793-9198-E4945D4B0ACA";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4F4B5F70-EBC2-4793-9198-E4945D4B0ACA";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = RecipeCollection02/libs;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;

@@ -43,7 +43,7 @@ enum {
 		[self addRecipe];
 		
 		//Show buttons
-		[self addButtons];
+		//[self addButtons];
 	}
 	return self;
 }
@@ -63,6 +63,7 @@ enum {
 }
 
 -(void) addButtons {
+
 	CGSize size = [[CCDirector sharedDirector] winSize];
 	
 	CCMenuItemFont* prev = [CCMenuItemFont itemFromString:@"Prev" target:self selector:@selector(prevCallback:)];
@@ -109,7 +110,7 @@ enum {
 	[self addChild: [[recipes objectForKey:recipeNames[currentRecipe]] runRecipe] z:Z_RECIPE tag:TAG_RECIPE ];
 	CCLabelTTF *name = [CCLabelTTF labelWithString:recipeNames[currentRecipe] fontName:@"Marker Felt" fontSize:24];
 	name.position = ccp(10+name.textureRect.size.width/2,300);
-	[self addChild:name z:Z_HUD tag:TAG_RECIPE_NAME];
+	//[self addChild:name z:Z_HUD tag:TAG_RECIPE_NAME];
 }
 
 -(void) addBackground {

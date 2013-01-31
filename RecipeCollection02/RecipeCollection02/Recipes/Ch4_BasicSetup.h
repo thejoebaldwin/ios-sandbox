@@ -1,6 +1,7 @@
 #import "Recipe.h"
 #import "Box2D.h"
 #import "GLES-Render.h"
+#import "DLRenderTexture.h"
 
 //32 pixels = 1 Box2D unit of measure
 #define PTM_RATIO 32
@@ -9,6 +10,8 @@
 {
 	b2World* world;
 	GLESDebugDraw *m_debugDraw;
+    DLRenderTexture *renderTextureB;
+CCSpriteBatchNode *batch;
 }
 
 -(CCLayer*) runRecipe;
@@ -27,7 +30,7 @@
 	
 	//Enable touches
 	self.isTouchEnabled = YES;
-
+    self.isAccelerometerEnabled = YES;
 	/* Box2D Initialization */
 	
 	//Set gravity
@@ -50,8 +53,9 @@
 	[self addLevelBoundaries];
 		
 	//Add batch node for block creation
-	CCSpriteBatchNode *batch = [CCSpriteBatchNode batchNodeWithFile:@"blocks.png" capacity:150];
-	[self addChild:batch z:0 tag:0];
+	batch = [[CCSpriteBatchNode batchNodeWithFile:@"BlurryBlob.png" capacity:300] retain];
+	
+    [self addChild:batch];
 	
 	//Add a new block
 	CGSize screenSize = [CCDirector sharedDirector].winSize;
@@ -86,49 +90,74 @@
 	body->CreateFixture(&groundBox,0);
 }
 
-/* Adds a textured block */
 -(void) addNewSpriteWithCoords:(CGPoint)p
 {
-	CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [self getChildByTag:0];
-		
-	int idx = (CCRANDOM_0_1() > .5 ? 0:1);
-	int idy = (CCRANDOM_0_1() > .5 ? 0:1);
-	CCSprite *sprite = [CCSprite spriteWithBatchNode:batch rect:CGRectMake(32 * idx,32 * idy,32,32)];
+    
+	CCSprite *sprite = [CCSprite spriteWithBatchNode:batch rect:CGRectMake(0.0, 0.0, 90.0, 90.0)];
+    [sprite setScale:0.7];
 	[batch addChild:sprite];
-	
+    
 	sprite.position = ccp( p.x, p.y);
-	
+    
+	// Define the dynamic body.
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-
+    
 	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
 	bodyDef.userData = sprite;
 	b2Body *body = world->CreateBody(&bodyDef);
-	
-	//Define another box shape for our dynamic body.
-	b2PolygonShape dynamicBox;
-	dynamicBox.SetAsBox(.5f, .5f);//These are mid points for our 1m box
-	
-	//Define the dynamic body fixture.
+    
+	// Define another box shape for our dynamic body.
+	b2CircleShape blob;
+    blob.m_radius = (sprite.contentSize.width/20)/PTM_RATIO;
+    
+	// Define the dynamic body fixture.
 	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &dynamicBox;	
+	fixtureDef.shape = &blob;
 	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.3f;
+	fixtureDef.friction = 0.0f;
+    fixtureDef.restitution = 0.4f;
 	body->CreateFixture(&fixtureDef);
 }
+
+
+
+- (void)drawLiquid{
+    CGSize screenSize = [CCDirector sharedDirector].winSize;
+    
+    if(renderTextureB==nil){
+        renderTextureB = [DLRenderTexture renderTextureWithWidth:screenSize.width height:screenSize.height];
+        renderTextureB.position = ccp(screenSize.width/2, screenSize.height/2);
+        [self addChild:renderTextureB];
+    }
+    glDisable(GL_ALPHA_TEST);
+    
+    [renderTextureB clear:0.0 g:0.0 b:0.0 a:0.0];
+    [renderTextureB begin];
+    [batch visit];
+    [renderTextureB end];
+}
+
 
 /* Draw debug data */
 -(void) draw
 {
-	glDisable(GL_TEXTURE_2D);
+	
+    /*
+    glDisable(GL_TEXTURE_2D);
 	glDisableClientState(GL_COLOR_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	
 	world->DrawDebugData();
+    
+    
+    
 	
 	glEnable(GL_TEXTURE_2D);
 	glEnableClientState(GL_COLOR_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+     */
+[self drawLiquid];
 }
 
 /* Update graphical positions using physical positions */
@@ -155,7 +184,33 @@
 		CGPoint location = [touch locationInView: [touch view]];
 		location = [[CCDirector sharedDirector] convertToGL: location];
 		[self addNewSpriteWithCoords: location];
+        
+        
+        
+        
 	}
+}
+
+
+
+- (void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration
+{
+	static float prevX=0, prevY=0;
+    
+	//#define kFilterFactor 0.05f
+#define kFilterFactor 1.0f	// don't use filter. the code is here just as an example
+    
+	float accelX = (float) acceleration.x * kFilterFactor + (1- kFilterFactor)*prevX;
+	float accelY = (float) acceleration.y * kFilterFactor + (1- kFilterFactor)*prevY;
+    
+	prevX = accelX;
+	prevY = accelY;
+    
+	// accelerometer values are in "Portrait" mode. Change them to Landscape left
+	// multiply the gravity by 15
+	b2Vec2 gravity( accelX * 15, accelY * 15);
+    
+	world->SetGravity( gravity );
 }
 
 @end
