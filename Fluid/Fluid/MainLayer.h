@@ -11,7 +11,8 @@
 +(id) scene;
 -(void) addBackground;
 
-- (void) clearScene;
-- (void) toggleMode;
+-(CCLayer *) getFluidLayer;
+-(void) clearFluidLayer;
+
 
 @end

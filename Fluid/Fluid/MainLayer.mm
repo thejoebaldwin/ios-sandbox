@@ -2,6 +2,7 @@
 #import "Helpers.h"
 #import "FluidLayer.h"
 
+
 enum {
 	TAG_RECIPE = 0,
 	TAG_RECIPE_NAME = 1,
@@ -26,6 +27,18 @@ enum {
 	[scene addChild:layer];
 
 	return scene;
+}
+
+
+-(void) clearFluidLayer
+{
+    FluidLayer *f = [[self children] objectAtIndex:1];
+    [f clearAll];
+}
+
+-(CCLayer *) getFluidLayer
+{
+    return [[self children] objectAtIndex:1];
 }
 
 -(id) init

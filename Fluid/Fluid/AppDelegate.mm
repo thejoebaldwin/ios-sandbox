@@ -90,7 +90,28 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 	[director setAnimationInterval:1.0/60];
 	[director setDisplayFPS:NO];
 	
-	
+    
+    UIView *temp = [[[NSBundle mainBundle] loadNibNamed:@"HeaderView" owner:self options:nil ] lastObject];;
+    
+    
+    UIButton *clearButton = [[temp  subviews] objectAtIndex:0];
+    [clearButton setTitle:@"Clear" forState:UIControlStateNormal];
+    [clearButton addTarget:self action:@selector(ClearButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+  
+    
+    
+    UIButton *toggleButton = [[temp  subviews] objectAtIndex:1];
+    [toggleButton setTitle:@"Toggle" forState:UIControlStateNormal];
+    [toggleButton addTarget:self action:@selector(ToggleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+
+
+    
+    
+    [glView addSubview:temp];
+
+  
+    
+    
 	// make the OpenGLView a child of the view controller
 	[viewController setView:glView];
 	
@@ -100,9 +121,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
     
 	// make the View Controller a child of the main window
     
-    
-    
-    
+      
 	[window addSubview: viewController.view];
     
     
@@ -125,8 +144,52 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 	[self removeStartupFlicker];
 	
 	// Run the intro Scene
-	
-	[[CCDirector sharedDirector] runWithScene: [MainLayer scene]];
+    
+
+//    MainLayer *temp2 =;
+    s =  [MainLayer scene];
+    
+    [viewController setMain:(MainLayer *)  s];
+    
+    [[self window] setRootViewController:viewController];
+    
+	[[CCDirector sharedDirector] runWithScene:  s];
+}
+
+
+- (IBAction)ClearButtonClick:(id)sender
+{
+    NSLog(@"I was clicked");
+    CCScene *c = [[CCDirector sharedDirector] runningScene];
+    MainLayer *l = (MainLayer *) [[c children] lastObject];
+    
+    CALayer *f = [[l children] lastObject];
+    
+    
+    [f performSelector:@selector(clearAll)];
+    
+    //CCLayer *t =  [[s children] objectAtIndex:1];
+    //NSLog(@"Count of layers %i", [[s children] count] );
+    NSLog(@"%@", f);
+    
+}
+
+
+- (IBAction)ToggleButtonClick:(id)sender
+{
+    NSLog(@"I was clicked");
+    CCScene *c = [[CCDirector sharedDirector] runningScene];
+    MainLayer *l = (MainLayer *) [[c children] lastObject];
+    
+    CALayer *f = [[l children] lastObject];
+    
+    
+    [f performSelector:@selector(toggleMode)];
+    
+    //CCLayer *t =  [[s children] objectAtIndex:1];
+    //NSLog(@"Count of layers %i", [[s children] count] );
+    NSLog(@"%@", f);
+    
 }
 
 

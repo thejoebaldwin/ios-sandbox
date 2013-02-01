@@ -25,10 +25,24 @@
 -(void) draw;
 -(void) addNewSpriteWithCoords:(CGPoint)p;
 -(void) ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
+-(void) clearAll;
+- (void) toggleMode;
+
 
 @end
 
 @implementation FluidLayer
+
+
+-(void) toggleMode
+{
+    if (staticMode) {
+        staticMode = NO;
+    } else
+    {
+        staticMode = YES;
+    }
+}
 
 -(CCLayer*) runRecipe {
 	[super runRecipe];
@@ -36,7 +50,7 @@
     touchHappening = NO;
 	//Enable touches
 	self.isTouchEnabled = YES;
-    staticMode = YES;
+    staticMode = NO;
     self.isAccelerometerEnabled = YES;
 	/* Box2D Initialization */
 	
@@ -71,6 +85,9 @@
 	//Schedule step method
 	[self schedule:@selector(tick:)];
 			
+    
+
+    
 	return self;
 }
 
@@ -210,6 +227,39 @@
 }
 
 
+- (void) clearAll
+{
+ 
+    
+    int bodyCount = 0;
+    for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
+    {
+        world->DestroyBody(b);
+        bodyCount++;
+    }
+
+    
+    for (int i = [[batch children] count] - 1; i >= 0; i--) {
+        [batch removeChildAtIndex:i cleanup:YES];
+    }
+    
+     circleCount = 0;
+    
+    [self addLevelBoundaries];
+    touchCounter = 0;
+    touchHappening = NO;
+    NSLog(@"REmoving all");
+    
+    [renderTextureB clear:0.0 g:0.0 b:0.0 a:0.0];
+    [renderTextureB begin];
+//    [batch visit];
+    [renderTextureB end];
+
+    
+
+    [self drawLiquid];
+}
+
 
 -(void) tick: (ccTime) dt
 {
@@ -320,7 +370,7 @@
 
 - (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    touchHappening = YES;
+    //touchHappening = YES;
 }
 
 

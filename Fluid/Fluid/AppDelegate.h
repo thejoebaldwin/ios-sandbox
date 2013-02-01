@@ -5,6 +5,7 @@
 @interface AppDelegate : NSObject <UIApplicationDelegate> {
 	UIWindow			*window;
 	RootViewController	*viewController;
+    CCScene *s;
 }
 
 + (AppDelegate *) sharedAppDelegate;

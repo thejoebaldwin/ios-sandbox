@@ -154,7 +154,7 @@
 		436F561613552C0700F6433F /* b2WeldJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 436F561513552C0700F6433F /* b2WeldJoint.cpp */; };
 		436F561C13552C0700F6433F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F561B13552C0700F6433F /* main.m */; };
 		436F561F13552C0700F6433F /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 436F561E13552C0700F6433F /* AppDelegate.mm */; };
-		436F562213552C0700F6433F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F562113552C0700F6433F /* RootViewController.m */; };
+		436F562213552C0700F6433F /* RootViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 436F562113552C0700F6433F /* RootViewController.mm */; };
 		436F562813552C0700F6433F /* GLES-Render.mm in Sources */ = {isa = PBXBuildFile; fileRef = 436F562713552C0700F6433F /* GLES-Render.mm */; };
 		436F564013552CAA00F6433F /* Recipe.mm in Sources */ = {isa = PBXBuildFile; fileRef = 436F563C13552CAA00F6433F /* Recipe.mm */; };
 		436F564113552CAA00F6433F /* MainLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 436F563E13552CAA00F6433F /* MainLayer.mm */; };
@@ -183,6 +183,8 @@
 		43862E2E137D232300AE894D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43862E2D137D232300AE894D /* CoreAudio.framework */; };
 		43AAE95C13C2A6AC00F8D766 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43AAE95B13C2A6AC00F8D766 /* Entitlements.plist */; };
 		43CE4478137FB1650041D701 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43CE4477137FB1650041D701 /* MediaPlayer.framework */; };
+		977C0C7D16BB8B7400A96E50 /* ControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 977C0C7C16BB8B7400A96E50 /* ControlsView.xib */; };
+		977C0C7F16BB9A0A00A96E50 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 977C0C7E16BB9A0A00A96E50 /* HeaderView.xib */; };
 		97953BE316BA44CC002EFC3B /* BlurryBlob.png in Resources */ = {isa = PBXBuildFile; fileRef = 97953BE216BA44CC002EFC3B /* BlurryBlob.png */; };
 		97953BE716BA4901002EFC3B /* DLRenderTexture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97953BE616BA4901002EFC3B /* DLRenderTexture.mm */; };
 		97B8E07916BB03C000F6BF8C /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B8E06B16BB03C000F6BF8C /* CDataScanner.m */; };
@@ -502,7 +504,7 @@
 		436F561D13552C0700F6433F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		436F561E13552C0700F6433F /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		436F562013552C0700F6433F /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		436F562113552C0700F6433F /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		436F562113552C0700F6433F /* RootViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RootViewController.mm; sourceTree = "<group>"; };
 		436F562613552C0700F6433F /* GLES-Render.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GLES-Render.h"; sourceTree = "<group>"; };
 		436F562713552C0700F6433F /* GLES-Render.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "GLES-Render.mm"; sourceTree = "<group>"; };
 		436F562913552C0700F6433F /* GameConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
@@ -572,6 +574,8 @@
 		43AAE95B13C2A6AC00F8D766 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		43CE4477137FB1650041D701 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		43CE45121380F23B0041D701 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
+		977C0C7C16BB8B7400A96E50 /* ControlsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlsView.xib; sourceTree = "<group>"; };
+		977C0C7E16BB9A0A00A96E50 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		97953BE216BA44CC002EFC3B /* BlurryBlob.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlurryBlob.png; sourceTree = "<group>"; };
 		97953BE516BA4901002EFC3B /* DLRenderTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRenderTexture.h; sourceTree = "<group>"; };
 		97953BE616BA4901002EFC3B /* DLRenderTexture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DLRenderTexture.mm; sourceTree = "<group>"; };
@@ -709,7 +713,8 @@
 				436F561D13552C0700F6433F /* AppDelegate.h */,
 				436F561E13552C0700F6433F /* AppDelegate.mm */,
 				436F562013552C0700F6433F /* RootViewController.h */,
-				436F562113552C0700F6433F /* RootViewController.m */,
+				977C0C7E16BB9A0A00A96E50 /* HeaderView.xib */,
+				436F562113552C0700F6433F /* RootViewController.mm */,
 				436F562613552C0700F6433F /* GLES-Render.h */,
 				436F562713552C0700F6433F /* GLES-Render.mm */,
 				436F562913552C0700F6433F /* GameConfig.h */,
@@ -1038,6 +1043,7 @@
 			isa = PBXGroup;
 			children = (
 				436F56CA13552CD800F6433F /* FluidLayer.h */,
+				977C0C7C16BB8B7400A96E50 /* ControlsView.xib */,
 				97953BE516BA4901002EFC3B /* DLRenderTexture.h */,
 				97953BE616BA4901002EFC3B /* DLRenderTexture.mm */,
 			);
@@ -1217,6 +1223,8 @@
 			files = (
 				43AAE95C13C2A6AC00F8D766 /* Entitlements.plist in Resources */,
 				97953BE316BA44CC002EFC3B /* BlurryBlob.png in Resources */,
+				977C0C7D16BB8B7400A96E50 /* ControlsView.xib in Resources */,
+				977C0C7F16BB9A0A00A96E50 /* HeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1352,7 +1360,7 @@
 				436F561613552C0700F6433F /* b2WeldJoint.cpp in Sources */,
 				436F561C13552C0700F6433F /* main.m in Sources */,
 				436F561F13552C0700F6433F /* AppDelegate.mm in Sources */,
-				436F562213552C0700F6433F /* RootViewController.m in Sources */,
+				436F562213552C0700F6433F /* RootViewController.mm in Sources */,
 				436F562813552C0700F6433F /* GLES-Render.mm in Sources */,
 				436F564013552CAA00F6433F /* Recipe.mm in Sources */,
 				436F564113552CAA00F6433F /* MainLayer.mm in Sources */,

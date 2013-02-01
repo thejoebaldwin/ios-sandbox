@@ -8,7 +8,10 @@
 #import "RootViewController.h"
 #import "GameConfig.h"
 
+
 @implementation RootViewController
+
+@synthesize main;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -136,10 +139,33 @@
 }
 
 
+
+- (id) init
+{
+    self = [super init];
+    if (self) {
+           [[self view] addSubview:headerView];
+    }
+
+    return self;
+}
+
+
+
+- (UIView *) headerView
+{
+    if (!headerView) {
+        [[NSBundle mainBundle] loadNibNamed:@"HeaderView" owner:self options:nil];
+    }
+    return headerView;
+}
+
+
 - (void)dealloc {
 
     [super dealloc];
 }
+
 
 
 @end
