@@ -59,7 +59,6 @@
 		436F546213552C0400F6433F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436F546113552C0400F6433F /* Foundation.framework */; };
 		436F546413552C0400F6433F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 436F546313552C0400F6433F /* CoreGraphics.framework */; };
 		436F546A13552C0400F6433F /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F546913552C0400F6433F /* fps_images.png */; };
-		436F546C13552C0400F6433F /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 436F546B13552C0400F6433F /* Icon-72.png */; };
 		436F547913552C0400F6433F /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 436F547813552C0400F6433F /* iTunesArtwork */; };
 		436F547D13552C0400F6433F /* CCAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F547C13552C0400F6433F /* CCAction.m */; };
 		436F548013552C0400F6433F /* CCActionCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F547F13552C0400F6433F /* CCActionCamera.m */; };
@@ -144,12 +143,6 @@
 		436F557E13552C0600F6433F /* CLScoreServerPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F557D13552C0600F6433F /* CLScoreServerPost.m */; };
 		436F558113552C0600F6433F /* CLScoreServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F558013552C0600F6433F /* CLScoreServerRequest.m */; };
 		436F558413552C0600F6433F /* cocoslive.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F558313552C0600F6433F /* cocoslive.m */; };
-		436F558913552C0600F6433F /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F558813552C0600F6433F /* CDataScanner.m */; };
-		436F558C13552C0600F6433F /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F558B13552C0600F6433F /* CDataScanner_Extensions.m */; };
-		436F558F13552C0600F6433F /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F558E13552C0600F6433F /* NSDictionary_JSONExtensions.m */; };
-		436F559213552C0600F6433F /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F559113552C0600F6433F /* CJSONDeserializer.m */; };
-		436F559513552C0600F6433F /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F559413552C0600F6433F /* CJSONScanner.m */; };
-		436F559813552C0600F6433F /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F559713552C0600F6433F /* CJSONSerializer.m */; };
 		436F559D13552C0600F6433F /* FontLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F559C13552C0600F6433F /* FontLabel.m */; };
 		436F55A013552C0600F6433F /* FontLabelStringDrawing.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F559F13552C0600F6433F /* FontLabelStringDrawing.m */; };
 		436F55A313552C0600F6433F /* FontManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 436F55A213552C0600F6433F /* FontManager.m */; };
@@ -308,7 +301,6 @@
 		43CE4518138104490041D701 /* music_player.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43CE4514138104490041D701 /* music_player.plist */; };
 		43CE4519138104490041D701 /* cartoon_speaker.png in Resources */ = {isa = PBXBuildFile; fileRef = 43CE4515138104490041D701 /* cartoon_speaker.png */; };
 		43CE451A138104490041D701 /* cartoon_speaker.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43CE4516138104490041D701 /* cartoon_speaker.plist */; };
-		43CF1A5E13C282B800D2AF2C /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 43CF1A5D13C282B800D2AF2C /* Default-Portrait~ipad.png */; };
 		43CF1A7313C284F200D2AF2C /* book1_huge.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 43CF1A6E13C284F200D2AF2C /* book1_huge.jpg */; };
 		43CF1A7413C284F200D2AF2C /* book2_huge.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 43CF1A6F13C284F200D2AF2C /* book2_huge.jpg */; };
 		43CF1A7513C284F200D2AF2C /* book3_huge.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 43CF1A7013C284F200D2AF2C /* book3_huge.jpg */; };
@@ -320,6 +312,12 @@
 		43D67F9F137E82BA00BC6A49 /* forest_birds_ambience.caf in Resources */ = {isa = PBXBuildFile; fileRef = 43D67F9E137E82BA00BC6A49 /* forest_birds_ambience.caf */; };
 		43EB1F4A1386CE3100FFBAD5 /* piano_black_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EB1F481386CE3100FFBAD5 /* piano_black_key.png */; };
 		43EB1F4B1386CE3100FFBAD5 /* piano_white_key.png in Resources */ = {isa = PBXBuildFile; fileRef = 43EB1F491386CE3100FFBAD5 /* piano_white_key.png */; };
+		97426B7F16BAFAF00027DE88 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 97426B7116BAFAF00027DE88 /* CDataScanner.m */; };
+		97426B8016BAFAF00027DE88 /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 97426B7416BAFAF00027DE88 /* CDataScanner_Extensions.m */; };
+		97426B8116BAFAF00027DE88 /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 97426B7616BAFAF00027DE88 /* NSDictionary_JSONExtensions.m */; };
+		97426B8216BAFAF00027DE88 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 97426B7916BAFAF00027DE88 /* CJSONDeserializer.m */; };
+		97426B8316BAFAF00027DE88 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 97426B7B16BAFAF00027DE88 /* CJSONScanner.m */; };
+		97426B8416BAFAF00027DE88 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 97426B7D16BAFAF00027DE88 /* CJSONSerializer.m */; };
 		97953BE316BA44CC002EFC3B /* BlurryBlob.png in Resources */ = {isa = PBXBuildFile; fileRef = 97953BE216BA44CC002EFC3B /* BlurryBlob.png */; };
 		97953BE716BA4901002EFC3B /* DLRenderTexture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97953BE616BA4901002EFC3B /* DLRenderTexture.mm */; };
 /* End PBXBuildFile section */
@@ -583,19 +581,6 @@
 		436F558213552C0600F6433F /* cocoslive.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cocoslive.h; path = libs/cocoslive/cocoslive.h; sourceTree = "<group>"; };
 		436F558313552C0600F6433F /* cocoslive.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = cocoslive.m; path = libs/cocoslive/cocoslive.m; sourceTree = "<group>"; };
 		436F558513552C0600F6433F /* LICENSE_TouchJSON.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE_TouchJSON.txt; path = libs/LICENSE_TouchJSON.txt; sourceTree = "<group>"; };
-		436F558713552C0600F6433F /* CDataScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CDataScanner.h; path = libs/TouchJSON/CDataScanner.h; sourceTree = "<group>"; };
-		436F558813552C0600F6433F /* CDataScanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CDataScanner.m; path = libs/TouchJSON/CDataScanner.m; sourceTree = "<group>"; };
-		436F558A13552C0600F6433F /* CDataScanner_Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CDataScanner_Extensions.h; path = libs/TouchJSON/Extensions/CDataScanner_Extensions.h; sourceTree = "<group>"; };
-		436F558B13552C0600F6433F /* CDataScanner_Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CDataScanner_Extensions.m; path = libs/TouchJSON/Extensions/CDataScanner_Extensions.m; sourceTree = "<group>"; };
-		436F558D13552C0600F6433F /* NSDictionary_JSONExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NSDictionary_JSONExtensions.h; path = libs/TouchJSON/Extensions/NSDictionary_JSONExtensions.h; sourceTree = "<group>"; };
-		436F558E13552C0600F6433F /* NSDictionary_JSONExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = NSDictionary_JSONExtensions.m; path = libs/TouchJSON/Extensions/NSDictionary_JSONExtensions.m; sourceTree = "<group>"; };
-		436F559013552C0600F6433F /* CJSONDeserializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CJSONDeserializer.h; path = libs/TouchJSON/JSON/CJSONDeserializer.h; sourceTree = "<group>"; };
-		436F559113552C0600F6433F /* CJSONDeserializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CJSONDeserializer.m; path = libs/TouchJSON/JSON/CJSONDeserializer.m; sourceTree = "<group>"; };
-		436F559313552C0600F6433F /* CJSONScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CJSONScanner.h; path = libs/TouchJSON/JSON/CJSONScanner.h; sourceTree = "<group>"; };
-		436F559413552C0600F6433F /* CJSONScanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CJSONScanner.m; path = libs/TouchJSON/JSON/CJSONScanner.m; sourceTree = "<group>"; };
-		436F559613552C0600F6433F /* CJSONSerializer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CJSONSerializer.h; path = libs/TouchJSON/JSON/CJSONSerializer.h; sourceTree = "<group>"; };
-		436F559713552C0600F6433F /* CJSONSerializer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CJSONSerializer.m; path = libs/TouchJSON/JSON/CJSONSerializer.m; sourceTree = "<group>"; };
-		436F559913552C0600F6433F /* JSONRepresentation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JSONRepresentation.h; path = libs/TouchJSON/JSON/JSONRepresentation.h; sourceTree = "<group>"; };
 		436F559B13552C0600F6433F /* FontLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FontLabel.h; path = libs/FontLabel/FontLabel.h; sourceTree = "<group>"; };
 		436F559C13552C0600F6433F /* FontLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = FontLabel.m; path = libs/FontLabel/FontLabel.m; sourceTree = "<group>"; };
 		436F559E13552C0600F6433F /* FontLabelStringDrawing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FontLabelStringDrawing.h; path = libs/FontLabel/FontLabelStringDrawing.h; sourceTree = "<group>"; };
@@ -691,7 +676,6 @@
 		436F562713552C0700F6433F /* GLES-Render.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "GLES-Render.mm"; sourceTree = "<group>"; };
 		436F562913552C0700F6433F /* GameConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameConfig.h; sourceTree = "<group>"; };
 		436F562A13552C0700F6433F /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blocks.png; path = Resources/blocks.png; sourceTree = "<group>"; };
-		436F563A13552CAA00F6433F /* Includes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Includes.h; sourceTree = "<group>"; };
 		436F563B13552CAA00F6433F /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helpers.h; sourceTree = "<group>"; };
 		436F563C13552CAA00F6433F /* Recipe.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Recipe.mm; sourceTree = "<group>"; };
 		436F563D13552CAA00F6433F /* Recipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recipe.h; sourceTree = "<group>"; };
@@ -763,7 +747,7 @@
 		436F568213552CBD00F6433F /* wizard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wizard.png; sourceTree = "<group>"; };
 		436F568413552CBD00F6433F /* eurostile_30.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = eurostile_30.fnt; sourceTree = "<group>"; };
 		436F568513552CBD00F6433F /* eurostile_30.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eurostile_30.png; sourceTree = "<group>"; };
-		436F56CA13552CD800F6433F /* Ch4_BasicSetup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ch4_BasicSetup.h; sourceTree = "<group>"; };
+		436F56CA13552CD800F6433F /* FluidLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FluidLayer.h; sourceTree = "<group>"; };
 		436F56E213552CD800F6433F /* BasicContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicContactListener.h; sourceTree = "<group>"; };
 		436F56E313552CD800F6433F /* Box2DBodyInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2DBodyInfo.h; sourceTree = "<group>"; };
 		436F56E413552CD800F6433F /* Box2DBodyInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Box2DBodyInfo.mm; sourceTree = "<group>"; };
@@ -856,6 +840,19 @@
 		43D67F9E137E82BA00BC6A49 /* forest_birds_ambience.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = forest_birds_ambience.caf; sourceTree = "<group>"; };
 		43EB1F481386CE3100FFBAD5 /* piano_black_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piano_black_key.png; sourceTree = "<group>"; };
 		43EB1F491386CE3100FFBAD5 /* piano_white_key.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = piano_white_key.png; sourceTree = "<group>"; };
+		97426B7016BAFAF00027DE88 /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
+		97426B7116BAFAF00027DE88 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
+		97426B7316BAFAF00027DE88 /* CDataScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner_Extensions.h; sourceTree = "<group>"; };
+		97426B7416BAFAF00027DE88 /* CDataScanner_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner_Extensions.m; sourceTree = "<group>"; };
+		97426B7516BAFAF00027DE88 /* NSDictionary_JSONExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionary_JSONExtensions.h; sourceTree = "<group>"; };
+		97426B7616BAFAF00027DE88 /* NSDictionary_JSONExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_JSONExtensions.m; sourceTree = "<group>"; };
+		97426B7816BAFAF00027DE88 /* CJSONDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONDeserializer.h; sourceTree = "<group>"; };
+		97426B7916BAFAF00027DE88 /* CJSONDeserializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONDeserializer.m; sourceTree = "<group>"; };
+		97426B7A16BAFAF00027DE88 /* CJSONScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONScanner.h; sourceTree = "<group>"; };
+		97426B7B16BAFAF00027DE88 /* CJSONScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONScanner.m; sourceTree = "<group>"; };
+		97426B7C16BAFAF00027DE88 /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
+		97426B7D16BAFAF00027DE88 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
+		97426B7E16BAFAF00027DE88 /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
 		97953BE216BA44CC002EFC3B /* BlurryBlob.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlurryBlob.png; sourceTree = "<group>"; };
 		97953BE516BA4901002EFC3B /* DLRenderTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRenderTexture.h; sourceTree = "<group>"; };
 		97953BE616BA4901002EFC3B /* DLRenderTexture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DLRenderTexture.mm; sourceTree = "<group>"; };
@@ -1005,11 +1002,11 @@
 		436F546513552C0400F6433F /* RecipeCollection02 */ = {
 			isa = PBXGroup;
 			children = (
+				97426B6F16BAFAF00027DE88 /* TouchJSON */,
 				43AAE95B13C2A6AC00F8D766 /* Entitlements.plist */,
 				436F547A13552C0400F6433F /* cocos2d */,
 				436F556C13552C0600F6433F /* CocosDenshion */,
 				436F557B13552C0600F6433F /* cocoslive */,
-				436F558613552C0600F6433F /* TouchJSON */,
 				436F559A13552C0600F6433F /* FontLabel */,
 				436F55AC13552C0600F6433F /* Box2D */,
 				436F561913552C0700F6433F /* Supporting Files */,
@@ -1020,7 +1017,6 @@
 				436F561813552C0700F6433F /* LICENSE_Box2D.txt */,
 				436F56E113552CD800F6433F /* Libraries */,
 				436F56C813552CD800F6433F /* Recipes */,
-				436F563A13552CAA00F6433F /* Includes.h */,
 				436F563B13552CAA00F6433F /* Helpers.h */,
 				436F563C13552CAA00F6433F /* Recipe.mm */,
 				97953BE216BA44CC002EFC3B /* BlurryBlob.png */,
@@ -1260,26 +1256,6 @@
 			name = cocoslive;
 			sourceTree = "<group>";
 		};
-		436F558613552C0600F6433F /* TouchJSON */ = {
-			isa = PBXGroup;
-			children = (
-				436F558713552C0600F6433F /* CDataScanner.h */,
-				436F558813552C0600F6433F /* CDataScanner.m */,
-				436F558A13552C0600F6433F /* CDataScanner_Extensions.h */,
-				436F558B13552C0600F6433F /* CDataScanner_Extensions.m */,
-				436F558D13552C0600F6433F /* NSDictionary_JSONExtensions.h */,
-				436F558E13552C0600F6433F /* NSDictionary_JSONExtensions.m */,
-				436F559013552C0600F6433F /* CJSONDeserializer.h */,
-				436F559113552C0600F6433F /* CJSONDeserializer.m */,
-				436F559313552C0600F6433F /* CJSONScanner.h */,
-				436F559413552C0600F6433F /* CJSONScanner.m */,
-				436F559613552C0600F6433F /* CJSONSerializer.h */,
-				436F559713552C0600F6433F /* CJSONSerializer.m */,
-				436F559913552C0600F6433F /* JSONRepresentation.h */,
-			);
-			name = TouchJSON;
-			sourceTree = "<group>";
-		};
 		436F559A13552C0600F6433F /* FontLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1504,7 +1480,7 @@
 		436F56C813552CD800F6433F /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
-				436F56CA13552CD800F6433F /* Ch4_BasicSetup.h */,
+				436F56CA13552CD800F6433F /* FluidLayer.h */,
 				97953BE516BA4901002EFC3B /* DLRenderTexture.h */,
 				97953BE616BA4901002EFC3B /* DLRenderTexture.mm */,
 			);
@@ -1604,6 +1580,42 @@
 			path = Resources/Data;
 			sourceTree = "<group>";
 		};
+		97426B6F16BAFAF00027DE88 /* TouchJSON */ = {
+			isa = PBXGroup;
+			children = (
+				97426B7016BAFAF00027DE88 /* CDataScanner.h */,
+				97426B7116BAFAF00027DE88 /* CDataScanner.m */,
+				97426B7216BAFAF00027DE88 /* Extensions */,
+				97426B7716BAFAF00027DE88 /* JSON */,
+			);
+			path = TouchJSON;
+			sourceTree = "<group>";
+		};
+		97426B7216BAFAF00027DE88 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				97426B7316BAFAF00027DE88 /* CDataScanner_Extensions.h */,
+				97426B7416BAFAF00027DE88 /* CDataScanner_Extensions.m */,
+				97426B7516BAFAF00027DE88 /* NSDictionary_JSONExtensions.h */,
+				97426B7616BAFAF00027DE88 /* NSDictionary_JSONExtensions.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		97426B7716BAFAF00027DE88 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				97426B7816BAFAF00027DE88 /* CJSONDeserializer.h */,
+				97426B7916BAFAF00027DE88 /* CJSONDeserializer.m */,
+				97426B7A16BAFAF00027DE88 /* CJSONScanner.h */,
+				97426B7B16BAFAF00027DE88 /* CJSONScanner.m */,
+				97426B7C16BAFAF00027DE88 /* CJSONSerializer.h */,
+				97426B7D16BAFAF00027DE88 /* CJSONSerializer.m */,
+				97426B7E16BAFAF00027DE88 /* JSONRepresentation.h */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1656,7 +1668,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				436F546A13552C0400F6433F /* fps_images.png in Resources */,
-				436F546C13552C0400F6433F /* Icon-72.png in Resources */,
 				436F547913552C0400F6433F /* iTunesArtwork in Resources */,
 				436F562B13552C0700F6433F /* blocks.png in Resources */,
 				436F568613552CBD00F6433F /* actor_shadow.png in Resources */,
@@ -1780,7 +1791,6 @@
 				4345A87213864DFA004E010E /* synth_tone_fade_in.mp3 in Resources */,
 				43EB1F4A1386CE3100FFBAD5 /* piano_black_key.png in Resources */,
 				43EB1F4B1386CE3100FFBAD5 /* piano_white_key.png in Resources */,
-				43CF1A5E13C282B800D2AF2C /* Default-Portrait~ipad.png in Resources */,
 				43CF1A7313C284F200D2AF2C /* book1_huge.jpg in Resources */,
 				43CF1A7413C284F200D2AF2C /* book2_huge.jpg in Resources */,
 				43CF1A7513C284F200D2AF2C /* book3_huge.jpg in Resources */,
@@ -1881,12 +1891,6 @@
 				436F557E13552C0600F6433F /* CLScoreServerPost.m in Sources */,
 				436F558113552C0600F6433F /* CLScoreServerRequest.m in Sources */,
 				436F558413552C0600F6433F /* cocoslive.m in Sources */,
-				436F558913552C0600F6433F /* CDataScanner.m in Sources */,
-				436F558C13552C0600F6433F /* CDataScanner_Extensions.m in Sources */,
-				436F558F13552C0600F6433F /* NSDictionary_JSONExtensions.m in Sources */,
-				436F559213552C0600F6433F /* CJSONDeserializer.m in Sources */,
-				436F559513552C0600F6433F /* CJSONScanner.m in Sources */,
-				436F559813552C0600F6433F /* CJSONSerializer.m in Sources */,
 				436F559D13552C0600F6433F /* FontLabel.m in Sources */,
 				436F55A013552C0600F6433F /* FontLabelStringDrawing.m in Sources */,
 				436F55A313552C0600F6433F /* FontManager.m in Sources */,
@@ -1969,6 +1973,12 @@
 				4345AA7D13865EE5004E010E /* oscillator.cpp in Sources */,
 				4345AA7F13865EE5004E010E /* parameter.cpp in Sources */,
 				97953BE716BA4901002EFC3B /* DLRenderTexture.mm in Sources */,
+				97426B7F16BAFAF00027DE88 /* CDataScanner.m in Sources */,
+				97426B8016BAFAF00027DE88 /* CDataScanner_Extensions.m in Sources */,
+				97426B8116BAFAF00027DE88 /* NSDictionary_JSONExtensions.m in Sources */,
+				97426B8216BAFAF00027DE88 /* CJSONDeserializer.m in Sources */,
+				97426B8316BAFAF00027DE88 /* CJSONScanner.m in Sources */,
+				97426B8416BAFAF00027DE88 /* CJSONSerializer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
