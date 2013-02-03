@@ -25,7 +25,7 @@
     BOOL jointsMode;
 
     BOOL isDebug;
-
+    BOOL touchMode;
 
     NSMutableArray *arrSprites;
     BallContactListener *_contactListener;
@@ -44,6 +44,26 @@
 @end
 
 @implementation FluidLayer
+
+
+-(b2Body *) getTopTouchBody:(b2Vec2) location
+{
+    b2Body *touchObject = NULL;
+    int zOrder =0;
+    for (b2Body *b = world->GetBodyList(); b; b = b->GetNext())
+    {
+        b2Fixture *f = b->GetFixtureList();
+        BOOL isInSize = f->TestPoint(location);
+        CCSprite *sprite = (CCSprite *) b->GetUserData();
+        if (isInSize) {
+            if (sprite.zOrder >= zOrder && sprite.tag == 1) {
+                zOrder = sprite.zOrder;
+                touchObject = b;
+            }
+        }
+    }
+    return touchObject;
+}
 
 
 -(void) toggleMode
@@ -71,6 +91,7 @@
 
 -(void) toggleJoints{
     if (jointsMode) {
+
         jointsMode = NO;
         
         for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
@@ -78,13 +99,25 @@
             [self clearJoints:b->GetJointList()];
             [self clearJoints:b->GetJointList()];
         }
-
-        
-    } else
-    {
+    }
+    else {
         jointsMode = YES;
     }
 }
+
+-(void) toggleTouch
+{
+    if (touchMode) {
+        
+        touchMode = NO;
+        
+       }
+    else {
+        touchMode = YES;
+    }
+
+}
+
 
 -(void) toggleDebug
 {
@@ -125,6 +158,7 @@ if (isDebug) {
     self.isAccelerometerEnabled = YES;
 	/* Box2D Initialization */
 	isDebug = NO;
+    touchMode = NO;
 	//Set gravity
 	b2Vec2 gravity;
 	gravity.Set(0.0f, -10.0f);
@@ -482,21 +516,57 @@ if (isDebug) {
 
 /* Tap to add a block */
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    if (circleCount < 100) {
     
-        for( UITouch *touch in touches ) {
-            CGPoint location = [touch locationInView: [touch view]];
-            location = [[CCDirector sharedDirector] convertToGL: location];
-            if (staticMode) {
-                [self addNewStaticWithCoords:location withVisible:YES];
-            } else {
-            [self addNewSpriteWithCoords: location];
+    if (touchMode) {
+        
+            for( UITouch *touch in touches ) {
+                CGPoint location = [touch locationInView: [touch view]];
+
+                
+                location = [[CCDirector sharedDirector] convertToGL: location];
+                b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
+                
+                b2Body *touchObject = [self getTopTouchBody:(locationWorld)];
+                if (touchObject != NULL)
+                {
+                    CCSprite *sprite = (CCSprite *) touchObject->GetUserData();
+                    if (sprite != NULL)
+                    {
+                        NSLog(@"Something was touched-->%i", sprite.tag );
+                        [sprite setVisible:NO];
+                        world->DestroyBody(touchObject);
+                        [arrSprites removeObjectIdenticalTo:sprite];
+                        [blockTexture clear:0.0 g:0.0 b:0.0 a:0.0];
+
+                    }
+                    
+                
+                }
             }
-            circleCount++;
-        }
     }
-    touchHappening = NO;
-    touchCounter = 0;
+    
+    else
+    {
+        
+        
+        if (circleCount < 100) {
+            
+            for( UITouch *touch in touches ) {
+                CGPoint location = [touch locationInView: [touch view]];
+                location = [[CCDirector sharedDirector] convertToGL: location];
+                if (staticMode) {
+                    [self addNewStaticWithCoords:location withVisible:YES];
+                } else {
+                    [self addNewSpriteWithCoords: location];
+                }
+                circleCount++;
+            }
+        }
+
+    }
+    
+       
+    
 }
 
 - (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

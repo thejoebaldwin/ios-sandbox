@@ -106,6 +106,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
     [[self JointsButton] addTarget:self action:@selector(JointsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
 
     
+     [[self TouchButton] addTarget:self action:@selector(TouchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
     [glView addSubview:header];
     
 	// make the OpenGLView a child of the view controller
@@ -165,6 +167,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
     return tempButton;
 }
 
+- (UIButton *) TouchButton
+{
+    UIButton *tempButton = [[header  subviews] objectAtIndex:4];
+    return tempButton;
+
+}
+
+
 - (CALayer *) FluidLayer
 {
     CCScene *c = [[CCDirector sharedDirector] runningScene];
@@ -175,6 +185,23 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 }
 
 
+-(IBAction) TouchButtonClick: (id) sender
+{
+    
+    if ([[[[self TouchButton] titleLabel] text] isEqualToString:@"Off"]) {
+        [[self TouchButton] setTitle:@"On" forState:UIControlStateNormal];
+    }
+    else {
+        [[self TouchButton] setTitle:@"Off" forState:UIControlStateNormal];
+    }
+
+    
+    
+        [[self FluidLayer] performSelector:@selector(toggleTouch)];
+}
+
+
+
 - (IBAction)ClearButtonClick:(id)sender
 {
     [[self FluidLayer] performSelector:@selector(clearAll)];
@@ -182,11 +209,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 
 - (IBAction)JointsButtonClick:(id)sender
 {
-    if ([[[[self JointsButton] titleLabel] text] isEqualToString:@"Sticky Water Off"]) {
-        [[self JointsButton] setTitle:@"Sticky Water On" forState:UIControlStateNormal];
+    if ([[[[self JointsButton] titleLabel] text] isEqualToString:@"Off"]) {
+        [[self JointsButton] setTitle:@"On" forState:UIControlStateNormal];
     }
     else {
-        [[self JointsButton] setTitle:@"Sticky Water Off" forState:UIControlStateNormal];
+        [[self JointsButton] setTitle:@"Off" forState:UIControlStateNormal];
     }
     
     [[self FluidLayer] performSelector:@selector(toggleJoints)];
@@ -210,6 +237,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 
 - (IBAction)DebugButtonClick:(id)sender
 {
+    
+    if ([[[[self DebugButton] titleLabel] text] isEqualToString:@"Off"]) {
+        [[self DebugButton] setTitle:@"On" forState:UIControlStateNormal];
+    }
+    else {
+        [[self DebugButton] setTitle:@"Off" forState:UIControlStateNormal];
+    }
+
+    
+    
     [[self FluidLayer] performSelector:@selector(toggleDebug)];
 }
 
