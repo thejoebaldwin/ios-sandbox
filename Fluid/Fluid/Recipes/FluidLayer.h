@@ -228,7 +228,7 @@ if (isDebug) {
 	fixtureDef.shape = &blob;
 	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.0f;
-    fixtureDef.restitution = 0.4f;
+    fixtureDef.restitution = 0.3f;
 	body->CreateFixture(&fixtureDef);
 }
 
@@ -383,7 +383,7 @@ if (isDebug) {
 	// generally best to keep the time step and iterations fixed.
 	world->Step(dt, velocityIterations, positionIterations);
     
-	//Iterate over the bodies in the physics world
+	//Iterate over the bodies in the physics world and update
 	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 	{
 		if (b->GetUserData() != NULL) {
@@ -393,58 +393,66 @@ if (isDebug) {
 			myActor.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
 		}
 	}
+
+    
+    for (b2Joint *b = world->GetJointList(); b; b=b->GetNext()) {
+        b2Body *bodyA = b->GetBodyA();
+        b2Body *bodyB = b->GetBodyB();
+        
+        if (b2Distance(bodyA->GetPosition(), bodyB->GetPosition()) > 2.5f)
+        {
+            world->DestroyJoint(b);
+        }
+      
+        
+    }
     
     if (jointsMode) {
-    std::vector<MyContact>::iterator pos;
-    for (pos = _contactListener->_contacts.begin(); pos != _contactListener->_contacts.end(); ++pos) {
-        MyContact contact = *pos;
+        std::vector<MyContact>::iterator pos;
+        for (pos = _contactListener->_contacts.begin(); pos != _contactListener->_contacts.end(); ++pos) {
+            MyContact contact = *pos;
         
+            b2Fixture *tempB = contact.fixtureB;
+            b2Fixture *tempA = contact.fixtureA;
         
-       
-        b2Fixture *tempB = contact.fixtureB;
-
-        b2Fixture *tempA = contact.fixtureA;
-
+            CCSprite *tempSpriteB = (CCSprite *) tempB->GetBody()->GetUserData();
+            CCSprite *tempSpriteA = (CCSprite *) tempA->GetBody()->GetUserData();
         
-        CCSprite *tempSpriteB = (CCSprite *) tempB->GetBody()->GetUserData();
-        CCSprite *tempSpriteA = (CCSprite *) tempA->GetBody()->GetUserData();
-        
-        if (tempSpriteA != NULL && tempSpriteB != NULL)
-        {
-            
-            if (tempSpriteA.tag == 0 && tempSpriteB.tag == 0)
+            if (tempSpriteA != NULL && tempSpriteB != NULL)
             {
-                //NSLog(@"%@", tempSpriteA);
-                //distance joint
-                //b2DistanceJointDef *tempJoint = new b2DistanceJointDef();
-                //tempJoint->Initialize(tempA->GetBody(), tempB->GetBody(), tempA->GetBody()->GetWorldCenter(), tempB->GetBody()->GetWorldCenter());
-                //world->CreateJoint(tempJoint);
-                //rope joint
+                //if both are circles
+                if (tempSpriteA.tag == 0 && tempSpriteB.tag == 0)
+                {
+                    //NSLog(@"%@", tempSpriteA);
+                    //distance joint
+                    //b2DistanceJointDef *tempJoint = new b2DistanceJointDef();
+                    //tempJoint->Initialize(tempA->GetBody(), tempB->GetBody(), tempA->GetBody()->GetWorldCenter(), tempB->GetBody()->GetWorldCenter());
+                    //world->CreateJoint(tempJoint);
                 
-                
-                b2JointEdge *edge =    tempA->GetBody()->GetJointList();
-                //only allow two jointa per body
-                BOOL okToAdd = FALSE;
-                if (edge == NULL) {
-                    okToAdd = TRUE;
-                }
-                else {
-                    if (edge->next == NULL) {
+                    //rope joint
+                    b2JointEdge *edge =    tempA->GetBody()->GetJointList();
+                    //only allow two joints per body
+                    BOOL okToAdd = FALSE;
+                    if (edge == NULL) {
                         okToAdd = TRUE;
                     }
-                }
+                    else {
+                        if (edge->next == NULL && edge->prev == NULL) {
+                            okToAdd = TRUE;
+                        }
+                    }
 
-                if (okToAdd) {
-                    b2RopeJointDef *tempJoint = new b2RopeJointDef();
-                    tempJoint->bodyA = tempA->GetBody();
-                    tempJoint->bodyB = tempB->GetBody();
-                    tempJoint->maxLength = 0.05f;
-                    tempJoint->collideConnected = FALSE;
-                    world->CreateJoint(tempJoint);
+                    if (okToAdd) {
+                        b2RopeJointDef *tempJoint = new b2RopeJointDef();
+                        tempJoint->bodyA = tempA->GetBody();
+                        tempJoint->bodyB = tempB->GetBody();
+                        tempJoint->maxLength = 0.05f;
+                        tempJoint->collideConnected = FALSE;
+                        world->CreateJoint(tempJoint);
+                    }
                 }
             }
         }
-    }
         
     
         

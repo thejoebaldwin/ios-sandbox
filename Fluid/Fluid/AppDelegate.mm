@@ -182,11 +182,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 
 - (IBAction)JointsButtonClick:(id)sender
 {
-    if ([[[[self JointsButton] titleLabel] text] isEqualToString:@"Joints Off"]) {
-        [[self JointsButton] setTitle:@"Joints On" forState:UIControlStateNormal];
+    if ([[[[self JointsButton] titleLabel] text] isEqualToString:@"Sticky Water Off"]) {
+        [[self JointsButton] setTitle:@"Sticky Water On" forState:UIControlStateNormal];
     }
     else {
-        [[self JointsButton] setTitle:@"Joints Off" forState:UIControlStateNormal];
+        [[self JointsButton] setTitle:@"Sticky Water Off" forState:UIControlStateNormal];
     }
     
     [[self FluidLayer] performSelector:@selector(toggleJoints)];
