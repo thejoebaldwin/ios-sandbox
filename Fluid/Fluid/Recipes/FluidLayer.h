@@ -3,6 +3,7 @@
 #import "GLES-Render.h"
 #import "DLRenderTexture.h"
 #import <Foundation/Foundation.h>
+#import "BallContactListener.h"
 
 //32 pixels = 1 Box2D unit of measure
 #define PTM_RATIO 32
@@ -21,13 +22,13 @@
     BOOL touchHappening;
     int circleCount;
     BOOL staticMode;
-
+    BOOL jointsMode;
 
     BOOL isDebug;
 
 
     NSMutableArray *arrSprites;
-
+    BallContactListener *_contactListener;
 }
 
 -(CCLayer*) runRecipe;
@@ -55,6 +56,36 @@
     }
 }
 
+-(void) clearJoints:(b2JointEdge *) edge
+{
+    while (edge != NULL) {
+        world->DestroyJoint(edge->joint);
+        if (edge->prev != NULL) {
+            world->DestroyJoint(edge->prev->joint);
+        }
+        edge = edge->next;
+    }
+
+}
+
+
+-(void) toggleJoints{
+    if (jointsMode) {
+        jointsMode = NO;
+        
+        for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
+        {
+            [self clearJoints:b->GetJointList()];
+            [self clearJoints:b->GetJointList()];
+        }
+
+        
+    } else
+    {
+        jointsMode = YES;
+    }
+}
+
 -(void) toggleDebug
 {
 if (isDebug) {
@@ -72,6 +103,8 @@ if (isDebug) {
             isDebug = YES;
             for (int i = 0; i < [arrSprites count]; i++) {
                 // [ [arrSprites objectAtIndex:i] setVisible:NO];
+                //this works, but rotate in tick method overrides it.
+                //CCAction *rotate  = [CCRotateBy actionWithDuration:0.5 angle:90];
                 CCAction *fadeOut = [CCFadeOut  actionWithDuration:0.5];
                 [[arrSprites objectAtIndex:i] runAction: fadeOut];
             }
@@ -87,6 +120,7 @@ if (isDebug) {
     touchHappening = NO;
 	//Enable touches
 	self.isTouchEnabled = YES;
+    jointsMode = NO;
     staticMode = NO;
     self.isAccelerometerEnabled = YES;
 	/* Box2D Initialization */
@@ -100,6 +134,8 @@ if (isDebug) {
 	world = new b2World(gravity, doSleep);
 	world->SetContinuousPhysics(YES);
 	
+    _contactListener = new BallContactListener();
+    world->SetContactListener(_contactListener);
     
     arrSprites = [[NSMutableArray alloc] init];
     
@@ -108,6 +144,7 @@ if (isDebug) {
 	world->SetDebugDraw(m_debugDraw);
 	uint32 flags = 0;
 	flags += b2DebugDraw::e_shapeBit;
+    flags += b2DebugDraw::e_jointBit;
 	m_debugDraw->SetFlags(flags);	
 	
 	//Create level boundaries
@@ -122,7 +159,7 @@ if (isDebug) {
 	
 	//Add a new block
 	CGSize screenSize = [CCDirector sharedDirector].winSize;
-	[self addNewSpriteWithCoords:ccp(screenSize.width/2, screenSize.height/2)];
+	//[self addNewSpriteWithCoords:ccp(screenSize.width/2, screenSize.height/2)];
 
 	//Schedule step method
 	[self schedule:@selector(tick:)];
@@ -166,6 +203,9 @@ if (isDebug) {
     
 	sprite.position = ccp( p.x, p.y);
     sprite.visible = !isDebug;
+    sprite.tag = 0;
+    
+
     
 	// Define the dynamic body.
 	b2BodyDef bodyDef;
@@ -180,10 +220,11 @@ if (isDebug) {
     
 	// Define another box shape for our dynamic body.
 	b2CircleShape blob;
-    blob.m_radius = (sprite.contentSize.width/5)/PTM_RATIO;
+    blob.m_radius = (sprite.contentSize.width/8)/PTM_RATIO;
     
 	// Define the dynamic body fixture.
 	b2FixtureDef fixtureDef;
+
 	fixtureDef.shape = &blob;
 	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.0f;
@@ -204,6 +245,8 @@ if (isDebug) {
 
     sprite.visible = !isDebug;
 	sprite.position = ccp( p.x, p.y);
+    sprite.tag = 1;
+    
     
 	// Define the static body.
 	b2BodyDef bodyDef;
@@ -220,6 +263,7 @@ if (isDebug) {
 	// Define the static body fixture.
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &staticBox;
+    
 	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.0f;
     fixtureDef.restitution = 0.4f;
@@ -292,6 +336,9 @@ if (isDebug) {
     int bodyCount = 0;
     for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
     {
+        [self clearJoints:b->GetJointList()];
+        [self clearJoints:b->GetJointList()];
+
         world->DestroyBody(b);
         bodyCount++;
     }
@@ -346,6 +393,63 @@ if (isDebug) {
 			myActor.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
 		}
 	}
+    
+    if (jointsMode) {
+    std::vector<MyContact>::iterator pos;
+    for (pos = _contactListener->_contacts.begin(); pos != _contactListener->_contacts.end(); ++pos) {
+        MyContact contact = *pos;
+        
+        
+       
+        b2Fixture *tempB = contact.fixtureB;
+
+        b2Fixture *tempA = contact.fixtureA;
+
+        
+        CCSprite *tempSpriteB = (CCSprite *) tempB->GetBody()->GetUserData();
+        CCSprite *tempSpriteA = (CCSprite *) tempA->GetBody()->GetUserData();
+        
+        if (tempSpriteA != NULL && tempSpriteB != NULL)
+        {
+            
+            if (tempSpriteA.tag == 0 && tempSpriteB.tag == 0)
+            {
+                //NSLog(@"%@", tempSpriteA);
+                //distance joint
+                //b2DistanceJointDef *tempJoint = new b2DistanceJointDef();
+                //tempJoint->Initialize(tempA->GetBody(), tempB->GetBody(), tempA->GetBody()->GetWorldCenter(), tempB->GetBody()->GetWorldCenter());
+                //world->CreateJoint(tempJoint);
+                //rope joint
+                
+                
+                b2JointEdge *edge =    tempA->GetBody()->GetJointList();
+                //only allow two jointa per body
+                BOOL okToAdd = FALSE;
+                if (edge == NULL) {
+                    okToAdd = TRUE;
+                }
+                else {
+                    if (edge->next == NULL) {
+                        okToAdd = TRUE;
+                    }
+                }
+
+                if (okToAdd) {
+                    b2RopeJointDef *tempJoint = new b2RopeJointDef();
+                    tempJoint->bodyA = tempA->GetBody();
+                    tempJoint->bodyB = tempB->GetBody();
+                    tempJoint->maxLength = 0.05f;
+                    tempJoint->collideConnected = FALSE;
+                    world->CreateJoint(tempJoint);
+                }
+            }
+        }
+    }
+        
+    
+        
+    }
+    
 }
 
 

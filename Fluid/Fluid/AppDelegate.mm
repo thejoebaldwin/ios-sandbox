@@ -102,6 +102,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
     
     [[self DebugButton] addTarget:self action:@selector(DebugButtonClick:) forControlEvents:UIControlEventTouchUpInside];
 
+    
+    [[self JointsButton] addTarget:self action:@selector(JointsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+
+    
     [glView addSubview:header];
     
 	// make the OpenGLView a child of the view controller
@@ -146,6 +150,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 
 }
 
+
+- (UIButton *) JointsButton
+{
+    UIButton *tempButton = [[header  subviews] objectAtIndex:3];
+    return tempButton;
+    
+}
+
+
 - (UIButton *) ToggleButton
 {
     UIButton *tempButton = [[header  subviews] objectAtIndex:1];
@@ -165,6 +178,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 - (IBAction)ClearButtonClick:(id)sender
 {
     [[self FluidLayer] performSelector:@selector(clearAll)];
+}
+
+- (IBAction)JointsButtonClick:(id)sender
+{
+    if ([[[[self JointsButton] titleLabel] text] isEqualToString:@"Joints Off"]) {
+        [[self JointsButton] setTitle:@"Joints On" forState:UIControlStateNormal];
+    }
+    else {
+        [[self JointsButton] setTitle:@"Joints Off" forState:UIControlStateNormal];
+    }
+    
+    [[self FluidLayer] performSelector:@selector(toggleJoints)];
 }
 
 
