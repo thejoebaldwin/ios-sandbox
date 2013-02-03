@@ -18,6 +18,8 @@
 }
 */
 
+
+
 -(void)visit{
     glEnable(GL_ALPHA_TEST);
     glAlphaFunc(GL_GREATER, 0.4f);

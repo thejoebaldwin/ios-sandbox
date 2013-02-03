@@ -185,6 +185,8 @@
 		43CE4478137FB1650041D701 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43CE4477137FB1650041D701 /* MediaPlayer.framework */; };
 		977C0C7D16BB8B7400A96E50 /* ControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 977C0C7C16BB8B7400A96E50 /* ControlsView.xib */; };
 		977C0C7F16BB9A0A00A96E50 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 977C0C7E16BB9A0A00A96E50 /* HeaderView.xib */; };
+		977C0C8116BC29AA00A96E50 /* blocks.png in Resources */ = {isa = PBXBuildFile; fileRef = 977C0C8016BC29AA00A96E50 /* blocks.png */; };
+		977C0C8316BCCB1700A96E50 /* brick.png in Resources */ = {isa = PBXBuildFile; fileRef = 977C0C8216BCCB1700A96E50 /* brick.png */; };
 		97953BE316BA44CC002EFC3B /* BlurryBlob.png in Resources */ = {isa = PBXBuildFile; fileRef = 97953BE216BA44CC002EFC3B /* BlurryBlob.png */; };
 		97953BE716BA4901002EFC3B /* DLRenderTexture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97953BE616BA4901002EFC3B /* DLRenderTexture.mm */; };
 		97B8E07916BB03C000F6BF8C /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B8E06B16BB03C000F6BF8C /* CDataScanner.m */; };
@@ -576,6 +578,8 @@
 		43CE45121380F23B0041D701 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		977C0C7C16BB8B7400A96E50 /* ControlsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlsView.xib; sourceTree = "<group>"; };
 		977C0C7E16BB9A0A00A96E50 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
+		977C0C8016BC29AA00A96E50 /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blocks.png; sourceTree = "<group>"; };
+		977C0C8216BCCB1700A96E50 /* brick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brick.png; sourceTree = "<group>"; };
 		97953BE216BA44CC002EFC3B /* BlurryBlob.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlurryBlob.png; sourceTree = "<group>"; };
 		97953BE516BA4901002EFC3B /* DLRenderTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRenderTexture.h; sourceTree = "<group>"; };
 		97953BE616BA4901002EFC3B /* DLRenderTexture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DLRenderTexture.mm; sourceTree = "<group>"; };
@@ -706,8 +710,10 @@
 				436F56C813552CD800F6433F /* Recipes */,
 				436F563B13552CAA00F6433F /* Helpers.h */,
 				436F563C13552CAA00F6433F /* Recipe.mm */,
+				977C0C8016BC29AA00A96E50 /* blocks.png */,
 				97953BE216BA44CC002EFC3B /* BlurryBlob.png */,
 				436F563D13552CAA00F6433F /* Recipe.h */,
+				977C0C8216BCCB1700A96E50 /* brick.png */,
 				436F563E13552CAA00F6433F /* MainLayer.mm */,
 				436F563F13552CAA00F6433F /* MainLayer.h */,
 				436F561D13552C0700F6433F /* AppDelegate.h */,
@@ -1225,6 +1231,8 @@
 				97953BE316BA44CC002EFC3B /* BlurryBlob.png in Resources */,
 				977C0C7D16BB8B7400A96E50 /* ControlsView.xib in Resources */,
 				977C0C7F16BB9A0A00A96E50 /* HeaderView.xib in Resources */,
+				977C0C8116BC29AA00A96E50 /* blocks.png in Resources */,
+				977C0C8316BCCB1700A96E50 /* brick.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

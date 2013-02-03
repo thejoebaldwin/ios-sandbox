@@ -12,11 +12,22 @@
 	b2World* world;
 	GLESDebugDraw *m_debugDraw;
     DLRenderTexture *renderTextureB;
+    
+    CCRenderTexture *blockTexture;
+    
     CCSpriteBatchNode *batch;
+    CCSpriteBatchNode *blocks;
     int touchCounter;
     BOOL touchHappening;
     int circleCount;
     BOOL staticMode;
+
+
+    BOOL isDebug;
+
+
+    NSMutableArray *arrSprites;
+
 }
 
 -(CCLayer*) runRecipe;
@@ -27,7 +38,7 @@
 -(void) ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
 -(void) clearAll;
 - (void) toggleMode;
-
+- (void) toggleDebug;
 
 @end
 
@@ -44,6 +55,32 @@
     }
 }
 
+-(void) toggleDebug
+{
+if (isDebug) {
+        isDebug = NO;
+        for (int i = 0; i < [arrSprites count]; i++) {
+            //[ [arrSprites objectAtIndex:i] setVisible:YES];
+                        
+            CCAction *fadeIn = [CCFadeIn actionWithDuration:0.5];
+          
+            [[arrSprites objectAtIndex:i] setVisible:YES];
+            [[arrSprites objectAtIndex:i] runAction: fadeIn];
+            }
+        }
+        else {
+            isDebug = YES;
+            for (int i = 0; i < [arrSprites count]; i++) {
+                // [ [arrSprites objectAtIndex:i] setVisible:NO];
+                CCAction *fadeOut = [CCFadeOut  actionWithDuration:0.5];
+                [[arrSprites objectAtIndex:i] runAction: fadeOut];
+            }
+    }
+    
+    [renderTextureB clear:0.0 g:0.0 b:0.0 a:0.0];
+    [blockTexture clear:0.0 g:0.0 b:0.0 a:0.0];
+}
+
 -(CCLayer*) runRecipe {
 	[super runRecipe];
 	touchCounter = 0;
@@ -53,7 +90,7 @@
     staticMode = NO;
     self.isAccelerometerEnabled = YES;
 	/* Box2D Initialization */
-	
+	isDebug = NO;
 	//Set gravity
 	b2Vec2 gravity;
 	gravity.Set(0.0f, -10.0f);
@@ -63,6 +100,9 @@
 	world = new b2World(gravity, doSleep);
 	world->SetContinuousPhysics(YES);
 	
+    
+    arrSprites = [[NSMutableArray alloc] init];
+    
 	//Initialize debug drawing
 	m_debugDraw = new GLESDebugDraw( PTM_RATIO );
 	world->SetDebugDraw(m_debugDraw);
@@ -73,10 +113,12 @@
 	//Create level boundaries
 	[self addLevelBoundaries];
 		
-	//Add batch node for block creation
+	//Add batch node for circle creation
 	batch = [[CCSpriteBatchNode batchNodeWithFile:@"BlurryBlob.png" capacity:300] retain];
-	
+    blocks = [[CCSpriteBatchNode batchNodeWithFile:@"brick.png" capacity:300] retain];
+    
     [self addChild:batch];
+    [self addChild:blocks];
 	
 	//Add a new block
 	CGSize screenSize = [CCDirector sharedDirector].winSize;
@@ -123,10 +165,14 @@
 	[batch addChild:sprite];
     
 	sprite.position = ccp( p.x, p.y);
+    sprite.visible = !isDebug;
     
 	// Define the dynamic body.
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
+    
+    [arrSprites addObject:sprite];
+
     
 	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
 	bodyDef.userData = sprite;
@@ -134,7 +180,7 @@
     
 	// Define another box shape for our dynamic body.
 	b2CircleShape blob;
-    blob.m_radius = (sprite.contentSize.width/50)/PTM_RATIO;
+    blob.m_radius = (sprite.contentSize.width/5)/PTM_RATIO;
     
 	// Define the dynamic body fixture.
 	b2FixtureDef fixtureDef;
@@ -146,14 +192,17 @@
 }
 
 
--(void) addNewStaticWithCoords:(CGPoint)p
+-(void) addNewStaticWithCoords:(CGPoint)p withVisible:(BOOL) show;
 {
     
-	CCSprite *sprite = [CCSprite spriteWithBatchNode:batch rect:CGRectMake(0.0, 0.0, 90.0, 90.0)];
-    //[sprite setScale:0.7];
-    [sprite setScale:1.5];
-	[batch addChild:sprite];
+	CCSprite *sprite = [CCSprite spriteWithBatchNode:blocks rect:CGRectMake(0.0, 0.0, 64.0, 64.0)];
+    [sprite setScale:1.0];
+    //[sprite setScale:1.5];
+	[blocks addChild:sprite];
     
+    [arrSprites addObject:sprite];
+
+    sprite.visible = !isDebug;
 	sprite.position = ccp( p.x, p.y);
     
 	// Define the static body.
@@ -163,18 +212,12 @@
 	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
 	bodyDef.userData = sprite;
 	b2Body *body = world->CreateBody(&bodyDef);
-    
-	// Define another box shape for our dynamic body.
-	b2CircleShape blob;
-    blob.m_radius = (sprite.contentSize.width/50)/PTM_RATIO;
-    
+ 
     
     b2PolygonShape staticBox;
-	staticBox.SetAsBox(.5f, .5f);//These are mid points for our 1m box
-
+	staticBox.SetAsBox(1.0f, 1.0f);//These are mid points for our 1m box
     
-    
-	// Define the dynamic body fixture.
+	// Define the static body fixture.
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &staticBox;
 	fixtureDef.density = 1.0f;
@@ -186,6 +229,7 @@
 
 
 - (void)drawLiquid{
+
     CGSize screenSize = [CCDirector sharedDirector].winSize;
     
     if(renderTextureB==nil){
@@ -193,71 +237,88 @@
         renderTextureB.position = ccp(screenSize.width/2, screenSize.height/2);
         [self addChild:renderTextureB];
     }
+    
+    
+    if(blockTexture==nil){
+        blockTexture = [CCRenderTexture renderTextureWithWidth:screenSize.width height:screenSize.height];
+        blockTexture.position = ccp(screenSize.width/2, screenSize.height/2);
+        [self addChild:blockTexture];
+    }
+    
+    
     glDisable(GL_ALPHA_TEST);
     
     if ( [[batch children] count] > 0 ) {
-    
-    [renderTextureB clear:0.0 g:0.0 b:0.0 a:0.0];
-    [renderTextureB begin];
-    [batch visit];
-    [renderTextureB end];
+        [renderTextureB clear:0.0 g:0.0 b:0.0 a:0.0];
+        [renderTextureB begin];
+        [batch visit];
+        [renderTextureB end];
     }
+    
+
+    
+    [blockTexture clear:0.0 g:0.0 b:0.0 a:0.0];
+    [blockTexture begin];
+    [blocks visit];
+    [blockTexture end];
+  
+    
 }
 
-
-/* Draw debug data */
 -(void) draw
 {
-	
-    /*
-    glDisable(GL_TEXTURE_2D);
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	
-	world->DrawDebugData();
-    
-    
-    
-	
-	glEnable(GL_TEXTURE_2D);
-	glEnableClientState(GL_COLOR_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    */
-[self drawLiquid];
+    if (isDebug){
+     
+        glDisable(GL_TEXTURE_2D);
+//        glDisable(GL_TEXTURE);
+        glDisableClientState(GL_COLOR_ARRAY);
+        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+     
+        world->DrawDebugData();
+
+
+        glEnable(GL_TEXTURE_2D);
+        glEnableClientState(GL_COLOR_ARRAY);
+        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    }
+    else {
+        [self drawLiquid];
+    }
 }
 
 
 - (void) clearAll
 {
- 
-    
     int bodyCount = 0;
     for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
     {
         world->DestroyBody(b);
         bodyCount++;
     }
-
     
     for (int i = [[batch children] count] - 1; i >= 0; i--) {
         [batch removeChildAtIndex:i cleanup:YES];
     }
+    
+    for (int i = [[blocks children] count] - 1; i >= 0; i--) {
+        [blocks removeChildAtIndex:i cleanup:YES];
+    }
+    
+    
+    [arrSprites removeAllObjects];
+    
     
      circleCount = 0;
     
     [self addLevelBoundaries];
     touchCounter = 0;
     touchHappening = NO;
-    NSLog(@"REmoving all");
+
     
     [renderTextureB clear:0.0 g:0.0 b:0.0 a:0.0];
-    [renderTextureB begin];
-//    [batch visit];
-    [renderTextureB end];
-
+    [blockTexture clear:0.0 g:0.0 b:0.0 a:0.0];
     
-
-    [self drawLiquid];
+    NSLog(@"Removed all shapes");
 }
 
 
@@ -285,48 +346,6 @@
 			myActor.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
 		}
 	}
-    if (touchHappening) {
-        touchCounter++;
-        if (touchCounter > 100)
-        {
-            
-            staticMode = NO;
-            /*
-            
-            
-            //[batch removeAllChildrenWithCleanup:NO];
-            
-            
-            for (int i = [[batch children] count] - 1; i >= 0; i--) {
-                [batch removeChildAtIndex:i cleanup:YES];
-                
-                
-
-
-                
-            }
-            
-            int bodyCount = 0;
-                            for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
-                            {
-                                //if (bodyCount > 0)
-                                //{
-                                    world->DestroyBody(b);
-                                //}
-                                bodyCount++;
-            
-                            
-                        
-                            }
-            circleCount = 0;
-            
-            [self addLevelBoundaries];
-             touchCounter = 0;
-            touchHappening = NO;
-            NSLog(@"REmoving all");
-             */
-        }
-    }
 }
 
 
@@ -357,7 +376,7 @@
             CGPoint location = [touch locationInView: [touch view]];
             location = [[CCDirector sharedDirector] convertToGL: location];
             if (staticMode) {
-                [self addNewStaticWithCoords:location];
+                [self addNewStaticWithCoords:location withVisible:YES];
             } else {
             [self addNewSpriteWithCoords: location];
             }
@@ -373,14 +392,12 @@
     //touchHappening = YES;
 }
 
-
-
 - (void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration
 {
 	static float prevX=0, prevY=0;
     
 	//#define kFilterFactor 0.05f
-#define kFilterFactor 1.0f	// don't use filter. the code is here just as an example
+    #define kFilterFactor 1.0f	// don't use filter. the code is here just as an example
     
 	float accelX = (float) acceleration.x * kFilterFactor + (1- kFilterFactor)*prevX;
 	float accelY = (float) acceleration.y * kFilterFactor + (1- kFilterFactor)*prevY;

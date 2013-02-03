@@ -6,6 +6,7 @@
 	UIWindow			*window;
 	RootViewController	*viewController;
     CCScene *s;
+    UIView *header;
 }
 
 + (AppDelegate *) sharedAppDelegate;

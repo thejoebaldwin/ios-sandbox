@@ -91,45 +91,24 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 	[director setDisplayFPS:NO];
 	
     
-    UIView *temp = [[[NSBundle mainBundle] loadNibNamed:@"HeaderView" owner:self options:nil ] lastObject];;
+    header = [[[NSBundle mainBundle] loadNibNamed:@"HeaderView" owner:self options:nil ] lastObject];;
     
-    
-    UIButton *clearButton = [[temp  subviews] objectAtIndex:0];
-    [clearButton setTitle:@"Clear" forState:UIControlStateNormal];
-    [clearButton addTarget:self action:@selector(ClearButtonClick:) forControlEvents:UIControlEventTouchUpInside];
   
-    
-    
-    UIButton *toggleButton = [[temp  subviews] objectAtIndex:1];
-    [toggleButton setTitle:@"Toggle" forState:UIControlStateNormal];
-    [toggleButton addTarget:self action:@selector(ToggleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-
-
-    
-    
-    [glView addSubview:temp];
-
+    [[self ClearButton] addTarget:self action:@selector(ClearButtonClick:) forControlEvents:UIControlEventTouchUpInside];
   
+    [[self ToggleButton] setTitle:@"Water" forState:UIControlStateNormal];
+    [[self ToggleButton] addTarget:self action:@selector(ToggleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
+    
+    [[self DebugButton] addTarget:self action:@selector(DebugButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+
+    [glView addSubview:header];
     
 	// make the OpenGLView a child of the view controller
 	[viewController setView:glView];
 	
-    
-    //UIView *temp =  [[[NSBundle mainBundle] loadNibNamed:@"ControlsView" owner:self options:nil]  lastObject ];
-    //[[viewController view] addSubview:temp];
-    
 	// make the View Controller a child of the main window
-    
-      
 	[window addSubview: viewController.view];
-    
-    
-    
-    
-    
-    
-    //add something here?
     
 	
 	[window makeKeyAndVisible];
@@ -146,51 +125,69 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 	// Run the intro Scene
     
 
-//    MainLayer *temp2 =;
     s =  [MainLayer scene];
-    
-    [viewController setMain:(MainLayer *)  s];
+
     
     [[self window] setRootViewController:viewController];
     
 	[[CCDirector sharedDirector] runWithScene:  s];
 }
 
-
-- (IBAction)ClearButtonClick:(id)sender
+- (UIButton *) ClearButton
 {
-    NSLog(@"I was clicked");
+    UIButton *tempButton = [[header  subviews] objectAtIndex:0];
+    return tempButton;
+}
+
+- (UIButton *) DebugButton
+{
+    UIButton *tempButton = [[header  subviews] objectAtIndex:2];
+    return tempButton;
+
+}
+
+- (UIButton *) ToggleButton
+{
+    UIButton *tempButton = [[header  subviews] objectAtIndex:1];
+    return tempButton;
+}
+
+- (CALayer *) FluidLayer
+{
     CCScene *c = [[CCDirector sharedDirector] runningScene];
     MainLayer *l = (MainLayer *) [[c children] lastObject];
     
     CALayer *f = [[l children] lastObject];
-    
-    
-    [f performSelector:@selector(clearAll)];
-    
-    //CCLayer *t =  [[s children] objectAtIndex:1];
-    //NSLog(@"Count of layers %i", [[s children] count] );
-    NSLog(@"%@", f);
-    
+    return f;
+}
+
+
+- (IBAction)ClearButtonClick:(id)sender
+{
+    [[self FluidLayer] performSelector:@selector(clearAll)];
 }
 
 
 - (IBAction)ToggleButtonClick:(id)sender
 {
-    NSLog(@"I was clicked");
-    CCScene *c = [[CCDirector sharedDirector] runningScene];
-    MainLayer *l = (MainLayer *) [[c children] lastObject];
-    
-    CALayer *f = [[l children] lastObject];
     
     
-    [f performSelector:@selector(toggleMode)];
+    //[[self ToggleButton] setTitle:@"Toggle" forState:UIControlStateNormal];
+    if ([[[[self ToggleButton] titleLabel] text] isEqualToString:@"Water"]) {
+         [[self ToggleButton] setTitle:@"Brick" forState:UIControlStateNormal];
+    }
+    else {
+         [[self ToggleButton] setTitle:@"Water" forState:UIControlStateNormal];
+    }
     
-    //CCLayer *t =  [[s children] objectAtIndex:1];
-    //NSLog(@"Count of layers %i", [[s children] count] );
-    NSLog(@"%@", f);
-    
+    [[self FluidLayer] performSelector:@selector(toggleMode)];
 }
+
+- (IBAction)DebugButtonClick:(id)sender
+{
+    [[self FluidLayer] performSelector:@selector(toggleDebug)];
+}
+
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

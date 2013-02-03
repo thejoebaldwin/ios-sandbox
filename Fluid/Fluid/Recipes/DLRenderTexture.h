@@ -13,7 +13,9 @@
 #import "GLES-Render.h"
 
 @interface DLRenderTexture : CCRenderTexture
-
+{
+ 
+}
 
 
 @end
