@@ -106,7 +106,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
     [[self JointsButton] addTarget:self action:@selector(JointsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
 
     
-     [[self TouchButton] addTarget:self action:@selector(TouchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    // [[self TouchButton] addTarget:self action:@selector(TouchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     
     [glView addSubview:header];
     

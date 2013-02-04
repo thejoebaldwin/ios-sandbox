@@ -188,6 +188,8 @@
 		977C0C8116BC29AA00A96E50 /* blocks.png in Resources */ = {isa = PBXBuildFile; fileRef = 977C0C8016BC29AA00A96E50 /* blocks.png */; };
 		977C0C8316BCCB1700A96E50 /* brick.png in Resources */ = {isa = PBXBuildFile; fileRef = 977C0C8216BCCB1700A96E50 /* brick.png */; };
 		977C0C8616BE2A1000A96E50 /* BallContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 977C0C8516BE2A1000A96E50 /* BallContactListener.mm */; };
+		977C0C8D16BF786400A96E50 /* left_triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 977C0C8B16BF786400A96E50 /* left_triangle.png */; };
+		977C0C8E16BF786400A96E50 /* right_triangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 977C0C8C16BF786400A96E50 /* right_triangle.png */; };
 		97953BE316BA44CC002EFC3B /* BlurryBlob.png in Resources */ = {isa = PBXBuildFile; fileRef = 97953BE216BA44CC002EFC3B /* BlurryBlob.png */; };
 		97953BE716BA4901002EFC3B /* DLRenderTexture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 97953BE616BA4901002EFC3B /* DLRenderTexture.mm */; };
 		97B8E07916BB03C000F6BF8C /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 97B8E06B16BB03C000F6BF8C /* CDataScanner.m */; };
@@ -583,6 +585,8 @@
 		977C0C8216BCCB1700A96E50 /* brick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brick.png; sourceTree = "<group>"; };
 		977C0C8416BE2A1000A96E50 /* BallContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BallContactListener.h; path = ../BallContactListener.h; sourceTree = "<group>"; };
 		977C0C8516BE2A1000A96E50 /* BallContactListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BallContactListener.mm; path = ../BallContactListener.mm; sourceTree = "<group>"; };
+		977C0C8B16BF786400A96E50 /* left_triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_triangle.png; sourceTree = "<group>"; };
+		977C0C8C16BF786400A96E50 /* right_triangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_triangle.png; sourceTree = "<group>"; };
 		97953BE216BA44CC002EFC3B /* BlurryBlob.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BlurryBlob.png; sourceTree = "<group>"; };
 		97953BE516BA4901002EFC3B /* DLRenderTexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLRenderTexture.h; sourceTree = "<group>"; };
 		97953BE616BA4901002EFC3B /* DLRenderTexture.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DLRenderTexture.mm; sourceTree = "<group>"; };
@@ -712,6 +716,8 @@
 				436F56E113552CD800F6433F /* Libraries */,
 				436F56C813552CD800F6433F /* Recipes */,
 				436F563B13552CAA00F6433F /* Helpers.h */,
+				977C0C8B16BF786400A96E50 /* left_triangle.png */,
+				977C0C8C16BF786400A96E50 /* right_triangle.png */,
 				436F563C13552CAA00F6433F /* Recipe.mm */,
 				977C0C8016BC29AA00A96E50 /* blocks.png */,
 				97953BE216BA44CC002EFC3B /* BlurryBlob.png */,
@@ -1238,6 +1244,8 @@
 				977C0C7F16BB9A0A00A96E50 /* HeaderView.xib in Resources */,
 				977C0C8116BC29AA00A96E50 /* blocks.png in Resources */,
 				977C0C8316BCCB1700A96E50 /* brick.png in Resources */,
+				977C0C8D16BF786400A96E50 /* left_triangle.png in Resources */,
+				977C0C8E16BF786400A96E50 /* right_triangle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

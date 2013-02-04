@@ -18,6 +18,9 @@
     
     CCSpriteBatchNode *batch;
     CCSpriteBatchNode *blocks;
+    CCSpriteBatchNode *leftTriangle;
+    CCSpriteBatchNode *rightTriangle;
+    
     int touchCounter;
     BOOL touchHappening;
     int circleCount;
@@ -26,9 +29,27 @@
 
     BOOL isDebug;
     BOOL touchMode;
+    
+    BOOL cancelTouch;
+    
 
     NSMutableArray *arrSprites;
     BallContactListener *_contactListener;
+  
+    
+    b2Body *selectedBody;
+
+     enum SPRITE_TYPE : NSInteger {
+        WATER,
+        BRICK,
+        LEFT_TRIANGLE,
+        RIGHT_TRIANGLE
+    };
+    
+    
+
+    SPRITE_TYPE currentShape;
+
 }
 
 -(CCLayer*) runRecipe;
@@ -56,7 +77,7 @@
         BOOL isInSize = f->TestPoint(location);
         CCSprite *sprite = (CCSprite *) b->GetUserData();
         if (isInSize) {
-            if (sprite.zOrder >= zOrder && sprite.tag == 1) {
+            if (sprite.zOrder >= zOrder && sprite.tag != WATER) {
                 zOrder = sprite.zOrder;
                 touchObject = b;
             }
@@ -74,6 +95,11 @@
     {
         staticMode = YES;
     }
+    currentShape++;
+    if (currentShape > 3) {
+        currentShape = WATER;
+    }
+    
 }
 
 -(void) clearJoints:(b2JointEdge *) edge
@@ -163,6 +189,11 @@ if (isDebug) {
 	b2Vec2 gravity;
 	gravity.Set(0.0f, -10.0f);
 	
+    currentShape = BRICK;
+    
+    
+    cancelTouch = FALSE;
+    
 	//Initialize world
 	bool doSleep = YES;
 	world = new b2World(gravity, doSleep);
@@ -186,10 +217,15 @@ if (isDebug) {
 		
 	//Add batch node for circle creation
 	batch = [[CCSpriteBatchNode batchNodeWithFile:@"BlurryBlob.png" capacity:300] retain];
-    blocks = [[CCSpriteBatchNode batchNodeWithFile:@"brick.png" capacity:300] retain];
+    blocks = [[CCSpriteBatchNode batchNodeWithFile:@"brick.png"  capacity:300 ] retain];
+    leftTriangle = [[CCSpriteBatchNode batchNodeWithFile:@"left_triangle.png"  capacity:300 ] retain];
+    rightTriangle = [[CCSpriteBatchNode batchNodeWithFile:@"right_triangle.png"  capacity:300 ] retain];
+
     
     [self addChild:batch];
     [self addChild:blocks];
+    [self addChild:rightTriangle];
+    [self addChild:leftTriangle];
 	
 	//Add a new block
 	CGSize screenSize = [CCDirector sharedDirector].winSize;
@@ -237,9 +273,8 @@ if (isDebug) {
     
 	sprite.position = ccp( p.x, p.y);
     sprite.visible = !isDebug;
-    sprite.tag = 0;
-    
-
+    sprite.tag = WATER;
+   
     
 	// Define the dynamic body.
 	b2BodyDef bodyDef;
@@ -267,10 +302,118 @@ if (isDebug) {
 }
 
 
+
+-(void) addNewStaticWithCoords:(CGPoint)p withVisible:(BOOL) show withSpriteType:(SPRITE_TYPE) type
+{
+    //this was 64 when square. need to be a power of 2??
+    
+	CCSprite *sprite;
+    b2BodyDef bodyDef;
+    switch (type) {
+        case WATER: {
+            sprite = [CCSprite spriteWithBatchNode:batch rect:CGRectMake(0.0, 0.0, 90.0, 90.0)];
+            [sprite setScale:1.5];
+            [batch addChild:sprite];
+            bodyDef.type = b2_dynamicBody;
+        }
+            break;
+        case LEFT_TRIANGLE: {
+            sprite = [CCSprite spriteWithBatchNode:leftTriangle rect:CGRectMake(0.0, 0.0, 64, 64)];
+            [sprite setScale:1.0];
+            [leftTriangle addChild:sprite];
+            bodyDef.type = b2_staticBody;
+            sprite.anchorPoint  = ccp(0,0);
+
+        }
+            break;
+        case RIGHT_TRIANGLE: {
+            sprite = [CCSprite spriteWithBatchNode:rightTriangle rect:CGRectMake(0.0, 0.0, 64, 64)];
+            [sprite setScale:1.0];
+            [rightTriangle addChild:sprite];
+            bodyDef.type = b2_staticBody;
+            sprite.anchorPoint  = ccp(0,0);
+
+        }
+
+            break;
+        case BRICK: {
+            sprite = [CCSprite spriteWithBatchNode:blocks rect:CGRectMake(0.0, 0.0, 64, 64)];
+            [sprite setScale:1.0];
+            [blocks addChild:sprite];
+            bodyDef.type = b2_staticBody;
+        }
+        default:
+            break;
+
+    }
+       
+    [arrSprites addObject:sprite];
+    sprite.visible = !isDebug;
+	sprite.position = ccp( p.x, p.y);
+    sprite.tag = type;
+
+    
+	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
+	bodyDef.userData = sprite;
+	b2Body *body = world->CreateBody(&bodyDef);
+
+  	b2FixtureDef fixtureDef;
+    
+    switch (type) {
+        case WATER: {
+            // Define another box shape for our dynamic body.
+            b2CircleShape blob;
+            blob.m_radius = (sprite.contentSize.width/8)/PTM_RATIO;
+            fixtureDef.shape = &blob;
+        }
+            break;
+        case LEFT_TRIANGLE: {
+            b2Vec2 trsVertices[3];
+            trsVertices[0].Set(0.0f, 0.0f );
+            trsVertices[1].Set(64.0f /PTM_RATIO, 0.0f);
+            trsVertices[2].Set(0.0f /PTM_RATIO, 64.0f /PTM_RATIO);
+            b2PolygonShape trsShape;
+            int32 trsVert = 3;
+            trsShape.Set(trsVertices, trsVert);
+            fixtureDef.shape = &trsShape;
+        }
+            break;
+        case RIGHT_TRIANGLE: {
+            b2Vec2 trsVertices[3];
+            trsVertices[0].Set(0.0f, 0.0f );
+            trsVertices[1].Set(64.0f /PTM_RATIO, 0.0f);
+            trsVertices[2].Set(64.0f /PTM_RATIO, 64.0f /PTM_RATIO);
+            b2PolygonShape trsShape;
+            int32 trsVert = 3;
+            trsShape.Set(trsVertices, trsVert);
+            fixtureDef.shape = &trsShape;
+        }
+            break;
+        case BRICK: {
+            b2PolygonShape staticBox;
+            staticBox.SetAsBox(1.0f, 1.0f);//These are mid points for our 1m box
+            fixtureDef.shape = &staticBox;
+        }
+            
+            
+        default:
+            break;
+    }
+    
+	fixtureDef.density = 1.0f;
+	fixtureDef.friction = 0.0f;
+    fixtureDef.restitution = 0.4f;
+	body->CreateFixture(&fixtureDef);
+}
+
 -(void) addNewStaticWithCoords:(CGPoint)p withVisible:(BOOL) show;
 {
     
-	CCSprite *sprite = [CCSprite spriteWithBatchNode:blocks rect:CGRectMake(0.0, 0.0, 64.0, 64.0)];
+    
+    //this was 64 when square. need to be a power of 2??
+    
+	CCSprite *sprite = [CCSprite spriteWithBatchNode:blocks rect:CGRectMake(0.0, 0.0, 64, 64)];
+
     [sprite setScale:1.0];
     //[sprite setScale:1.5];
 	[blocks addChild:sprite];
@@ -280,7 +423,9 @@ if (isDebug) {
     sprite.visible = !isDebug;
 	sprite.position = ccp( p.x, p.y);
     sprite.tag = 1;
-    
+    //not needed for square
+    sprite.anchorPoint  = ccp(0,0);
+
     
 	// Define the static body.
 	b2BodyDef bodyDef;
@@ -290,13 +435,30 @@ if (isDebug) {
 	bodyDef.userData = sprite;
 	b2Body *body = world->CreateBody(&bodyDef);
  
+    b2Vec2 trsVertices[3];
+    
+ 
+    trsVertices[0].Set(0.0f, 0.0f );
+    trsVertices[1].Set(64.0f /PTM_RATIO, 0.0f);
+    trsVertices[2].Set(64.0f /PTM_RATIO, 64.0f /PTM_RATIO);
+   
+   
+    
+    
+    
+    b2PolygonShape trsShape;
+
+    int32 trsVert = 3;
+    trsShape.Set(trsVertices, trsVert);
+
     
     b2PolygonShape staticBox;
 	staticBox.SetAsBox(1.0f, 1.0f);//These are mid points for our 1m box
     
+    
 	// Define the static body fixture.
 	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &staticBox;
+	fixtureDef.shape = &trsShape;
     
 	fixtureDef.density = 1.0f;
 	fixtureDef.friction = 0.0f;
@@ -385,6 +547,14 @@ if (isDebug) {
         [blocks removeChildAtIndex:i cleanup:YES];
     }
     
+    for (int i = [[leftTriangle children] count] - 1; i >= 0; i--) {
+        [leftTriangle removeChildAtIndex:i cleanup:YES];
+    }
+    
+    for (int i = [[rightTriangle children] count] - 1; i >= 0; i--) {
+        [rightTriangle removeChildAtIndex:i cleanup:YES];
+    }
+    
     
     [arrSprites removeAllObjects];
     
@@ -405,6 +575,28 @@ if (isDebug) {
 
 -(void) tick: (ccTime) dt
 {
+    
+    if (touchHappening) {
+        
+        touchCounter++;
+        if (touchCounter > 30) {
+            
+                       touchCounter = 0;
+            if (selectedBody != NULL) {
+            //NSLog(@"Something was touched-->%i", sprite.tag );
+                CCSprite *sprite = (CCSprite *) selectedBody->GetUserData() ;
+            [sprite setVisible:NO];
+            world->DestroyBody(selectedBody);
+            [arrSprites removeObjectIdenticalTo:sprite];
+                selectedBody = NULL;
+                cancelTouch = TRUE;
+            }
+
+            
+        }
+        
+    }
+    
 	//It is recommended that a fixed time step is used with Box2D for stability
 	//of the simulation, however, we are using a variable time step here.
 	//You need to make an informed choice, the following URL is useful
@@ -428,7 +620,7 @@ if (isDebug) {
 		}
 	}
 
-    
+    //destroy if jointed objects are too far from each other
     for (b2Joint *b = world->GetJointList(); b; b=b->GetNext()) {
         b2Body *bodyA = b->GetBodyA();
         b2Body *bodyB = b->GetBodyB();
@@ -437,11 +629,13 @@ if (isDebug) {
         {
             world->DestroyJoint(b);
         }
-      
-        
     }
     
+    //if joints turned on
     if (jointsMode) {
+        
+        
+        //listen for collision, then attach rope joint
         std::vector<MyContact>::iterator pos;
         for (pos = _contactListener->_contacts.begin(); pos != _contactListener->_contacts.end(); ++pos) {
             MyContact contact = *pos;
@@ -496,26 +690,19 @@ if (isDebug) {
 
 
 
-/* Update graphical positions using physical positions */
--(void) step: (ccTime) dt
-{	
-	int32 velocityIterations = 8;
-	int32 positionIterations = 3;
-	
-	world->Step(dt, velocityIterations, positionIterations);
-	
-	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
-	{
-		if (b->GetUserData() != NULL) {
-			CCSprite *obj = (CCSprite*)b->GetUserData();
-			obj.position = CGPointMake( b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO);
-			obj.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
-		}	
-	}
-}
-
 /* Tap to add a block */
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    
+    
+    if ( cancelTouch) {
+        touchHappening = FALSE;
+        touchCounter = 0;
+        cancelTouch = FALSE;
+    }
+    else
+    {
+
     
     if (touchMode) {
         
@@ -554,24 +741,56 @@ if (isDebug) {
             for( UITouch *touch in touches ) {
                 CGPoint location = [touch locationInView: [touch view]];
                 location = [[CCDirector sharedDirector] convertToGL: location];
-                if (staticMode) {
-                    [self addNewStaticWithCoords:location withVisible:YES];
-                } else {
-                    [self addNewSpriteWithCoords: location];
-                }
+                //if (staticMode) {
+                    [self addNewStaticWithCoords:location withVisible:YES withSpriteType:currentShape];
+                //} else {
+                   // [self addNewSpriteWithCoords: location];
+                //}
                 circleCount++;
             }
         }
 
     }
-    
+    }
        
     
 }
 
 - (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    //touchHappening = YES;
+    touchHappening = YES;
+    touchCounter = 0;
+    for( UITouch *touch in touches ) {
+        CGPoint location = [touch locationInView: [touch view]];
+        
+        
+        location = [[CCDirector sharedDirector] convertToGL: location];
+        b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
+        
+        b2Body *touchObject = [self getTopTouchBody:(locationWorld)];
+        if (touchObject != NULL)
+        {
+            CCSprite *sprite = (CCSprite *) touchObject->GetUserData();
+            if (sprite != NULL)
+            {
+                if (sprite.tag != WATER) {
+                    selectedBody = touchObject;
+                }
+                
+                /*
+                NSLog(@"Something was touched-->%i", sprite.tag );
+                [sprite setVisible:NO];
+                world->DestroyBody(touchObject);
+                [arrSprites removeObjectIdenticalTo:sprite];
+                [blockTexture clear:0.0 g:0.0 b:0.0 a:0.0];
+                */
+            }
+            
+            
+        }
+    }
+
+    
 }
 
 - (void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration
