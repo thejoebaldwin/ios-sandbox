@@ -590,6 +590,7 @@ if (isDebug) {
             [arrSprites removeObjectIdenticalTo:sprite];
                 selectedBody = NULL;
                 cancelTouch = TRUE;
+                circleCount--;
             }
 
             
