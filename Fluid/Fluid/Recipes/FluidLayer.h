@@ -702,6 +702,8 @@ if (isDebug) {
     }
     else
     {
+        touchHappening = FALSE;
+        touchCounter = 0;
 
     
     if (touchMode) {
