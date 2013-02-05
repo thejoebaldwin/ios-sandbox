@@ -11,7 +11,7 @@
 
 @implementation RootViewController
 
-@synthesize main, stickyButton, toggleButton, debugButton, pickerView;
+@synthesize main, stickyButton, debugButton, pickerView;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -31,15 +31,14 @@
 
 
  // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-
+/*
  - (void)viewDidLoad {
 	[super viewDidLoad];
      
-     arrStatus = [[NSArray alloc] initWithObjects:@"One", @"Two", @"Three",nil];
- }
+     }
 
  
-
+*/
 -(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
     return 1;
@@ -53,6 +52,16 @@
 -(NSString *) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
     return [arrStatus objectAtIndex:row];
+}
+
+-(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    NSLog(@"row changed");
+    
+    NSNumber *rowIndex =  [[NSNumber alloc] initWithInt: [pickerView selectedRowInComponent:0 ]];
+    
+     [[self FluidLayer] performSelector:@selector(toggleMode:) withObject:rowIndex];
+    
 }
 
 // Override to allow orientations other than the default portrait orientation.
@@ -157,7 +166,7 @@
 }
 
 
-
+/*
 - (id) init
 {
     self = [super init];
@@ -167,12 +176,13 @@
 
     return self;
 }
+ */
 
 -(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        arrStatus = [[NSArray alloc] initWithObjects:@"One", @"Two", @"Three",nil];
+        arrStatus = [[NSArray alloc] initWithObjects:@"Water", @"Brick", @"Left Triangle", @"Right Triangle",nil];
 
     }
     
@@ -202,7 +212,7 @@
 
     [stickyButton release];
     [debugButton release];
-    [toggleButton release];
+    //[toggleButton release];
     [pickerView release];
     [super dealloc];
 }
@@ -241,22 +251,6 @@
     [[self FluidLayer] performSelector:@selector(toggleJoints)];
 
     
-}
-
-- (IBAction)toggleButtonClick:(id)sender {
-
-    if ([[[toggleButton titleLabel] text] isEqualToString:@"Water"]) {
-        [toggleButton setTitle:@"Brick" forState:UIControlStateNormal];
-    }
-    else {
-        [toggleButton setTitle:@"Water" forState:UIControlStateNormal];
-    }
-    
-    NSNumber *temp = [[NSNumber alloc] initWithInt:1];
-    
-    [[self FluidLayer] performSelector:@selector(toggleMode:) withObject:temp];
-
-
 }
 @end
 

@@ -12,9 +12,11 @@
 {
 	b2World* world;
 	GLESDebugDraw *m_debugDraw;
-    DLRenderTexture *renderTextureB;
+    DLRenderTexture *waterTexture;
     CCRenderTexture *blockTexture;
-    CCSpriteBatchNode *batch;
+    CCRenderTexture *leftTrianleTexture;
+    CCRenderTexture *rightTriangleTexture;
+    CCSpriteBatchNode *waters;
     CCSpriteBatchNode *blocks;
     CCSpriteBatchNode *leftTriangle;
     CCSpriteBatchNode *rightTriangle;
@@ -79,21 +81,27 @@
 -(void) addLevelBoundaries {
 	CGSize screenSize = [CCDirector sharedDirector].winSize;
 	
+   
+    
 	b2BodyDef groundBodyDef;
 	groundBodyDef.position.Set(0, 0);
 	b2Body *body = world->CreateBody(&groundBodyDef);
     
 	b2PolygonShape groundBox;
     
-	groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(screenSize.width/PTM_RATIO,0));
+    //top
+	groundBox.SetAsEdge(b2Vec2(0,3), b2Vec2(screenSize.width/PTM_RATIO,3));
 	body->CreateFixture(&groundBox,0);
     
-	groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO));
+    //top
+    groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO ));
 	body->CreateFixture(&groundBox,0);
     
+    //left
 	groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(0,0));
 	body->CreateFixture(&groundBox,0);
     
+    //right
 	groundBox.SetAsEdge(b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,0));
 	body->CreateFixture(&groundBox,0);
 }
@@ -109,9 +117,9 @@
     b2BodyDef bodyDef;
     switch (type) {
         case WATER: {
-            sprite = [CCSprite spriteWithBatchNode:batch rect:CGRectMake(0.0, 0.0, 90.0, 90.0)];
+            sprite = [CCSprite spriteWithBatchNode:waters rect:CGRectMake(0.0, 0.0, 90.0, 90.0)];
             [sprite setScale:1.5];
-            [batch addChild:sprite];
+            [waters addChild:sprite];
             bodyDef.type = b2_dynamicBody;
         }
             break;
@@ -301,8 +309,8 @@
         bodyCount++;
     }
     
-    for (int i = [[batch children] count] - 1; i >= 0; i--) {
-        [batch removeChildAtIndex:i cleanup:YES];
+    for (int i = [[waters children] count] - 1; i >= 0; i--) {
+        [waters removeChildAtIndex:i cleanup:YES];
     }
     
     for (int i = [[blocks children] count] - 1; i >= 0; i--) {
@@ -322,7 +330,7 @@
     [self addLevelBoundaries];
     touchCounter = 0;
     touchHappening = NO;
-    [renderTextureB clear:0.0 g:0.0 b:0.0 a:0.0];
+    [waterTexture clear:0.0 g:0.0 b:0.0 a:0.0];
     [blockTexture clear:0.0 g:0.0 b:0.0 a:0.0];
     NSLog(@"Removed all shapes");
 }
@@ -359,18 +367,64 @@
 
 - (void)drawLiquid{
     CGSize screenSize = [CCDirector sharedDirector].winSize;
-    if(renderTextureB==nil){
-        renderTextureB = [DLRenderTexture renderTextureWithWidth:screenSize.width height:screenSize.height];
-        renderTextureB.position = ccp(screenSize.width/2, screenSize.height/2);
-        [self addChild:renderTextureB];
+    if(waterTexture==nil){
+        waterTexture = [DLRenderTexture renderTextureWithWidth:screenSize.width height:screenSize.height];
+        waterTexture.position = ccp(screenSize.width/2, screenSize.height/2);
+        [self addChild:waterTexture];
     }
+    
+    if(blockTexture==nil){
+        blockTexture = [CCRenderTexture renderTextureWithWidth:screenSize.width height:screenSize.height];
+        blockTexture.position = ccp(screenSize.width/2, screenSize.height/2);
+        [self addChild:blockTexture];
+    }
+
+    if(leftTrianleTexture==nil){
+        leftTrianleTexture = [CCRenderTexture renderTextureWithWidth:screenSize.width height:screenSize.height];
+        leftTrianleTexture.position = ccp(screenSize.width/2, screenSize.height/2);
+        [self addChild:leftTrianleTexture];
+    }
+    
+    if(rightTriangleTexture==nil){
+        rightTriangleTexture = [CCRenderTexture renderTextureWithWidth:screenSize.width height:screenSize.height];
+        rightTriangleTexture.position = ccp(screenSize.width/2, screenSize.height/2);
+        [self addChild:rightTriangleTexture];
+    }
+    
+    
+
+    
     glDisable(GL_ALPHA_TEST);
-    if ( [[batch children] count] > 0 ) {
-        [renderTextureB clear:0.0 g:0.0 b:0.0 a:0.0];
-        [renderTextureB begin];
-        [batch visit];
-        [renderTextureB end];
+    if ( [[waters children] count] > 0 ) {
+        [waterTexture clear:0.0 g:0.0 b:0.0 a:0.0];
+        [waterTexture begin];
+        [waters visit];
+        [waterTexture end];
     }
+    
+    //if you just do a [blocks visit] without the following, the alpha of the water will overlap
+    if ( [[blocks children] count] > 0 ) {
+        [blockTexture clear:0.0 g:0.0 b:0.0 a:0.0];
+        [blockTexture begin];
+        [blocks visit];
+        [blockTexture end];
+    }
+    
+    if ( [[leftTriangle children] count] > 0 ) {
+        [leftTrianleTexture clear:0.0 g:0.0 b:0.0 a:0.0];
+        [leftTrianleTexture begin];
+        [leftTriangle visit];
+        [leftTrianleTexture end];
+    }
+    
+    if ( [[rightTriangle children] count] > 0 ) {
+        [rightTriangleTexture clear:0.0 g:0.0 b:0.0 a:0.0];
+        [rightTriangleTexture begin];
+        [rightTriangle visit];
+        [rightTriangleTexture end];
+    }
+    
+    
 }
 
 
@@ -410,7 +464,7 @@
 	b2Vec2 gravity;
 	gravity.Set(0.0f, -10.0f);
 	
-    currentShape = BRICK;
+    currentShape = WATER;
     cancelTouch = FALSE;
     
 	//Initialize world
@@ -429,19 +483,20 @@
 	uint32 flags = 0;
 	flags += b2DebugDraw::e_shapeBit;
     flags += b2DebugDraw::e_jointBit;
+    
 	m_debugDraw->SetFlags(flags);
 	
 	//Create level boundaries
 	[self addLevelBoundaries];
     
 	//Add batch node for circle creation
-	batch = [[CCSpriteBatchNode batchNodeWithFile:@"BlurryBlob.png" capacity:300] retain];
+	waters = [[CCSpriteBatchNode batchNodeWithFile:@"BlurryBlob.png" capacity:300] retain];
     blocks = [[CCSpriteBatchNode batchNodeWithFile:@"brick.png"  capacity:300 ] retain];
     leftTriangle = [[CCSpriteBatchNode batchNodeWithFile:@"left_triangle.png"  capacity:300 ] retain];
     rightTriangle = [[CCSpriteBatchNode batchNodeWithFile:@"right_triangle.png"  capacity:300 ] retain];
     
     
-    [self addChild:batch];
+    [self addChild:waters];
     [self addChild:blocks];
     [self addChild:rightTriangle];
     [self addChild:leftTriangle];
@@ -555,8 +610,6 @@
     if (isDebug) {
         isDebug = NO;
         for (int i = 0; i < [arrSprites count]; i++) {
-            //[ [arrSprites objectAtIndex:i] setVisible:YES];
-            
             CCAction *fadeIn = [CCFadeIn actionWithDuration:0.5];
             
             [[arrSprites objectAtIndex:i] setVisible:YES];
@@ -572,8 +625,10 @@
             [[arrSprites objectAtIndex:i] runAction: fadeOut];
         }
     }
-    [renderTextureB clear:0.0 g:0.0 b:0.0 a:0.0];
+    [waterTexture clear:0.0 g:0.0 b:0.0 a:0.0];
     [blockTexture clear:0.0 g:0.0 b:0.0 a:0.0];
+    [leftTrianleTexture clear:0.0 g:0.0 b:0.0 a:0.0];
+    [rightTriangleTexture clear:0.0 g:0.0 b:0.0 a:0.0];
 }
 
 
@@ -595,19 +650,7 @@
 //switch between shapes
 - (void) toggleMode:(NSNumber *) type;
 {
-    if (staticMode) {
-        staticMode = NO;
-    } else
-    {
-        staticMode = YES;
-    }
-    currentShape++;
-    if (currentShape > 3) {
-        currentShape = WATER;
-    }
-    
-    NSLog(@"%@", type);
-    
+    currentShape = (SPRITE_TYPE) [type intValue];
 }
 
 -(void) toggleTouch
