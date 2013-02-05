@@ -6,6 +6,7 @@
 #import "RootViewController.h"
 #import "SynthesizeSingleton.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import <Foundation/Foundation.h>
 
 @implementation AppDelegate
 
@@ -65,9 +66,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 	
 	[glView setMultipleTouchEnabled:YES];
     
-    
-
-	// attach the openglView to the director
+       
+    	// attach the openglView to the director
 	[director setOpenGLView:glView];
 	
 //	// Enables High Res mode (Retina Display) on iPhone 4 and maintains low res on all other devices
@@ -97,7 +97,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
  
 	[viewController setView:glView];
 
-    
+    CGRect edge = [window bounds];
+    CGRect rect = CGRectMake(0, edge.size.height - header.frame.size.height, header.frame.size.width, header.frame.size.height);
+    header.frame = rect;
+
 
     
     [viewController.view  addSubview:header];
