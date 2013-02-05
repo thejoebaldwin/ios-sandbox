@@ -98,7 +98,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 	[viewController setView:glView];
 
     CGRect edge = [window bounds];
-    CGRect rect = CGRectMake(0, edge.size.height - header.frame.size.height, header.frame.size.width, header.frame.size.height);
+    NSLog(@"RECTANGLE:%f,%f", edge.size.width, edge.size.height);
+    CGRect rect = CGRectMake(0, 668, edge.size.width, 300 );
     header.frame = rect;
 
 
