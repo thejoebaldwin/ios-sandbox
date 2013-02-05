@@ -207,6 +207,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
     [[self FluidLayer] performSelector:@selector(clearAll)];
 }
 
+//turn on/off joint add on collision
 - (IBAction)JointsButtonClick:(id)sender
 {
     if ([[[[self JointsButton] titleLabel] text] isEqualToString:@"Off"]) {
@@ -220,11 +221,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 }
 
 
+//toggles shapes
 - (IBAction)ToggleButtonClick:(id)sender
 {
-    
-    
-    //[[self ToggleButton] setTitle:@"Toggle" forState:UIControlStateNormal];
     if ([[[[self ToggleButton] titleLabel] text] isEqualToString:@"Water"]) {
          [[self ToggleButton] setTitle:@"Brick" forState:UIControlStateNormal];
     }
@@ -232,9 +231,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
          [[self ToggleButton] setTitle:@"Water" forState:UIControlStateNormal];
     }
     
-    [[self FluidLayer] performSelector:@selector(toggleMode)];
+    NSNumber *temp = [[NSNumber alloc ] initWithInt :1];
+    
+    [[self FluidLayer] performSelector:@selector(toggleMode:) withObject:temp];
 }
 
+//Turns on/off Box2D physics representation
 - (IBAction)DebugButtonClick:(id)sender
 {
     
@@ -244,9 +246,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
     else {
         [[self DebugButton] setTitle:@"Off" forState:UIControlStateNormal];
     }
-
-    
-    
     [[self FluidLayer] performSelector:@selector(toggleDebug)];
 }
 

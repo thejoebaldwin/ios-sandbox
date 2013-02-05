@@ -13,231 +13,66 @@
 	b2World* world;
 	GLESDebugDraw *m_debugDraw;
     DLRenderTexture *renderTextureB;
-    
     CCRenderTexture *blockTexture;
-    
     CCSpriteBatchNode *batch;
     CCSpriteBatchNode *blocks;
     CCSpriteBatchNode *leftTriangle;
     CCSpriteBatchNode *rightTriangle;
+    CCSprite *newSprite;
     
     int touchCounter;
     BOOL touchHappening;
     int circleCount;
     BOOL staticMode;
     BOOL jointsMode;
-
     BOOL isDebug;
     BOOL touchMode;
-    
+    BOOL addMode;
     BOOL cancelTouch;
     
-
     NSMutableArray *arrSprites;
     BallContactListener *_contactListener;
-  
-    
     b2Body *selectedBody;
-
-     enum SPRITE_TYPE : NSInteger {
+    enum SPRITE_TYPE : NSInteger {
         WATER,
         BRICK,
         LEFT_TRIANGLE,
         RIGHT_TRIANGLE
     };
-    
-    
-
     SPRITE_TYPE currentShape;
 
 }
 
--(CCLayer*) runRecipe;
--(void) addLevelBoundaries;
--(void) step: (ccTime) dt;
--(void) draw;
--(void) addNewSpriteWithCoords:(CGPoint)p;
--(void) ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
--(void) clearAll;
-- (void) toggleMode;
+- (CCLayer*) runRecipe;
+- (void) draw;
+- (void) clearAll;
+- (void) toggleMode:(NSNumber *) type;
 - (void) toggleDebug;
+- (void) toggleTouch;
 
 @end
 
 @implementation FluidLayer
 
 
--(b2Body *) getTopTouchBody:(b2Vec2) location
+- (void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration
 {
-    b2Body *touchObject = NULL;
-    int zOrder =0;
-    for (b2Body *b = world->GetBodyList(); b; b = b->GetNext())
-    {
-        b2Fixture *f = b->GetFixtureList();
-        BOOL isInSize = f->TestPoint(location);
-        CCSprite *sprite = (CCSprite *) b->GetUserData();
-        if (isInSize) {
-            if (sprite.zOrder >= zOrder && sprite.tag != WATER) {
-                zOrder = sprite.zOrder;
-                touchObject = b;
-            }
-        }
-    }
-    return touchObject;
-}
-
-
--(void) toggleMode
-{
-    if (staticMode) {
-        staticMode = NO;
-    } else
-    {
-        staticMode = YES;
-    }
-    currentShape++;
-    if (currentShape > 3) {
-        currentShape = WATER;
-    }
+	static float prevX=0, prevY=0;
     
-}
-
--(void) clearJoints:(b2JointEdge *) edge
-{
-    while (edge != NULL) {
-        world->DestroyJoint(edge->joint);
-        if (edge->prev != NULL) {
-            world->DestroyJoint(edge->prev->joint);
-        }
-        edge = edge->next;
-    }
-
-}
-
-
--(void) toggleJoints{
-    if (jointsMode) {
-
-        jointsMode = NO;
-        
-        for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
-        {
-            [self clearJoints:b->GetJointList()];
-            [self clearJoints:b->GetJointList()];
-        }
-    }
-    else {
-        jointsMode = YES;
-    }
-}
-
--(void) toggleTouch
-{
-    if (touchMode) {
-        
-        touchMode = NO;
-        
-       }
-    else {
-        touchMode = YES;
-    }
-
-}
-
-
--(void) toggleDebug
-{
-if (isDebug) {
-        isDebug = NO;
-        for (int i = 0; i < [arrSprites count]; i++) {
-            //[ [arrSprites objectAtIndex:i] setVisible:YES];
-                        
-            CCAction *fadeIn = [CCFadeIn actionWithDuration:0.5];
-          
-            [[arrSprites objectAtIndex:i] setVisible:YES];
-            [[arrSprites objectAtIndex:i] runAction: fadeIn];
-            }
-        }
-        else {
-            isDebug = YES;
-            for (int i = 0; i < [arrSprites count]; i++) {
-                // [ [arrSprites objectAtIndex:i] setVisible:NO];
-                //this works, but rotate in tick method overrides it.
-                //CCAction *rotate  = [CCRotateBy actionWithDuration:0.5 angle:90];
-                CCAction *fadeOut = [CCFadeOut  actionWithDuration:0.5];
-                [[arrSprites objectAtIndex:i] runAction: fadeOut];
-            }
-    }
+	//#define kFilterFactor 0.05f
+    #define kFilterFactor 1.0f	// don't use filter. the code is here just as an example
     
-    [renderTextureB clear:0.0 g:0.0 b:0.0 a:0.0];
-    [blockTexture clear:0.0 g:0.0 b:0.0 a:0.0];
-}
-
--(CCLayer*) runRecipe {
-	[super runRecipe];
-	touchCounter = 0;
-    touchHappening = NO;
-	//Enable touches
-	self.isTouchEnabled = YES;
-    jointsMode = NO;
-    staticMode = NO;
-    self.isAccelerometerEnabled = YES;
-	/* Box2D Initialization */
-	isDebug = NO;
-    touchMode = NO;
-	//Set gravity
-	b2Vec2 gravity;
-	gravity.Set(0.0f, -10.0f);
-	
-    currentShape = BRICK;
+	float accelX = (float) acceleration.x * kFilterFactor + (1- kFilterFactor)*prevX;
+	float accelY = (float) acceleration.y * kFilterFactor + (1- kFilterFactor)*prevY;
     
+	prevX = accelX;
+	prevY = accelY;
     
-    cancelTouch = FALSE;
+	// accelerometer values are in "Portrait" mode. Change them to Landscape left
+	// multiply the gravity by 15
+	b2Vec2 gravity( accelX * 15, accelY * 15);
     
-	//Initialize world
-	bool doSleep = YES;
-	world = new b2World(gravity, doSleep);
-	world->SetContinuousPhysics(YES);
-	
-    _contactListener = new BallContactListener();
-    world->SetContactListener(_contactListener);
-    
-    arrSprites = [[NSMutableArray alloc] init];
-    
-	//Initialize debug drawing
-	m_debugDraw = new GLESDebugDraw( PTM_RATIO );
-	world->SetDebugDraw(m_debugDraw);
-	uint32 flags = 0;
-	flags += b2DebugDraw::e_shapeBit;
-    flags += b2DebugDraw::e_jointBit;
-	m_debugDraw->SetFlags(flags);	
-	
-	//Create level boundaries
-	[self addLevelBoundaries];
-		
-	//Add batch node for circle creation
-	batch = [[CCSpriteBatchNode batchNodeWithFile:@"BlurryBlob.png" capacity:300] retain];
-    blocks = [[CCSpriteBatchNode batchNodeWithFile:@"brick.png"  capacity:300 ] retain];
-    leftTriangle = [[CCSpriteBatchNode batchNodeWithFile:@"left_triangle.png"  capacity:300 ] retain];
-    rightTriangle = [[CCSpriteBatchNode batchNodeWithFile:@"right_triangle.png"  capacity:300 ] retain];
-
-    
-    [self addChild:batch];
-    [self addChild:blocks];
-    [self addChild:rightTriangle];
-    [self addChild:leftTriangle];
-	
-	//Add a new block
-	CGSize screenSize = [CCDirector sharedDirector].winSize;
-	//[self addNewSpriteWithCoords:ccp(screenSize.width/2, screenSize.height/2)];
-
-	//Schedule step method
-	[self schedule:@selector(tick:)];
-			
-    
-
-    
-	return self;
+	world->SetGravity( gravity );
 }
 
 /* Adds a polygonal box around the screen */
@@ -247,59 +82,22 @@ if (isDebug) {
 	b2BodyDef groundBodyDef;
 	groundBodyDef.position.Set(0, 0);
 	b2Body *body = world->CreateBody(&groundBodyDef);
-
-	b2PolygonShape groundBox;		
-		
+    
+	b2PolygonShape groundBox;
+    
 	groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(screenSize.width/PTM_RATIO,0));
 	body->CreateFixture(&groundBox,0);
-		
+    
 	groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO));
 	body->CreateFixture(&groundBox,0);
-		
+    
 	groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(0,0));
 	body->CreateFixture(&groundBox,0);
-		
+    
 	groundBox.SetAsEdge(b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,0));
 	body->CreateFixture(&groundBox,0);
 }
 
--(void) addNewSpriteWithCoords:(CGPoint)p
-{
-    
-	CCSprite *sprite = [CCSprite spriteWithBatchNode:batch rect:CGRectMake(0.0, 0.0, 90.0, 90.0)];
-    //[sprite setScale:0.7];
-    [sprite setScale:1.5];
-	[batch addChild:sprite];
-    
-	sprite.position = ccp( p.x, p.y);
-    sprite.visible = !isDebug;
-    sprite.tag = WATER;
-   
-    
-	// Define the dynamic body.
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_dynamicBody;
-    
-    [arrSprites addObject:sprite];
-
-    
-	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
-	bodyDef.userData = sprite;
-	b2Body *body = world->CreateBody(&bodyDef);
-    
-	// Define another box shape for our dynamic body.
-	b2CircleShape blob;
-    blob.m_radius = (sprite.contentSize.width/8)/PTM_RATIO;
-    
-	// Define the dynamic body fixture.
-	b2FixtureDef fixtureDef;
-
-	fixtureDef.shape = &blob;
-	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.0f;
-    fixtureDef.restitution = 0.3f;
-	body->CreateFixture(&fixtureDef);
-}
 
 
 
@@ -323,7 +121,7 @@ if (isDebug) {
             [leftTriangle addChild:sprite];
             bodyDef.type = b2_staticBody;
             sprite.anchorPoint  = ccp(0,0);
-
+            
         }
             break;
         case RIGHT_TRIANGLE: {
@@ -332,9 +130,9 @@ if (isDebug) {
             [rightTriangle addChild:sprite];
             bodyDef.type = b2_staticBody;
             sprite.anchorPoint  = ccp(0,0);
-
+            
         }
-
+            
             break;
         case BRICK: {
             sprite = [CCSprite spriteWithBatchNode:blocks rect:CGRectMake(0.0, 0.0, 64, 64)];
@@ -344,19 +142,19 @@ if (isDebug) {
         }
         default:
             break;
-
+            
     }
-       
+    
     [arrSprites addObject:sprite];
     sprite.visible = !isDebug;
 	sprite.position = ccp( p.x, p.y);
     sprite.tag = type;
-
+    
     
 	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
 	bodyDef.userData = sprite;
 	b2Body *body = world->CreateBody(&bodyDef);
-
+    
   	b2FixtureDef fixtureDef;
     
     switch (type) {
@@ -394,8 +192,6 @@ if (isDebug) {
             staticBox.SetAsBox(1.0f, 1.0f);//These are mid points for our 1m box
             fixtureDef.shape = &staticBox;
         }
-            
-            
         default:
             break;
     }
@@ -406,123 +202,89 @@ if (isDebug) {
 	body->CreateFixture(&fixtureDef);
 }
 
--(void) addNewStaticWithCoords:(CGPoint)p withVisible:(BOOL) show;
+
+- (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    touchHappening = YES;
+    touchCounter = 0;
     
+    for( UITouch *touch in touches ) {
+        CGPoint location = [touch locationInView: [touch view]];
+        location = [[CCDirector sharedDirector] convertToGL: location];
+        b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
+        b2Body *touchObject = [self getTopTouchBody:(locationWorld)];
+        if (touchObject != NULL)
+        {
+            CCSprite *sprite = (CCSprite *) touchObject->GetUserData();
+            if (sprite != NULL)
+            {
+                if (sprite.tag != WATER) {
+                    selectedBody = touchObject;
+                }
+            }
+        }
+    }
     
-    //this was 64 when square. need to be a power of 2??
-    
-	CCSprite *sprite = [CCSprite spriteWithBatchNode:blocks rect:CGRectMake(0.0, 0.0, 64, 64)];
-
-    [sprite setScale:1.0];
-    //[sprite setScale:1.5];
-	[blocks addChild:sprite];
-    
-    [arrSprites addObject:sprite];
-
-    sprite.visible = !isDebug;
-	sprite.position = ccp( p.x, p.y);
-    sprite.tag = 1;
-    //not needed for square
-    sprite.anchorPoint  = ccp(0,0);
-
-    
-	// Define the static body.
-	b2BodyDef bodyDef;
-	bodyDef.type = b2_staticBody;
-    
-	bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
-	bodyDef.userData = sprite;
-	b2Body *body = world->CreateBody(&bodyDef);
- 
-    b2Vec2 trsVertices[3];
-    
- 
-    trsVertices[0].Set(0.0f, 0.0f );
-    trsVertices[1].Set(64.0f /PTM_RATIO, 0.0f);
-    trsVertices[2].Set(64.0f /PTM_RATIO, 64.0f /PTM_RATIO);
-   
-   
-    
-    
-    
-    b2PolygonShape trsShape;
-
-    int32 trsVert = 3;
-    trsShape.Set(trsVertices, trsVert);
-
-    
-    b2PolygonShape staticBox;
-	staticBox.SetAsBox(1.0f, 1.0f);//These are mid points for our 1m box
-    
-    
-	// Define the static body fixture.
-	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &trsShape;
-    
-	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.0f;
-    fixtureDef.restitution = 0.4f;
-	body->CreateFixture(&fixtureDef);
+    //TODO:
+    if (selectedBody == NULL) {
+        //add sprite
+        //set addmode on
+        //on touch up then add body with sprite
+    }
 }
 
 
-
-- (void)drawLiquid{
-
-    CGSize screenSize = [CCDirector sharedDirector].winSize;
+/* Tap to add a block */
+- (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     
-    if(renderTextureB==nil){
-        renderTextureB = [DLRenderTexture renderTextureWithWidth:screenSize.width height:screenSize.height];
-        renderTextureB.position = ccp(screenSize.width/2, screenSize.height/2);
-        [self addChild:renderTextureB];
+    if ( cancelTouch) {
+        touchHappening = FALSE;
+        touchCounter = 0;
+        cancelTouch = FALSE;
     }
-    
-    
-    if(blockTexture==nil){
-        blockTexture = [CCRenderTexture renderTextureWithWidth:screenSize.width height:screenSize.height];
-        blockTexture.position = ccp(screenSize.width/2, screenSize.height/2);
-        [self addChild:blockTexture];
-    }
-    
-    
-    glDisable(GL_ALPHA_TEST);
-    
-    if ( [[batch children] count] > 0 ) {
-        [renderTextureB clear:0.0 g:0.0 b:0.0 a:0.0];
-        [renderTextureB begin];
-        [batch visit];
-        [renderTextureB end];
-    }
-    
-
-    
-    [blockTexture clear:0.0 g:0.0 b:0.0 a:0.0];
-    [blockTexture begin];
-    [blocks visit];
-    [blockTexture end];
-  
-    
-}
-
--(void) draw
-{
-    if (isDebug){
-     
-        glDisable(GL_TEXTURE_2D);
-//        glDisable(GL_TEXTURE);
-        glDisableClientState(GL_COLOR_ARRAY);
-        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-     
-        world->DrawDebugData();
-
-
-        glEnable(GL_TEXTURE_2D);
-        glEnableClientState(GL_COLOR_ARRAY);
-        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    }
-    else {
-        [self drawLiquid];
+    else
+    {
+        touchHappening = FALSE;
+        touchCounter = 0;
+        
+        
+        if (touchMode) {
+            
+            for( UITouch *touch in touches ) {
+                CGPoint location = [touch locationInView: [touch view]];
+                
+                location = [[CCDirector sharedDirector] convertToGL: location];
+                b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
+                
+                b2Body *touchObject = [self getTopTouchBody:(locationWorld)];
+                if (touchObject != NULL)
+                {
+                    CCSprite *sprite = (CCSprite *) touchObject->GetUserData();
+                    if (sprite != NULL)
+                    {
+                        NSLog(@"Something was touched-->%i", sprite.tag );
+                        [sprite setVisible:NO];
+                        world->DestroyBody(touchObject);
+                        [arrSprites removeObjectIdenticalTo:sprite];
+                        [blockTexture clear:0.0 g:0.0 b:0.0 a:0.0];
+                        
+                    }
+                }
+            }
+        }
+        
+        else
+        {
+            if (circleCount < 100) {
+                for( UITouch *touch in touches ) {
+                    CGPoint location = [touch locationInView: [touch view]];
+                    location = [[CCDirector sharedDirector] convertToGL: location];
+                    [self addNewStaticWithCoords:location withVisible:YES withSpriteType:currentShape];
+                    circleCount++;
+                }
+            }
+            
+        }
     }
 }
 
@@ -534,7 +296,7 @@ if (isDebug) {
     {
         [self clearJoints:b->GetJointList()];
         [self clearJoints:b->GetJointList()];
-
+        
         world->DestroyBody(b);
         bodyCount++;
     }
@@ -555,47 +317,157 @@ if (isDebug) {
         [rightTriangle removeChildAtIndex:i cleanup:YES];
     }
     
-    
     [arrSprites removeAllObjects];
-    
-    
-     circleCount = 0;
-    
+    circleCount = 0;
     [self addLevelBoundaries];
     touchCounter = 0;
     touchHappening = NO;
-
-    
     [renderTextureB clear:0.0 g:0.0 b:0.0 a:0.0];
     [blockTexture clear:0.0 g:0.0 b:0.0 a:0.0];
-    
     NSLog(@"Removed all shapes");
+}
+
+
+-(void) clearJoints:(b2JointEdge *) edge
+{
+    while (edge != NULL) {
+        world->DestroyJoint(edge->joint);
+        if (edge->prev != NULL) {
+            world->DestroyJoint(edge->prev->joint);
+        }
+        edge = edge->next;
+    }
+    
+}
+
+-(void) draw
+{
+    if (isDebug){
+        glDisable(GL_TEXTURE_2D);
+        glDisableClientState(GL_COLOR_ARRAY);
+        glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+        world->DrawDebugData();
+        glEnable(GL_TEXTURE_2D);
+        glEnableClientState(GL_COLOR_ARRAY);
+        glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    }
+    else {
+        [self drawLiquid];
+    }
+}
+
+
+- (void)drawLiquid{
+    CGSize screenSize = [CCDirector sharedDirector].winSize;
+    if(renderTextureB==nil){
+        renderTextureB = [DLRenderTexture renderTextureWithWidth:screenSize.width height:screenSize.height];
+        renderTextureB.position = ccp(screenSize.width/2, screenSize.height/2);
+        [self addChild:renderTextureB];
+    }
+    glDisable(GL_ALPHA_TEST);
+    if ( [[batch children] count] > 0 ) {
+        [renderTextureB clear:0.0 g:0.0 b:0.0 a:0.0];
+        [renderTextureB begin];
+        [batch visit];
+        [renderTextureB end];
+    }
+}
+
+
+-(b2Body *) getTopTouchBody:(b2Vec2) location
+{
+    b2Body *touchObject = NULL;
+    int zOrder =0;
+    for (b2Body *b = world->GetBodyList(); b; b = b->GetNext())
+    {
+        b2Fixture *f = b->GetFixtureList();
+        BOOL isInSize = f->TestPoint(location);
+        CCSprite *sprite = (CCSprite *) b->GetUserData();
+        if (isInSize) {
+            if (sprite.zOrder >= zOrder && sprite.tag != WATER) {
+                zOrder = sprite.zOrder;
+                touchObject = b;
+            }
+        }
+    }
+    return touchObject;
+}
+
+
+-(CCLayer*) runRecipe {
+	[super runRecipe];
+	touchCounter = 0;
+    touchHappening = NO;
+	//Enable touches
+	self.isTouchEnabled = YES;
+    jointsMode = NO;
+    staticMode = NO;
+    self.isAccelerometerEnabled = YES;
+	/* Box2D Initialization */
+	isDebug = NO;
+    touchMode = NO;
+	//Set gravity
+	b2Vec2 gravity;
+	gravity.Set(0.0f, -10.0f);
+	
+    currentShape = BRICK;
+    cancelTouch = FALSE;
+    
+	//Initialize world
+	bool doSleep = YES;
+	world = new b2World(gravity, doSleep);
+	world->SetContinuousPhysics(YES);
+	
+    _contactListener = new BallContactListener();
+    world->SetContactListener(_contactListener);
+    
+    arrSprites = [[NSMutableArray alloc] init];
+    
+	//Initialize debug drawing
+	m_debugDraw = new GLESDebugDraw( PTM_RATIO );
+	world->SetDebugDraw(m_debugDraw);
+	uint32 flags = 0;
+	flags += b2DebugDraw::e_shapeBit;
+    flags += b2DebugDraw::e_jointBit;
+	m_debugDraw->SetFlags(flags);
+	
+	//Create level boundaries
+	[self addLevelBoundaries];
+    
+	//Add batch node for circle creation
+	batch = [[CCSpriteBatchNode batchNodeWithFile:@"BlurryBlob.png" capacity:300] retain];
+    blocks = [[CCSpriteBatchNode batchNodeWithFile:@"brick.png"  capacity:300 ] retain];
+    leftTriangle = [[CCSpriteBatchNode batchNodeWithFile:@"left_triangle.png"  capacity:300 ] retain];
+    rightTriangle = [[CCSpriteBatchNode batchNodeWithFile:@"right_triangle.png"  capacity:300 ] retain];
+    
+    
+    [self addChild:batch];
+    [self addChild:blocks];
+    [self addChild:rightTriangle];
+    [self addChild:leftTriangle];
+	
+	//Schedule step method
+	[self schedule:@selector(tick:)];
+	return self;
 }
 
 
 -(void) tick: (ccTime) dt
 {
-    
     if (touchHappening) {
-        
         touchCounter++;
         if (touchCounter > 30) {
-            
-                       touchCounter = 0;
+            touchCounter = 0;
             if (selectedBody != NULL) {
-            //NSLog(@"Something was touched-->%i", sprite.tag );
                 CCSprite *sprite = (CCSprite *) selectedBody->GetUserData() ;
-            [sprite setVisible:NO];
-            world->DestroyBody(selectedBody);
-            [arrSprites removeObjectIdenticalTo:sprite];
+                [sprite setVisible:NO];
+                world->DestroyBody(selectedBody);
+                [arrSprites removeObjectIdenticalTo:sprite];
                 selectedBody = NULL;
                 cancelTouch = TRUE;
                 circleCount--;
             }
-
-            
         }
-        
     }
     
 	//It is recommended that a fixed time step is used with Box2D for stability
@@ -620,7 +492,7 @@ if (isDebug) {
 			myActor.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
 		}
 	}
-
+    
     //destroy if jointed objects are too far from each other
     for (b2Joint *b = world->GetJointList(); b; b=b->GetNext()) {
         b2Body *bodyA = b->GetBodyA();
@@ -634,30 +506,22 @@ if (isDebug) {
     
     //if joints turned on
     if (jointsMode) {
-        
-        
         //listen for collision, then attach rope joint
         std::vector<MyContact>::iterator pos;
         for (pos = _contactListener->_contacts.begin(); pos != _contactListener->_contacts.end(); ++pos) {
             MyContact contact = *pos;
-        
+            
             b2Fixture *tempB = contact.fixtureB;
             b2Fixture *tempA = contact.fixtureA;
-        
+            
             CCSprite *tempSpriteB = (CCSprite *) tempB->GetBody()->GetUserData();
             CCSprite *tempSpriteA = (CCSprite *) tempA->GetBody()->GetUserData();
-        
+            
             if (tempSpriteA != NULL && tempSpriteB != NULL)
             {
                 //if both are circles
                 if (tempSpriteA.tag == 0 && tempSpriteB.tag == 0)
                 {
-                    //NSLog(@"%@", tempSpriteA);
-                    //distance joint
-                    //b2DistanceJointDef *tempJoint = new b2DistanceJointDef();
-                    //tempJoint->Initialize(tempA->GetBody(), tempB->GetBody(), tempA->GetBody()->GetWorldCenter(), tempB->GetBody()->GetWorldCenter());
-                    //world->CreateJoint(tempJoint);
-                
                     //rope joint
                     b2JointEdge *edge =    tempA->GetBody()->GetJointList();
                     //only allow two joints per body
@@ -670,7 +534,7 @@ if (isDebug) {
                             okToAdd = TRUE;
                         }
                     }
-
+                    
                     if (okToAdd) {
                         b2RopeJointDef *tempJoint = new b2RopeJointDef();
                         tempJoint->bodyA = tempA->GetBody();
@@ -682,138 +546,92 @@ if (isDebug) {
                 }
             }
         }
-        
-    
-        
     }
     
 }
 
-
-
-/* Tap to add a block */
-- (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    
-    
-    if ( cancelTouch) {
-        touchHappening = FALSE;
-        touchCounter = 0;
-        cancelTouch = FALSE;
-    }
-    else
-    {
-        touchHappening = FALSE;
-        touchCounter = 0;
-
-    
-    if (touchMode) {
-        
-            for( UITouch *touch in touches ) {
-                CGPoint location = [touch locationInView: [touch view]];
-
-                
-                location = [[CCDirector sharedDirector] convertToGL: location];
-                b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
-                
-                b2Body *touchObject = [self getTopTouchBody:(locationWorld)];
-                if (touchObject != NULL)
-                {
-                    CCSprite *sprite = (CCSprite *) touchObject->GetUserData();
-                    if (sprite != NULL)
-                    {
-                        NSLog(@"Something was touched-->%i", sprite.tag );
-                        [sprite setVisible:NO];
-                        world->DestroyBody(touchObject);
-                        [arrSprites removeObjectIdenticalTo:sprite];
-                        [blockTexture clear:0.0 g:0.0 b:0.0 a:0.0];
-
-                    }
-                    
-                
-                }
-            }
-    }
-    
-    else
-    {
-        
-        
-        if (circleCount < 100) {
-            
-            for( UITouch *touch in touches ) {
-                CGPoint location = [touch locationInView: [touch view]];
-                location = [[CCDirector sharedDirector] convertToGL: location];
-                //if (staticMode) {
-                    [self addNewStaticWithCoords:location withVisible:YES withSpriteType:currentShape];
-                //} else {
-                   // [self addNewSpriteWithCoords: location];
-                //}
-                circleCount++;
-            }
-        }
-
-    }
-    }
-       
-    
-}
-
-- (void) ccTouchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+-(void) toggleDebug
 {
-    touchHappening = YES;
-    touchCounter = 0;
-    for( UITouch *touch in touches ) {
-        CGPoint location = [touch locationInView: [touch view]];
-        
-        
-        location = [[CCDirector sharedDirector] convertToGL: location];
-        b2Vec2 locationWorld = b2Vec2(location.x/PTM_RATIO, location.y/PTM_RATIO);
-        
-        b2Body *touchObject = [self getTopTouchBody:(locationWorld)];
-        if (touchObject != NULL)
+    if (isDebug) {
+        isDebug = NO;
+        for (int i = 0; i < [arrSprites count]; i++) {
+            //[ [arrSprites objectAtIndex:i] setVisible:YES];
+            
+            CCAction *fadeIn = [CCFadeIn actionWithDuration:0.5];
+            
+            [[arrSprites objectAtIndex:i] setVisible:YES];
+            [[arrSprites objectAtIndex:i] runAction: fadeIn];
+        }
+    }
+    else {
+        isDebug = YES;
+        for (int i = 0; i < [arrSprites count]; i++) {
+            //this works, but rotate in tick method overrides it.
+            //CCAction *rotate  = [CCRotateBy actionWithDuration:0.5 angle:90];
+            CCAction *fadeOut = [CCFadeOut  actionWithDuration:0.5];
+            [[arrSprites objectAtIndex:i] runAction: fadeOut];
+        }
+    }
+    [renderTextureB clear:0.0 g:0.0 b:0.0 a:0.0];
+    [blockTexture clear:0.0 g:0.0 b:0.0 a:0.0];
+}
+
+
+-(void) toggleJoints{
+    if (jointsMode) {
+        jointsMode = NO;
+        for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
         {
-            CCSprite *sprite = (CCSprite *) touchObject->GetUserData();
-            if (sprite != NULL)
-            {
-                if (sprite.tag != WATER) {
-                    selectedBody = touchObject;
-                }
-                
-                /*
-                NSLog(@"Something was touched-->%i", sprite.tag );
-                [sprite setVisible:NO];
-                world->DestroyBody(touchObject);
-                [arrSprites removeObjectIdenticalTo:sprite];
-                [blockTexture clear:0.0 g:0.0 b:0.0 a:0.0];
-                */
-            }
-            
-            
+            [self clearJoints:b->GetJointList()];
+            [self clearJoints:b->GetJointList()];
         }
     }
-
-    
+    else {
+        jointsMode = YES;
+    }
 }
 
-- (void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration
+
+//switch between shapes
+- (void) toggleMode:(NSNumber *) type;
 {
-	static float prevX=0, prevY=0;
+    if (staticMode) {
+        staticMode = NO;
+    } else
+    {
+        staticMode = YES;
+    }
+    currentShape++;
+    if (currentShape > 3) {
+        currentShape = WATER;
+    }
     
-	//#define kFilterFactor 0.05f
-    #define kFilterFactor 1.0f	// don't use filter. the code is here just as an example
+    NSLog(@"%@", type);
     
-	float accelX = (float) acceleration.x * kFilterFactor + (1- kFilterFactor)*prevX;
-	float accelY = (float) acceleration.y * kFilterFactor + (1- kFilterFactor)*prevY;
-    
-	prevX = accelX;
-	prevY = accelY;
-    
-	// accelerometer values are in "Portrait" mode. Change them to Landscape left
-	// multiply the gravity by 15
-	b2Vec2 gravity( accelX * 15, accelY * 15);
-    
-	world->SetGravity( gravity );
 }
+
+-(void) toggleTouch
+{
+    if (touchMode) {
+        touchMode = NO;
+       }
+    else {
+        touchMode = YES;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end
