@@ -64,7 +64,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 						];
 	
 	[glView setMultipleTouchEnabled:YES];
-	
+    
+    
+
 	// attach the openglView to the director
 	[director setOpenGLView:glView];
 	
@@ -91,28 +93,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 	[director setDisplayFPS:NO];
 	
     
-    header = [[[NSBundle mainBundle] loadNibNamed:@"HeaderView" owner:self options:nil ] lastObject];;
-    
-  
-    [[self ClearButton] addTarget:self action:@selector(ClearButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-  
-    [[self ToggleButton] setTitle:@"Water" forState:UIControlStateNormal];
-    [[self ToggleButton] addTarget:self action:@selector(ToggleButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    [[self DebugButton] addTarget:self action:@selector(DebugButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-
-    
-    [[self JointsButton] addTarget:self action:@selector(JointsButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-
-    
-    // [[self TouchButton] addTarget:self action:@selector(TouchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [glView addSubview:header];
-    
-	// make the OpenGLView a child of the view controller
+    header = [[[NSBundle mainBundle] loadNibNamed:@"HeaderView" owner:viewController options:nil ] lastObject];;
+ 
 	[viewController setView:glView];
-	
+
+    
+
+    
+    [viewController.view  addSubview:header];
+    
+
+    
 	// make the View Controller a child of the main window
 	[window addSubview: viewController.view];
     
@@ -139,115 +130,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 	[[CCDirector sharedDirector] runWithScene:  s];
 }
 
-- (UIButton *) ClearButton
-{
-    UIButton *tempButton = [[header  subviews] objectAtIndex:0];
-    return tempButton;
-}
-
-- (UIButton *) DebugButton
-{
-    UIButton *tempButton = [[header  subviews] objectAtIndex:2];
-    return tempButton;
-
-}
-
-
-- (UIButton *) JointsButton
-{
-    UIButton *tempButton = [[header  subviews] objectAtIndex:3];
-    return tempButton;
-    
-}
-
-
-- (UIButton *) ToggleButton
-{
-    UIButton *tempButton = [[header  subviews] objectAtIndex:1];
-    return tempButton;
-}
-
-- (UIButton *) TouchButton
-{
-    UIButton *tempButton = [[header  subviews] objectAtIndex:4];
-    return tempButton;
-
-}
-
-
-- (CALayer *) FluidLayer
-{
-    CCScene *c = [[CCDirector sharedDirector] runningScene];
-    MainLayer *l = (MainLayer *) [[c children] lastObject];
-    
-    CALayer *f = [[l children] lastObject];
-    return f;
-}
-
-
--(IBAction) TouchButtonClick: (id) sender
-{
-    
-    if ([[[[self TouchButton] titleLabel] text] isEqualToString:@"Off"]) {
-        [[self TouchButton] setTitle:@"On" forState:UIControlStateNormal];
-    }
-    else {
-        [[self TouchButton] setTitle:@"Off" forState:UIControlStateNormal];
-    }
-
-    
-    
-        [[self FluidLayer] performSelector:@selector(toggleTouch)];
-}
 
 
 
-- (IBAction)ClearButtonClick:(id)sender
-{
-    [[self FluidLayer] performSelector:@selector(clearAll)];
-}
-
-//turn on/off joint add on collision
-- (IBAction)JointsButtonClick:(id)sender
-{
-    if ([[[[self JointsButton] titleLabel] text] isEqualToString:@"Off"]) {
-        [[self JointsButton] setTitle:@"On" forState:UIControlStateNormal];
-    }
-    else {
-        [[self JointsButton] setTitle:@"Off" forState:UIControlStateNormal];
-    }
-    
-    [[self FluidLayer] performSelector:@selector(toggleJoints)];
-}
 
 
-//toggles shapes
-- (IBAction)ToggleButtonClick:(id)sender
-{
-    if ([[[[self ToggleButton] titleLabel] text] isEqualToString:@"Water"]) {
-         [[self ToggleButton] setTitle:@"Brick" forState:UIControlStateNormal];
-    }
-    else {
-         [[self ToggleButton] setTitle:@"Water" forState:UIControlStateNormal];
-    }
-    
-    NSNumber *temp = [[NSNumber alloc ] initWithInt :1];
-    
-    [[self FluidLayer] performSelector:@selector(toggleMode:) withObject:temp];
-}
 
-//Turns on/off Box2D physics representation
-- (IBAction)DebugButtonClick:(id)sender
-{
-    
-    if ([[[[self DebugButton] titleLabel] text] isEqualToString:@"Off"]) {
-        [[self DebugButton] setTitle:@"On" forState:UIControlStateNormal];
-    }
-    else {
-        [[self DebugButton] setTitle:@"Off" forState:UIControlStateNormal];
-    }
-    [[self FluidLayer] performSelector:@selector(toggleDebug)];
-}
 
 
 

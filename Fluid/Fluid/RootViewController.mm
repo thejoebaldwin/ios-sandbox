@@ -11,7 +11,7 @@
 
 @implementation RootViewController
 
-@synthesize main;
+@synthesize main, stickyButton, toggleButton, debugButton, pickerView;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -29,13 +29,31 @@
  }
  */
 
-/*
+
  // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+
  - (void)viewDidLoad {
 	[super viewDidLoad];
+     
+     arrStatus = [[NSArray alloc] initWithObjects:@"One", @"Two", @"Three",nil];
  }
- */
 
+ 
+
+-(NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+-(NSInteger) pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [arrStatus count];
+}
+
+-(NSString *) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [arrStatus objectAtIndex:row];
+}
 
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -144,13 +162,23 @@
 {
     self = [super init];
     if (self) {
-           [[self view] addSubview:headerView];
-    }
+              }
+    arrStatus = [[NSArray alloc] initWithObjects:@"One", @"Two", @"Three",nil];
 
     return self;
 }
 
+-(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        arrStatus = [[NSArray alloc] initWithObjects:@"One", @"Two", @"Three",nil];
 
+    }
+    
+    return self;
+    
+}
 
 - (UIView *) headerView
 {
@@ -161,12 +189,74 @@
 }
 
 
+- (CALayer *) FluidLayer
+{
+    CCScene *c = [[CCDirector sharedDirector] runningScene];
+    MainLayer *l = (MainLayer *) [[c children] lastObject];
+    
+    CALayer *f = [[l children] lastObject];
+    return f;
+}
+
 - (void)dealloc {
 
+    [stickyButton release];
+    [debugButton release];
+    [toggleButton release];
+    [pickerView release];
     [super dealloc];
 }
 
 
 
+- (IBAction)clearButtonClick:(id)sender {
+    
+    [[self FluidLayer] performSelector:@selector(clearAll)];
+
+    
+}
+
+- (IBAction)debugButtonClick:(id)sender {
+    
+    if ([[[debugButton titleLabel] text] isEqualToString:@"Off"]) {
+        [debugButton setTitle:@"On" forState:UIControlStateNormal];
+    }
+    else {
+        [debugButton setTitle:@"Off" forState:UIControlStateNormal];
+    }
+    
+    [[self FluidLayer] performSelector:@selector(toggleDebug)];
+    
+}
+
+- (IBAction)stickyButtonClick:(id)sender {
+    
+    if ([[[stickyButton titleLabel] text] isEqualToString:@"Off"]) {
+        [stickyButton setTitle:@"On" forState:UIControlStateNormal];
+    }
+    else {
+        [stickyButton setTitle:@"Off" forState:UIControlStateNormal];
+    }
+    
+    [[self FluidLayer] performSelector:@selector(toggleJoints)];
+
+    
+}
+
+- (IBAction)toggleButtonClick:(id)sender {
+
+    if ([[[toggleButton titleLabel] text] isEqualToString:@"Water"]) {
+        [toggleButton setTitle:@"Brick" forState:UIControlStateNormal];
+    }
+    else {
+        [toggleButton setTitle:@"Water" forState:UIControlStateNormal];
+    }
+    
+    NSNumber *temp = [[NSNumber alloc] initWithInt:1];
+    
+    [[self FluidLayer] performSelector:@selector(toggleMode:) withObject:temp];
+
+
+}
 @end
 
