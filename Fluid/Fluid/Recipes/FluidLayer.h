@@ -81,8 +81,13 @@
 /* Adds a polygonal box around the screen */
 -(void) addLevelBoundaries {
 	CGSize screenSize = [CCDirector sharedDirector].winSize;
-	
+    NSLog(@"screen size: %f, %f", screenSize.width, screenSize.height);
    
+    
+    if (screenSize.width == 1024) {
+        screenSize.width = 768;
+        screenSize.height = 1024;
+    }
     
 	b2BodyDef groundBodyDef;
 	groundBodyDef.position.Set(0, 0);
@@ -512,7 +517,7 @@
 {
     if (touchHappening) {
         touchCounter++;
-        if (touchCounter > 30) {
+        if (touchCounter > 15) {
             touchCounter = 0;
             if (selectedBody != NULL) {
                 CCSprite *sprite = (CCSprite *) selectedBody->GetUserData() ;
