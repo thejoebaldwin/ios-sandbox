@@ -72,7 +72,8 @@
     
 	// accelerometer values are in "Portrait" mode. Change them to Landscape left
 	// multiply the gravity by 15
-	b2Vec2 gravity( accelX * 15, accelY * 15);
+	//b2Vec2 gravity( accelX * 15, accelY * 15);
+    b2Vec2 gravity( accelY * 15, -accelX * 15);
     
 	world->SetGravity( gravity );
 }
@@ -89,20 +90,20 @@
     
 	b2PolygonShape groundBox;
     
-    //top
-	groundBox.SetAsEdge(b2Vec2(0,3), b2Vec2(screenSize.width/PTM_RATIO,3));
+    //bottom
+	groundBox.SetAsEdge(b2Vec2(0,3), b2Vec2(screenSize.height/PTM_RATIO,3));
 	body->CreateFixture(&groundBox,0);
     
     //top
-    groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO ));
+    groundBox.SetAsEdge(b2Vec2(0,screenSize.width/PTM_RATIO), b2Vec2(screenSize.height/PTM_RATIO,screenSize.width/PTM_RATIO));
 	body->CreateFixture(&groundBox,0);
     
     //left
-	groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(0,0));
+	groundBox.SetAsEdge(b2Vec2(0,screenSize.width/PTM_RATIO), b2Vec2(0,0));
 	body->CreateFixture(&groundBox,0);
     
     //right
-	groundBox.SetAsEdge(b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,0));
+	groundBox.SetAsEdge(b2Vec2(screenSize.height/PTM_RATIO,screenSize.width/PTM_RATIO), b2Vec2(screenSize.height/PTM_RATIO,0));
 	body->CreateFixture(&groundBox,0);
 }
 

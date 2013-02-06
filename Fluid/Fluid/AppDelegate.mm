@@ -99,7 +99,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(AppDelegate);
 
     CGRect edge = [window bounds];
     NSLog(@"RECTANGLE:%f,%f", edge.size.width, edge.size.height);
-    CGRect rect = CGRectMake(0, 668, edge.size.width, 300 );
+    CGRect rect = CGRectMake(0, 688, edge.size.width, 350 );
     header.frame = rect;
 
 

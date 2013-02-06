@@ -56,12 +56,8 @@
 
 -(void) pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    NSLog(@"row changed");
-    
     NSNumber *rowIndex =  [[NSNumber alloc] initWithInt: [pickerView selectedRowInComponent:0 ]];
-    
-     [[self FluidLayer] performSelector:@selector(toggleMode:) withObject:rowIndex];
-    
+    [[self FluidLayer] performSelector:@selector(toggleMode:) withObject:rowIndex];
 }
 
 // Override to allow orientations other than the default portrait orientation.
