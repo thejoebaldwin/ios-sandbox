@@ -40,7 +40,7 @@
 					<object class="IBUIPickerView" id="369692286">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{17, -71}, {250, 216}}</string>
+						<string key="NSFrame">{{20, -71}, {250, 216}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="663339766"/>
@@ -296,11 +296,11 @@
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="488345940"/>
-							<reference ref="369692286"/>
 							<reference ref="962017102"/>
 							<reference ref="368363369"/>
 							<reference ref="238135607"/>
 							<reference ref="663339766"/>
+							<reference ref="369692286"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
