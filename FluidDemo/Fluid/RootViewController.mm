@@ -58,7 +58,7 @@
 - (void) tick:(NSTimer *) timer
 {
     counter++;
-    if (counter >= 10)
+    if (counter >= 20)
     {
         [[self FluidLayer] performSelector:@selector(toggleJoints)];
         counter = 0;

@@ -133,7 +133,7 @@
     switch (type) {
         case WATER: {
             sprite = [CCSprite spriteWithBatchNode:waters rect:CGRectMake(0.0, 0.0, 90.0, 90.0)];
-            [sprite setScale:1.5];
+            [sprite setScale:1.0];
             [waters addChild:sprite];
             bodyDef.type = b2_dynamicBody;
         }
@@ -184,7 +184,7 @@
         case WATER: {
             // Define another box shape for our dynamic body.
             b2CircleShape blob;
-            blob.m_radius = (sprite.contentSize.width/8)/PTM_RATIO;
+            blob.m_radius = (sprite.contentSize.width/12)/PTM_RATIO;
             fixtureDef.shape = &blob;
         }
             break;
@@ -477,7 +477,7 @@
     touchMode = NO;
 	//Set gravity
     gravityX = 0.0;
-    gravityY = -10.0;
+    gravityY = -5.0;
 
     
 	b2Vec2 gravity;
