@@ -37,8 +37,18 @@
 
 - (IBAction)SubmitButtonClick:(id)sender {
     
+    
+    [_IceCreamFlavors addObject:@"New Flavor"];
+    
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 
     
 }
+
+
+-(void) SetIceCreamFlavors:(NSMutableArray *) array
+{
+    _IceCreamFlavors = array;
+}
+
 @end

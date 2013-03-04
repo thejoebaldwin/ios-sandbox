@@ -52,7 +52,7 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TestTableViewController *test = [[TestTableViewController alloc] init];
-    
+    [test SetIceCreamFlavors:IceCreamFlavors];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:test];
     [self presentViewController:navController animated:YES completion:nil];
@@ -60,6 +60,12 @@
     
 }
 
+- (void) viewDidAppear:(BOOL)animated
+{
+    //UITableView *view = (UITableView *) [self view];
+    [[self tableView] reloadData];
+//    [view reloadData];
+}
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -89,7 +95,7 @@
 {
     TestTableViewController *test = [[TestTableViewController alloc] init];
     
-    
+    [test SetIceCreamFlavors:IceCreamFlavors];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:test];
     [self presentViewController:navController animated:YES completion:nil];
 

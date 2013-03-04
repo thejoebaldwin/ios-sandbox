@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface TestTableViewController : UIViewController
+{
+    
+    NSMutableArray  *_IceCreamFlavors;
+    
+}
+
+-(void) SetIceCreamFlavors:(NSMutableArray *) array;
+
 - (IBAction)SubmitButtonClick:(id)sender;
 
 @end
