@@ -511,7 +511,7 @@
 	[self addLevelBoundaries];
     
 	//Add batch node for circle creation
-	waters = [[CCSpriteBatchNode batchNodeWithFile:@"BlurryBlob.png" capacity:300] retain];
+	waters = [[CCSpriteBatchNode batchNodeWithFile:@"pixelwater.png" capacity:300] retain];
     blocks = [[CCSpriteBatchNode batchNodeWithFile:@"brick.png"  capacity:300 ] retain];
     leftTriangle = [[CCSpriteBatchNode batchNodeWithFile:@"left_triangle.png"  capacity:300 ] retain];
     rightTriangle = [[CCSpriteBatchNode batchNodeWithFile:@"right_triangle.png"  capacity:300 ] retain];

@@ -313,6 +313,7 @@
 				D8F640EC16E5507F00061DAC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
