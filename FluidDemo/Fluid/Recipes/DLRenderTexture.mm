@@ -21,10 +21,10 @@
 
 
 -(void)visit{
-//glEnable(GL_ALPHA_TEST);
-//    glAlphaFunc(GL_GREATER, 0.2f);
+glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.2f);
     [super visit];
-  //  glDisable(GL_ALPHA_TEST);
+    glDisable(GL_ALPHA_TEST);
 }
 
 @end
