@@ -9,6 +9,8 @@
 #import "IceCreamAppDelegate.h"
 #import "MainViewController.h"
 
+
+
 @implementation IceCreamAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -16,7 +18,13 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     MainViewController *main = [[MainViewController alloc] init];
-    [[self window] setRootViewController:main];
+    
+    //new
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:main];
+    [[self window] setRootViewController:navController];
+
+    
+    //[[self window] setRootViewController:main];
     
     
     self.window.backgroundColor = [UIColor whiteColor];
@@ -34,6 +42,9 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+       
+    
+    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

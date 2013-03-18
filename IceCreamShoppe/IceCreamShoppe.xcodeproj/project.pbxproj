@@ -20,6 +20,8 @@
 		3F52A61816E56DB300A3B707 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F52A61616E56DB300A3B707 /* DetailViewController.m */; };
 		3F52A61916E56DB300A3B707 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F52A61716E56DB300A3B707 /* DetailViewController.xib */; };
 		3F52A61B16E5761000A3B707 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3F52A61A16E5761000A3B707 /* HeaderView.xib */; };
+		D819C68316F7AF8200784143 /* FlavorItem.m in Sources */ = {isa = PBXBuildFile; fileRef = D819C68216F7AF8200784143 /* FlavorItem.m */; };
+		D819C68616F7B1CA00784143 /* FlavorItemStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D819C68516F7B1CA00784143 /* FlavorItemStore.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,10 @@
 		3F52A61616E56DB300A3B707 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		3F52A61716E56DB300A3B707 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		3F52A61A16E5761000A3B707 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
+		D819C68116F7AF8100784143 /* FlavorItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlavorItem.h; sourceTree = "<group>"; };
+		D819C68216F7AF8200784143 /* FlavorItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlavorItem.m; sourceTree = "<group>"; };
+		D819C68416F7B1CA00784143 /* FlavorItemStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlavorItemStore.h; sourceTree = "<group>"; };
+		D819C68516F7B1CA00784143 /* FlavorItemStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlavorItemStore.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,8 +96,12 @@
 			children = (
 				3F52A60416E5672A00A3B707 /* IceCreamAppDelegate.h */,
 				3F52A60516E5672A00A3B707 /* IceCreamAppDelegate.m */,
+				D819C68416F7B1CA00784143 /* FlavorItemStore.h */,
+				D819C68516F7B1CA00784143 /* FlavorItemStore.m */,
 				3F52A61216E567F500A3B707 /* MainViewController.h */,
 				3F52A61316E567F500A3B707 /* MainViewController.m */,
+				D819C68116F7AF8100784143 /* FlavorItem.h */,
+				D819C68216F7AF8200784143 /* FlavorItem.m */,
 				3F52A61A16E5761000A3B707 /* HeaderView.xib */,
 				3F52A61516E56DB300A3B707 /* DetailViewController.h */,
 				3F52A61616E56DB300A3B707 /* DetailViewController.m */,
@@ -187,6 +197,8 @@
 				3F52A60616E5672A00A3B707 /* IceCreamAppDelegate.m in Sources */,
 				3F52A61416E567F500A3B707 /* MainViewController.m in Sources */,
 				3F52A61816E56DB300A3B707 /* DetailViewController.m in Sources */,
+				D819C68316F7AF8200784143 /* FlavorItem.m in Sources */,
+				D819C68616F7B1CA00784143 /* FlavorItemStore.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +307,7 @@
 				3F52A61116E5672A00A3B707 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

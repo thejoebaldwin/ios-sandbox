@@ -19,6 +19,10 @@
 - (UIView *) HeaderView;
 - (IBAction) AddButtonClick:(id) sender;
 - (IBAction) DeleteButtonClick:(id) sender;
+//new
 - (IBAction)EditButtonClick:(id)sender;
+//new
+- (NSMutableArray *) IceCreamFlavors;
+
 
 @end

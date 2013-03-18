@@ -8,19 +8,23 @@
 
 #import "MainViewController.h"
 #import "DetailViewController.h"
+#import "FlavorItemStore.h"
+#import "FlavorItem.h"
 
 @implementation MainViewController
 
+/*
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     return [self HeaderView];
 }
-
+ */
+/*
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return [[self HeaderView] bounds].size.height;
 }
-
+*/
 
 - (UIView *) HeaderView
 {
@@ -118,11 +122,32 @@
     //add custom initialization
     if (self) {
         //if properly initialized, do this code
-        _IceCreamFlavors = [[NSMutableArray alloc] init];
-        [_IceCreamFlavors addObject:@"Chocolate"];
-        [_IceCreamFlavors addObject:@"Vanilla"];
-        [_IceCreamFlavors addObject:@"Strawberry"];
-        [_IceCreamFlavors addObject:@"Neopolitan"];
+        
+        
+       // _IceCreamFlavors = [[NSMutableArray alloc] init];
+        
+        
+        [[[FlavorItemStore sharedStore] AllItems] addObject:[[FlavorItem alloc] initWithName:@"Chocolate"]];
+        [[[FlavorItemStore sharedStore] AllItems] addObject:[[FlavorItem alloc] initWithName:@"Vanilla"]];
+        [[[FlavorItemStore sharedStore] AllItems] addObject:[[FlavorItem alloc] initWithName:@"Strawberry"]];
+        [[[FlavorItemStore sharedStore] AllItems] addObject:[[FlavorItem alloc] initWithName:@"Neopolitan"]];
+
+        
+        //[_IceCreamFlavors addObject:@"Chocolate"];
+        //[_IceCreamFlavors addObject:@"Vanilla"];
+        //[_IceCreamFlavors addObject:@"Strawberry"];
+        //[_IceCreamFlavors addObject:@"Neopolitan"];
+        
+        
+        // addNewItem: to ItemsViewController
+        UIBarButtonItem *bbi = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                             target:self
+                                                                             action:@selector(AddButtonClick:)];
+        //Set this bar button item as the right item in the navigationItem
+        [[self navigationItem] setRightBarButtonItem:bbi];
+
+        [[self navigationItem] setLeftBarButtonItem:[self editButtonItem]];
+
     }
     return self;
 }
@@ -130,20 +155,28 @@
 
 -(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return [_IceCreamFlavors count];
+  //return [_IceCreamFlavors count];
+    return [[[FlavorItemStore sharedStore] AllItems]  count];
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
     
-    NSString *display = [[NSString alloc] initWithString:[_IceCreamFlavors objectAtIndex:[indexPath row]]];
-    [[cell textLabel] setText:display];
+    
+    FlavorItem *tempItem = [_IceCreamFlavors objectAtIndex:[indexPath row]];
+    //NSString *display = [[NSString alloc] initWithString:[_IceCreamFlavors objectAtIndex:[indexPath row]]];
+    [[cell textLabel] setText:[tempItem Name]];
     
     
     return cell;
 }
 
+- (NSMutableArray *) IceCreamFlavors
+{
+    return _IceCreamFlavors;
+    
+}
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
