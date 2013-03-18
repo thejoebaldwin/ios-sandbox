@@ -87,16 +87,21 @@
 - (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+       
         [_IceCreamFlavors removeObjectAtIndex:[indexPath row]];
+        NSLog(@"New Length %i", [_IceCreamFlavors count]);
+
+        
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }
+        
+          }
 }
 
 //new
 - (void) tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
     NSString *flavor = [_IceCreamFlavors objectAtIndex:[sourceIndexPath row]];
-    [_IceCreamFlavors objectAtIndex:[sourceIndexPath row]];
+    [_IceCreamFlavors removeObjectAtIndex:[sourceIndexPath row]];
     [_IceCreamFlavors insertObject:flavor atIndex:[destinationIndexPath row]];
 }
 
