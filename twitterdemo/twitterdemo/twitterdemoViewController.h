@@ -13,10 +13,9 @@
     
       NSURLConnection *connection;
     NSMutableData *httpData;
-  
+    NSString *oauth_token_secret;
+    NSString *oauth_token;
     void (^completion)(void);
-    
-    
 }
 - (IBAction)PostButtonClick:(id)sender;
 @end

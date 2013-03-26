@@ -18,6 +18,7 @@
 		3FAAF3A617010B6A000549DA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FAAF3A517010B6A000549DA /* Default-568h@2x.png */; };
 		3FAAF3A917010B6A000549DA /* twitterdemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAAF3A817010B6A000549DA /* twitterdemoViewController.m */; };
 		3FAAF3AC17010B6A000549DA /* twitterdemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FAAF3AA17010B6A000549DA /* twitterdemoViewController.xib */; };
+		D83BF1541702154900A86DE4 /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = D83BF1521702154900A86DE4 /* Base64Transcoder.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,8 @@
 		3FAAF3A717010B6A000549DA /* twitterdemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = twitterdemoViewController.h; sourceTree = "<group>"; };
 		3FAAF3A817010B6A000549DA /* twitterdemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = twitterdemoViewController.m; sourceTree = "<group>"; };
 		3FAAF3AB17010B6A000549DA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/twitterdemoViewController.xib; sourceTree = "<group>"; };
+		D83BF1521702154900A86DE4 /* Base64Transcoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Base64Transcoder.c; sourceTree = "<group>"; };
+		D83BF1531702154900A86DE4 /* Base64Transcoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Transcoder.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +88,8 @@
 			children = (
 				3FAAF39E17010B6A000549DA /* twitterdemoAppDelegate.h */,
 				3FAAF39F17010B6A000549DA /* twitterdemoAppDelegate.m */,
+				D83BF1521702154900A86DE4 /* Base64Transcoder.c */,
+				D83BF1531702154900A86DE4 /* Base64Transcoder.h */,
 				3FAAF3A717010B6A000549DA /* twitterdemoViewController.h */,
 				3FAAF3A817010B6A000549DA /* twitterdemoViewController.m */,
 				3FAAF3AA17010B6A000549DA /* twitterdemoViewController.xib */,
@@ -177,6 +182,7 @@
 				3FAAF39C17010B6A000549DA /* main.m in Sources */,
 				3FAAF3A017010B6A000549DA /* twitterdemoAppDelegate.m in Sources */,
 				3FAAF3A917010B6A000549DA /* twitterdemoViewController.m in Sources */,
+				D83BF1541702154900A86DE4 /* Base64Transcoder.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +299,7 @@
 				3FAAF3B117010B6A000549DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
