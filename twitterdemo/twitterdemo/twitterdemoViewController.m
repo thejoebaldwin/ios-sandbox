@@ -24,8 +24,8 @@
     if (self)
     {
         
-        _oauth_token = @"19618155-QZ23iExJAdCjpcvxW7is0FJzyzuD6LH3j9vEpyTg";
-        _oauth_token_secret = @"3XygpcZRRBAkra3eUW7QPF5jP6davJsig1Jw3NKs";
+        _oauth_token = @"";
+        _oauth_token_secret = @"";
     }
     return self;
 }
