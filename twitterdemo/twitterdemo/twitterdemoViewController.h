@@ -11,11 +11,15 @@
 @interface twitterdemoViewController : UIViewController
 {
     
-      NSURLConnection *connection;
-    NSMutableData *httpData;
-    NSString *oauth_token_secret;
-    NSString *oauth_token;
+    NSURLConnection *_connection;
+    NSMutableData *_httpData;
+    NSString *_oauth_token_secret;
+    NSString *_oauth_request_token;
+    NSString *_oauth_token;
     void (^completion)(void);
 }
 - (IBAction)PostButtonClick:(id)sender;
+
+- (IBAction)AccessTokenButtonClick:(id)sender;
+
 @end

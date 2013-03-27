@@ -9,13 +9,26 @@
 #import "twitterdemoViewController.h"
 //#import "NSData+Base64.h"
 #import <CommonCrypto/CommonHMAC.h>
-#import "Base64Transcoder.h";
+#import "Base64Transcoder.h"
 
 @interface twitterdemoViewController ()
 
 @end
 
 @implementation twitterdemoViewController
+
+
+-(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self)
+    {
+        
+        _oauth_token = @"19618155-QZ23iExJAdCjpcvxW7is0FJzyzuD6LH3j9vEpyTg";
+        _oauth_token_secret = @"3XygpcZRRBAkra3eUW7QPF5jP6davJsig1Jw3NKs";
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -35,7 +48,7 @@
    didFailWithError:(NSError *)error
 {
     // Release the connection object, we're done with it
-    httpData = nil;
+    _httpData = nil;
     
     // Grab the description of the error object passed to us
     NSString *errorString = [NSString stringWithFormat:@"Fetch failed: %@",
@@ -78,21 +91,27 @@
 {
     // Add the incoming chunk of data to the container we are keeping
     // the data always comes int he correct order
-    [httpData appendData:data];
+    [_httpData appendData:data];
 }
 
 - (void) connectionDidFinishLoading:(NSURLConnection *) connection
 {
-    NSString *response = [[NSString alloc] initWithData:httpData encoding:NSUTF8StringEncoding];
+    NSString *response = [[NSString alloc] initWithData:_httpData encoding:NSUTF8StringEncoding];
     
-    NSMutableDictionary *arguments = [self ParseQueryString:response];
-    oauth_token = [arguments objectForKey:@"oauth_token"];
-    oauth_token_secret = [arguments objectForKey:@"oauth_token_secret"];
     NSLog(@"%@", response);
     
+    NSMutableDictionary *arguments = [self ParseQueryString:response];
+    if ([arguments objectForKey:@"oauth_token"] != nil) {
+    _oauth_token = [arguments objectForKey:@"oauth_token"];
+    }
+     if ([arguments objectForKey:@"oauth_token_secret"] != nil) {
+        _oauth_token_secret = [arguments objectForKey:@"oauth_token_secret"];
+     }
+   
     
-    NSLog(@"oauth_token:%@", oauth_token);
-    NSLog(@"oauth_token_secret:%@", oauth_token_secret);
+    
+    NSLog(@"_oauth_token:%@", _oauth_token);
+    NSLog(@"oauth_token_secret:%@", _oauth_token_secret);
     
 }
 
@@ -137,14 +156,10 @@
     return base64EncodedResult;
 }
 
-- (void) postDataWithUrl:(NSString *) urlString
+-(NSString *) getAuthorizationHeader:(NSString *) postURL withSigningKey:(NSString *) key withStatus:(NSString *) status withUser:(NSString *) user withPass:(NSString *) pass
 {
-    // Create a new data container for the stuff that comes back from the service
-    httpData = [[NSMutableData alloc] init];
-    
-    NSURL *url = [NSURL URLWithString: urlString];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
-                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    NSURL *url = [NSURL URLWithString: postURL];
+   
     //get seconds since the linux epoch
     NSString *oauth_timestamp = [self getCurrentDateUTC] ;
     NSString *oauth_callback = @"oob";
@@ -158,27 +173,33 @@
         [oauth_nonce appendFormat:@"%C", c];
     }
     
-      
-   NSString *oauth_signature_method = @"HMAC-SHA1";
-   NSString *oauth_version = @"1.0";
-   NSString *oauth_token = @"19618155-QZ23iExJAdCjpcvxW7is0FJzyzuD6LH3j9vEpyTg";
-   NSString *base_signature = [[NSString alloc] initWithFormat:@"oauth_callback=%@&oauth_consumer_key=%@&oauth_nonce=%@&oauth_signature_method=%@&oauth_timestamp=%@&oauth_token=%@&oauth_version=%@",
-                               
-                                 oauth_callback,
-                                 oauth_consumer_key,
-                                 oauth_nonce,
-                                 oauth_signature_method,
-                                 oauth_timestamp,
-                                 oauth_token,
-                                 oauth_version
-                                 ];
+    
+    NSString *oauth_signature_method = @"HMAC-SHA1";
+    NSString *oauth_version = @"1.0";
+    //NSString *oauth_token = @"19618155-QZ23iExJAdCjpcvxW7is0FJzyzuD6LH3j9vEpyTg";
+    NSString *base_signature = [[NSString alloc] initWithFormat:@"oauth_callback=%@&oauth_consumer_key=%@&oauth_nonce=%@&oauth_signature_method=%@&oauth_timestamp=%@&oauth_token=%@&oauth_version=%@",
+                                
+                                oauth_callback,
+                                oauth_consumer_key,
+                                oauth_nonce,
+                                oauth_signature_method,
+                                oauth_timestamp,
+                                _oauth_token,
+                                oauth_version
+                                ];
+    
+    if (user != nil && pass != nil)
+    {
+        base_signature = [NSString stringWithFormat:@"%@&x_auth_mode=client_auth&x_auth_password=%@&x_auth_username=%@", base_signature, pass, user];
+    }
+    
     //url encode the base signature
     base_signature = [self urlEncode:base_signature];
     //add POST& and url encoded destination url in front of existing base signature
-    base_signature = [[NSString alloc] initWithFormat:@"POST&%@&%@", [self urlEncode:urlString], base_signature];
+    base_signature = [[NSString alloc] initWithFormat:@"POST&%@&%@", [self urlEncode:postURL], base_signature];
     
     NSString *oauth_consumer_secret = @"WWLNgPQtPujnpz0XmQU3bdMhaGGMCa1wyFg3ABE9Lis";
-    NSString *oauth_token_secret = @"3XygpcZRRBAkra3eUW7QPF5jP6davJsig1Jw3NKs";
+    //NSString *oauth_token_secret = @"3XygpcZRRBAkra3eUW7QPF5jP6davJsig1Jw3NKs";
     //NSString *signing_key = [[NSString alloc] initWithFormat:@"%@&%@", oauth_consumer_secret, oauth_token_secret];
     //using only partial key because we are retrieving request token.
     NSString *signing_key = [[NSString alloc] initWithFormat:@"%@&", oauth_consumer_secret];
@@ -190,25 +211,46 @@
     //build the authorization header, separating out with commas instead of &
     //      and escaping quotation marks around values
     NSString *authorization = [[NSString alloc] initWithFormat:@"OAuth oauth_callback=\"%@\", oauth_consumer_key=\"%@\", oauth_nonce=\"%@\", oauth_signature=\"%@\", oauth_signature_method=\"%@\", oauth_timestamp=\"%@\",oauth_token=\"%@\", oauth_version=\"%@\"",
-                                [self urlEncode:oauth_callback],
-                                [self urlEncode:oauth_consumer_key],
-                                [self urlEncode:oauth_nonce],
-                                [self urlEncode:oauth_signature],
-                                [self urlEncode:oauth_signature_method],
-                                [self urlEncode:oauth_timestamp],
-                                [self urlEncode:oauth_token],
-                                [self urlEncode:oauth_version]
+                               [self urlEncode:oauth_callback],
+                               [self urlEncode:oauth_consumer_key],
+                               [self urlEncode:oauth_nonce],
+                               [self urlEncode:oauth_signature],
+                               [self urlEncode:oauth_signature_method],
+                               [self urlEncode:oauth_timestamp],
+                               [self urlEncode:_oauth_token],
+                               [self urlEncode:oauth_version]
                                ];
+    
+    if (user != nil && pass != nil)
+    {
+        authorization = [NSString stringWithFormat:@"%@, x_auth_mode=\"client_auth\", x_auth_password=\"%@\", x_auth_username=\"%@\"",
+                           authorization,
+                          [self urlEncode:pass],
+                          [self urlEncode:user]
+                          ];
 
-    //add the authorization httpheader to the httprequest
-    NSLog(@"Authorization:%@", authorization);
+    }
+    
+    return authorization;
+}
+
+- (void) postDataWithUrl:(NSString *) urlString withAuthorization:(NSString *) authorization
+{
+    // Create a new data container for the stuff that comes back from the service
+    _httpData = [[NSMutableData alloc] init];
+    
+    NSURL *url = [NSURL URLWithString: urlString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+   
+    
     [request setHTTPMethod:@"POST"];
     [request setValue:authorization forHTTPHeaderField:@"Authorization"];
-    //[request setValue:@"0" forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"0" forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     
     //start the http request
-    connection = [[NSURLConnection alloc] initWithRequest:request
+    _connection = [[NSURLConnection alloc] initWithRequest:request
                                                  delegate:self
                                          startImmediately:YES];
 }
@@ -227,8 +269,42 @@
 
 
 - (IBAction)PostButtonClick:(id)sender {
-    [self postDataWithUrl:@"https://api.twitter.com/oauth/request_token"];
+    NSLog(@"*****REQUEST TOKEN REQUEST*********");
+
+    
+    
+    NSString *oauth_consumer_secret = @"WWLNgPQtPujnpz0XmQU3bdMhaGGMCa1wyFg3ABE9Lis";
+    
+    //check if status us nil then build
+    NSString *signing_key = [[NSString alloc] initWithFormat:@"%@&", oauth_consumer_secret];
+    
+    NSString *request_token_url = @"https://api.twitter.com/oauth/request_token";
+    
+    NSString *authorization = [self getAuthorizationHeader:request_token_url withSigningKey:signing_key withStatus:nil withUser:nil withPass:nil];
+    
+    [self postDataWithUrl:request_token_url withAuthorization:authorization];
 }
+
+- (IBAction)AccessTokenButtonClick:(id)sender {
+    
+    NSLog(@"*****ACCESS TOKEN REQUEST*********");
+    
+    NSString *oauth_consumer_secret = @"WWLNgPQtPujnpz0XmQU3bdMhaGGMCa1wyFg3ABE9Lis";
+    
+    //check if status us nil then build
+    NSString *signing_key = [[NSString alloc] initWithFormat:@"%@&%@", oauth_consumer_secret, _oauth_token_secret];
+    
+    NSString *access_token_url = @"https://api.twitter.com/oauth/access_token";
+    
+    NSString *authorization = [self getAuthorizationHeader:access_token_url withSigningKey:signing_key withStatus:nil withUser:@"USER" withPass:@"PASS"];
+    
+    [self postDataWithUrl:access_token_url withAuthorization:authorization];
+
+    
+    
+}
+
+
 
 
 @end
