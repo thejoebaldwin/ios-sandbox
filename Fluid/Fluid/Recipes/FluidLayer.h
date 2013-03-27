@@ -120,6 +120,10 @@
     //this was 64 when square. need to be a power of 2??
     
 	CCSprite *sprite;
+    //sprite.shaderProgram
+
+
+    
     b2BodyDef bodyDef;
     switch (type) {
         case WATER: {
@@ -214,6 +218,25 @@
 	fixtureDef.friction = 0.0f;
     fixtureDef.restitution = 0.4f;
 	body->CreateFixture(&fixtureDef);
+    const GLchar *fragmentSource = (GLchar*)[[NSString stringWithContentsOfFile:@"MyCustomShader.fsh" encoding:NSUTF8StringEncoding error:nil] UTF8String];
+    
+//    sprite.shaderProgram = [[CCGLProgram alloc] initWithVertexShaderByteArray:ccPositionTextureA8Color_vert fragmentShaderByteArray:fragmentSource];
+ //   [ball.shaderProgram addAttribute:kCCAttributeNamePosition index:kCCVertexAttrib_Position];
+   // [ball.shaderProgram addAttribute:kCCAttributeNameTexCoord index:kCCVertexAttrib_TexCoords];
+    //ball.shaderProgram link];
+    //[ball.shaderProgram updateUniforms];
+    
+    //colorRampUniformLocation = glGetUniformLocation(ball.shaderProgram->program_, "u_colorRampTexture"); //EXC_BAD_ACCESS
+    //glUniform1i(colorRampUniformLocation, 1);
+    
+    //colorRampTexture = [[CCTextureCache sharedTextureCache] addImage:@"x2.png"];
+    //[colorRampTexture setAliasTexParameters];
+    
+    //[ball.shaderProgram use];
+    //glActiveTexture(GL_TEXTURE1);
+    //glBindTexture(GL_TEXTURE_2D, [colorRampTexture name]);
+    //glActiveTexture(GL_TEXTURE0);
+    
 }
 
 
@@ -353,6 +376,10 @@
     }
     
 }
+
+
+
+
 
 -(void) draw
 {
@@ -496,7 +523,7 @@
 	[self addLevelBoundaries];
     
 	//Add batch node for circle creation
-	waters = [[CCSpriteBatchNode batchNodeWithFile:@"BlurryBlob.png" capacity:300] retain];
+	waters = [[CCSpriteBatchNode batchNodeWithFile:@"pixelwater.png" capacity:300] retain];
     blocks = [[CCSpriteBatchNode batchNodeWithFile:@"brick.png"  capacity:300 ] retain];
     leftTriangle = [[CCSpriteBatchNode batchNodeWithFile:@"left_triangle.png"  capacity:300 ] retain];
     rightTriangle = [[CCSpriteBatchNode batchNodeWithFile:@"right_triangle.png"  capacity:300 ] retain];
@@ -507,6 +534,9 @@
     [self addChild:rightTriangle];
     [self addChild:leftTriangle];
 	
+    
+    
+    
 	//Schedule step method
 	[self schedule:@selector(tick:)];
 	return self;

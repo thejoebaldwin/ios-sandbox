@@ -183,6 +183,8 @@
 		43862E2E137D232300AE894D /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43862E2D137D232300AE894D /* CoreAudio.framework */; };
 		43AAE95C13C2A6AC00F8D766 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43AAE95B13C2A6AC00F8D766 /* Entitlements.plist */; };
 		43CE4478137FB1650041D701 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43CE4477137FB1650041D701 /* MediaPlayer.framework */; };
+		9721943D16F6367B00A2DFA9 /* pixelwater.png in Resources */ = {isa = PBXBuildFile; fileRef = 9721943C16F6367B00A2DFA9 /* pixelwater.png */; };
+		9721943F16F63C1000A2DFA9 /* MyCustomShader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 9721943E16F63C1000A2DFA9 /* MyCustomShader.fsh */; };
 		977C0C7D16BB8B7400A96E50 /* ControlsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 977C0C7C16BB8B7400A96E50 /* ControlsView.xib */; };
 		977C0C7F16BB9A0A00A96E50 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 977C0C7E16BB9A0A00A96E50 /* HeaderView.xib */; };
 		977C0C8116BC29AA00A96E50 /* blocks.png in Resources */ = {isa = PBXBuildFile; fileRef = 977C0C8016BC29AA00A96E50 /* blocks.png */; };
@@ -579,6 +581,8 @@
 		43AAE95B13C2A6AC00F8D766 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		43CE4477137FB1650041D701 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		43CE45121380F23B0041D701 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
+		9721943C16F6367B00A2DFA9 /* pixelwater.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pixelwater.png; sourceTree = "<group>"; };
+		9721943E16F63C1000A2DFA9 /* MyCustomShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = MyCustomShader.fsh; sourceTree = "<group>"; };
 		977C0C7C16BB8B7400A96E50 /* ControlsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlsView.xib; sourceTree = "<group>"; };
 		977C0C7E16BB9A0A00A96E50 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		977C0C8016BC29AA00A96E50 /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blocks.png; sourceTree = "<group>"; };
@@ -705,37 +709,38 @@
 		436F546513552C0400F6433F /* Fluid */ = {
 			isa = PBXGroup;
 			children = (
-				43AAE95B13C2A6AC00F8D766 /* Entitlements.plist */,
-				97B8E06916BB03C000F6BF8C /* TouchJSON */,
+				436F561D13552C0700F6433F /* AppDelegate.h */,
+				436F561E13552C0700F6433F /* AppDelegate.mm */,
+				977C0C8416BE2A1000A96E50 /* BallContactListener.h */,
+				977C0C8516BE2A1000A96E50 /* BallContactListener.mm */,
+				977C0C8016BC29AA00A96E50 /* blocks.png */,
+				97953BE216BA44CC002EFC3B /* BlurryBlob.png */,
+				436F55AC13552C0600F6433F /* Box2D */,
+				977C0C8216BCCB1700A96E50 /* brick.png */,
 				436F547A13552C0400F6433F /* cocos2d */,
 				436F556C13552C0600F6433F /* CocosDenshion */,
 				436F557B13552C0600F6433F /* cocoslive */,
+				43AAE95B13C2A6AC00F8D766 /* Entitlements.plist */,
 				436F559A13552C0600F6433F /* FontLabel */,
-				436F55AC13552C0600F6433F /* Box2D */,
-				436F561913552C0700F6433F /* Supporting Files */,
-				436F56E113552CD800F6433F /* Libraries */,
-				436F56C813552CD800F6433F /* Recipes */,
-				436F563B13552CAA00F6433F /* Helpers.h */,
-				977C0C8B16BF786400A96E50 /* left_triangle.png */,
-				977C0C8C16BF786400A96E50 /* right_triangle.png */,
-				436F563C13552CAA00F6433F /* Recipe.mm */,
-				977C0C8016BC29AA00A96E50 /* blocks.png */,
-				97953BE216BA44CC002EFC3B /* BlurryBlob.png */,
-				436F563D13552CAA00F6433F /* Recipe.h */,
-				977C0C8216BCCB1700A96E50 /* brick.png */,
-				436F563E13552CAA00F6433F /* MainLayer.mm */,
-				977C0C8416BE2A1000A96E50 /* BallContactListener.h */,
-				977C0C8516BE2A1000A96E50 /* BallContactListener.mm */,
-				436F563F13552CAA00F6433F /* MainLayer.h */,
-				436F561D13552C0700F6433F /* AppDelegate.h */,
-				436F561E13552C0700F6433F /* AppDelegate.mm */,
-				436F562013552C0700F6433F /* RootViewController.h */,
-				977C0C7E16BB9A0A00A96E50 /* HeaderView.xib */,
-				436F562113552C0700F6433F /* RootViewController.mm */,
+				436F562913552C0700F6433F /* GameConfig.h */,
 				436F562613552C0700F6433F /* GLES-Render.h */,
 				436F562713552C0700F6433F /* GLES-Render.mm */,
-				436F562913552C0700F6433F /* GameConfig.h */,
+				977C0C7E16BB9A0A00A96E50 /* HeaderView.xib */,
+				436F563B13552CAA00F6433F /* Helpers.h */,
+				977C0C8B16BF786400A96E50 /* left_triangle.png */,
+				436F56E113552CD800F6433F /* Libraries */,
+				436F563F13552CAA00F6433F /* MainLayer.h */,
+				436F563E13552CAA00F6433F /* MainLayer.mm */,
+				9721943C16F6367B00A2DFA9 /* pixelwater.png */,
+				436F563D13552CAA00F6433F /* Recipe.h */,
+				436F563C13552CAA00F6433F /* Recipe.mm */,
+				436F56C813552CD800F6433F /* Recipes */,
 				436F546613552C0400F6433F /* Resources */,
+				977C0C8C16BF786400A96E50 /* right_triangle.png */,
+				436F562013552C0700F6433F /* RootViewController.h */,
+				436F562113552C0700F6433F /* RootViewController.mm */,
+				436F561913552C0700F6433F /* Supporting Files */,
+				97B8E06916BB03C000F6BF8C /* TouchJSON */,
 			);
 			path = Fluid;
 			sourceTree = "<group>";
@@ -1063,6 +1068,7 @@
 				977C0C7C16BB8B7400A96E50 /* ControlsView.xib */,
 				97953BE516BA4901002EFC3B /* DLRenderTexture.h */,
 				97953BE616BA4901002EFC3B /* DLRenderTexture.mm */,
+				9721943E16F63C1000A2DFA9 /* MyCustomShader.fsh */,
 			);
 			path = Recipes;
 			sourceTree = "<group>";
@@ -1246,6 +1252,7 @@
 				977C0C8316BCCB1700A96E50 /* brick.png in Resources */,
 				977C0C8D16BF786400A96E50 /* left_triangle.png in Resources */,
 				977C0C8E16BF786400A96E50 /* right_triangle.png in Resources */,
+				9721943D16F6367B00A2DFA9 /* pixelwater.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1428,6 +1435,7 @@
 				97B8E07D16BB03C000F6BF8C /* CJSONScanner.m in Sources */,
 				97B8E07E16BB03C000F6BF8C /* CJSONSerializer.m in Sources */,
 				977C0C8616BE2A1000A96E50 /* BallContactListener.mm in Sources */,
+				9721943F16F63C1000A2DFA9 /* MyCustomShader.fsh in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
