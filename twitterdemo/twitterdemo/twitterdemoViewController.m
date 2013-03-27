@@ -126,18 +126,25 @@
 -(NSMutableDictionary *) ParseQueryString:(NSString *) queryString
 {
     NSMutableDictionary *queryStringDictionary = [[NSMutableDictionary alloc] init];
-    NSArray *urlComponents = [queryString componentsSeparatedByString:@"&"];
-    //Then populate the dictionary :
     
-    for (NSString *keyValuePair in urlComponents)
-    {
-        NSArray *pairComponents = [keyValuePair componentsSeparatedByString:@"="];
-        NSString *key = [pairComponents objectAtIndex:0];
-        NSString *value = [pairComponents objectAtIndex:1];
+        NSString *word = @"&";
+    if ([queryString rangeOfString:word].location != NSNotFound) {
+        NSArray *urlComponents = [queryString componentsSeparatedByString:@"&"];
+        //Then populate the dictionary :
         
-        [queryStringDictionary setObject:value forKey:key];
-    }
+        for (NSString *keyValuePair in urlComponents)
+        {
+            NSArray *pairComponents = [keyValuePair componentsSeparatedByString:@"="];
+            NSString *key = [pairComponents objectAtIndex:0];
+            NSString *value = [pairComponents objectAtIndex:1];
+            
+            [queryStringDictionary setObject:value forKey:key];
+        }
+
+        
+           }
     
+     
     return queryStringDictionary;
     
 }
