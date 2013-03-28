@@ -29,8 +29,8 @@
     {
         _oauth_token = [ self OAuthToken];
         _oauth_token_secret = [self OAuthTokenSecret];
-        _oauth_consumer_secret = @"CONSUMER SECRET";
-        _oauth_consumer_key = @"CONSUMER KEY";
+        _oauth_consumer_secret = @"SECRET";
+        _oauth_consumer_key = @"KEY";
         _Mode = GetRequestToken;
     }
     return self;
@@ -183,7 +183,7 @@
     //add POST& and url encoded destination url in front of existing base signature
     base_signature = [NSMutableString stringWithFormat:@"POST&%@&%@", [Helper urlEncode:postURL], base_signature];
     
-    //NSLog(@"Base Signature:%@", base_signature);
+    NSLog(@"Base Signature:%@", base_signature);
     
     //sign the base signature with hmac-sha1 encryption and partial key
     NSString *oauth_signature = [ Helper hmacsha1:base_signature key:key];
@@ -248,7 +248,7 @@
          //standard url encoding was escaping the percentage signs, which is needed for the base signature encoding
          // if used on the post body, the signature won't match. so using bodyencode.
          NSString *postBody  = [NSString stringWithFormat:@"status=%@", [Helper bodyEncode:status]];
-         //NSLog(@"Status:%@\nPost Body:%@",status, postBody);
+         NSLog(@"Status:%@\nPost Body:%@",status, postBody);
          NSData* postData=[postBody dataUsingEncoding:NSUTF8StringEncoding];
          
         [request setValue:[NSString stringWithFormat:@"%d", [postData length]] forHTTPHeaderField:@"Content-Length"];

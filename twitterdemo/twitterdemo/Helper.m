@@ -56,9 +56,14 @@
     encodedString = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(
                                                                                           NULL,
                                                                                           (__bridge CFStringRef)encodedString,
-                                                                                          NULL,
-                                                                                          (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ",
+                                                                            NULL,
+                                                            (CFStringRef)@"!*'\"();:%@&=+$,/?%#[]% ",
                                                                                           kCFStringEncodingUTF8);
+    
+       
+    encodedString = [encodedString stringByReplacingOccurrencesOfString:@"%40"
+                                         withString:@"%2540"];
+    
     return encodedString;
 }
 
