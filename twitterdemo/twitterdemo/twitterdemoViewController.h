@@ -15,11 +15,30 @@
     NSMutableData *_httpData;
     NSString *_oauth_token_secret;
     NSString *_oauth_request_token;
+    NSString *_pin;
+    
+    NSString *_oauth_consumer_secret;
+    NSString *_oauth_consumer_key;
+    bool _okToTweet;
     NSString *_oauth_token;
     void (^completion)(void);
+    
+    
+    
+    enum  AuthenticationMode : NSUInteger {
+        GetRequestToken = 1,
+        GetPin = 2,
+        GetAccessToken = 3,
+        StatusUpdateOk = 4
+    };
+
+    
+   enum AuthenticationMode _Mode;
+    
 }
 - (IBAction)PostButtonClick:(id)sender;
-
-- (IBAction)AccessTokenButtonClick:(id)sender;
+- (IBAction)TweetButtonClick:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextField *PinField;
+- (IBAction)AccessButtonClick:(id)sender;
 
 @end

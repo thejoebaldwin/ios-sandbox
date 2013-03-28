@@ -18,6 +18,8 @@
 		3FAAF3A617010B6A000549DA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FAAF3A517010B6A000549DA /* Default-568h@2x.png */; };
 		3FAAF3A917010B6A000549DA /* twitterdemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FAAF3A817010B6A000549DA /* twitterdemoViewController.m */; };
 		3FAAF3AC17010B6A000549DA /* twitterdemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FAAF3AA17010B6A000549DA /* twitterdemoViewController.xib */; };
+		97C9E5B4170402FC008029A5 /* PinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C9E5B2170402FC008029A5 /* PinViewController.m */; };
+		97C9E5B5170402FC008029A5 /* PinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97C9E5B3170402FC008029A5 /* PinViewController.xib */; };
 		D83BF1541702154900A86DE4 /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = D83BF1521702154900A86DE4 /* Base64Transcoder.c */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +40,9 @@
 		3FAAF3A717010B6A000549DA /* twitterdemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = twitterdemoViewController.h; sourceTree = "<group>"; };
 		3FAAF3A817010B6A000549DA /* twitterdemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = twitterdemoViewController.m; sourceTree = "<group>"; };
 		3FAAF3AB17010B6A000549DA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/twitterdemoViewController.xib; sourceTree = "<group>"; };
+		97C9E5B1170402FC008029A5 /* PinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PinViewController.h; sourceTree = "<group>"; };
+		97C9E5B2170402FC008029A5 /* PinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PinViewController.m; sourceTree = "<group>"; };
+		97C9E5B3170402FC008029A5 /* PinViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinViewController.xib; sourceTree = "<group>"; };
 		D83BF1521702154900A86DE4 /* Base64Transcoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Base64Transcoder.c; sourceTree = "<group>"; };
 		D83BF1531702154900A86DE4 /* Base64Transcoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Transcoder.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,14 +91,17 @@
 		3FAAF39517010B6A000549DA /* twitterdemo */ = {
 			isa = PBXGroup;
 			children = (
-				3FAAF39E17010B6A000549DA /* twitterdemoAppDelegate.h */,
-				3FAAF39F17010B6A000549DA /* twitterdemoAppDelegate.m */,
 				D83BF1521702154900A86DE4 /* Base64Transcoder.c */,
 				D83BF1531702154900A86DE4 /* Base64Transcoder.h */,
+				97C9E5B1170402FC008029A5 /* PinViewController.h */,
+				97C9E5B2170402FC008029A5 /* PinViewController.m */,
+				97C9E5B3170402FC008029A5 /* PinViewController.xib */,
+				3FAAF39617010B6A000549DA /* Supporting Files */,
+				3FAAF39E17010B6A000549DA /* twitterdemoAppDelegate.h */,
+				3FAAF39F17010B6A000549DA /* twitterdemoAppDelegate.m */,
 				3FAAF3A717010B6A000549DA /* twitterdemoViewController.h */,
 				3FAAF3A817010B6A000549DA /* twitterdemoViewController.m */,
 				3FAAF3AA17010B6A000549DA /* twitterdemoViewController.xib */,
-				3FAAF39617010B6A000549DA /* Supporting Files */,
 			);
 			path = twitterdemo;
 			sourceTree = "<group>";
@@ -169,6 +177,7 @@
 				3FAAF3A417010B6A000549DA /* Default@2x.png in Resources */,
 				3FAAF3A617010B6A000549DA /* Default-568h@2x.png in Resources */,
 				3FAAF3AC17010B6A000549DA /* twitterdemoViewController.xib in Resources */,
+				97C9E5B5170402FC008029A5 /* PinViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +192,7 @@
 				3FAAF3A017010B6A000549DA /* twitterdemoAppDelegate.m in Sources */,
 				3FAAF3A917010B6A000549DA /* twitterdemoViewController.m in Sources */,
 				D83BF1541702154900A86DE4 /* Base64Transcoder.c in Sources */,
+				97C9E5B4170402FC008029A5 /* PinViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
