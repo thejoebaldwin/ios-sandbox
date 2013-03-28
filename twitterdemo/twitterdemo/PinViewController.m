@@ -7,6 +7,7 @@
 //
 
 #import "PinViewController.h"
+#import "twitterdemoViewController.h"
 
 @interface PinViewController ()
 
@@ -57,7 +58,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     NSURL *url = [NSURL URLWithString:_AuthorizationURL ];
-    //URL Requst Object
+    //URL Request Object
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     //Load the request in the UIWebView.
     [PinWebView loadRequest:requestObj];
@@ -71,6 +72,10 @@
 
 - (void)BackButtonClick
 {
+    //pull the text from the clipboard and set the pin
+    twitterdemoViewController *main = (twitterdemoViewController *) [self presentingViewController];
+    UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+    [main SetPin:pasteBoard.string];
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
     
 }

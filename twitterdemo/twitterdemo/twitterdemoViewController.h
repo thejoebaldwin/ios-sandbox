@@ -40,5 +40,14 @@
 - (IBAction)TweetButtonClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *PinField;
 - (IBAction)AccessButtonClick:(id)sender;
+-(void) SetPin:(NSString*) pin;
+-(NSString *) Pin;
+-(void) SetOAuthTokenSecret:(NSString *) tokenSecret;
+-(NSString *) OAuthTokenSecret;
+-(void) SetOAuthToken:(NSString *) token;
+-(NSString *) OAuthToken;
+
+
+@property (weak, nonatomic) IBOutlet UITextField *StatusField;
 
 @end
