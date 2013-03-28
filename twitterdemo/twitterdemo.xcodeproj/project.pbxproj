@@ -21,6 +21,7 @@
 		97C9E5B4170402FC008029A5 /* PinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C9E5B2170402FC008029A5 /* PinViewController.m */; };
 		97C9E5B5170402FC008029A5 /* PinViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97C9E5B3170402FC008029A5 /* PinViewController.xib */; };
 		D83BF1541702154900A86DE4 /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = D83BF1521702154900A86DE4 /* Base64Transcoder.c */; };
+		D84AD3601704A89400EFED88 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = D84AD35F1704A89300EFED88 /* Helper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,8 @@
 		97C9E5B3170402FC008029A5 /* PinViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PinViewController.xib; sourceTree = "<group>"; };
 		D83BF1521702154900A86DE4 /* Base64Transcoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Base64Transcoder.c; sourceTree = "<group>"; };
 		D83BF1531702154900A86DE4 /* Base64Transcoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Transcoder.h; sourceTree = "<group>"; };
+		D84AD35E1704A89300EFED88 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
+		D84AD35F1704A89300EFED88 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,8 @@
 				3FAAF39F17010B6A000549DA /* twitterdemoAppDelegate.m */,
 				3FAAF3A717010B6A000549DA /* twitterdemoViewController.h */,
 				3FAAF3A817010B6A000549DA /* twitterdemoViewController.m */,
+				D84AD35E1704A89300EFED88 /* Helper.h */,
+				D84AD35F1704A89300EFED88 /* Helper.m */,
 				3FAAF3AA17010B6A000549DA /* twitterdemoViewController.xib */,
 			);
 			path = twitterdemo;
@@ -193,6 +198,7 @@
 				3FAAF3A917010B6A000549DA /* twitterdemoViewController.m in Sources */,
 				D83BF1541702154900A86DE4 /* Base64Transcoder.c in Sources */,
 				97C9E5B4170402FC008029A5 /* PinViewController.m in Sources */,
+				D84AD3601704A89400EFED88 /* Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
