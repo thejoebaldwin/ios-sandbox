@@ -142,7 +142,7 @@
       NSLog(@"Signature:%@", signature);
     
     NSString *postJSON =  [NSString stringWithFormat: @"{\"light\":   { \"id\": \"%i\", \"state\":\"%i\", \"signature\":\"%@\", \"key\":\"%@\", \"timestamp\":\"%@\" } }", value, onValue, signature, _key, TimeStamp];
-    
+    //postJSON = @"";
      //  NSString *postBody  = [NSString stringWithFormat:@"status=%@", [Helper bodyEncode:status]];
     
     NSData* postData=[postJSON dataUsingEncoding:NSUTF8StringEncoding];
