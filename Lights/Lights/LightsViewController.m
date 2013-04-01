@@ -8,6 +8,8 @@
 
 #import "LightsViewController.h"
 
+#import <CommonCrypto/CommonHMAC.h>
+
 @interface LightsViewController ()
 
 @end
@@ -15,6 +17,48 @@
 @implementation LightsViewController
 
 @synthesize OnSLider, OnSwitch, SliderLabel;
+
+-(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self)
+    {
+        _key = @"0d2c1fbc6feba8293955c34213448326";
+        _secret = @"d7ed7e8dfb3dd6619fcb7dcdd096cd89";
+        
+    }
+    
+    return self;
+}
+
+- (NSString*)MD5:(NSString *) text
+{
+    // Create pointer to the string as UTF8
+    const char *ptr = [text UTF8String];
+    
+    // Create byte array of unsigned chars
+    unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
+    
+    // Create 16 byte MD5 hash value, store in buffer
+    CC_MD5(ptr, strlen(ptr), md5Buffer);
+    
+    // Convert MD5 value in the buffer to NSString of hex values
+    NSMutableString *output = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
+    for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x",md5Buffer[i]];
+    
+    return output;
+}
+
+-(NSString *)getUTCTrim
+{
+    float seconds = [[NSDate date] timeIntervalSince1970];
+    int FloorSeconds = (int) floor(seconds);
+    FloorSeconds = FloorSeconds / 1000;
+    NSString *t =  [NSString stringWithFormat:@"%i", FloorSeconds ];
+    return t;
+}
 
 - (void)viewDidLoad
 {
@@ -82,12 +126,22 @@
     
        
     BOOL isOn = [OnSwitch isOn];
-
     int onValue = 0;
     if (isOn) onValue = 1;
 
+    //secret + timestamp / 100 --> MD5s
     
-    NSString *postJSON =  [NSString stringWithFormat: @"{\"lights\":   { \"id\": \"%i\", \"state\":\"%i\" } }", value, onValue];
+    NSString *TimeStamp = [self getUTCTrim];
+    NSLog(@"Timestamp:%@", TimeStamp);
+    NSString *signature = [NSString stringWithFormat:@"%@&%@&%@", _key, _secret,  TimeStamp];
+    
+    
+    
+    signature = [self MD5:signature];
+    
+      NSLog(@"Signature:%@", signature);
+    
+    NSString *postJSON =  [NSString stringWithFormat: @"{\"light\":   { \"id\": \"%i\", \"state\":\"%i\", \"signature\":\"%@\", \"key\":\"%@\", \"timestamp\":\"%@\" } }", value, onValue, signature, _key, TimeStamp];
     
      //  NSString *postBody  = [NSString stringWithFormat:@"status=%@", [Helper bodyEncode:status]];
     
@@ -114,7 +168,7 @@
 
 - (IBAction)PostButtonClick:(id)sender {
     
-    [self postDataWithUrl:@"http://192.168.1.84/json.php"];
+    [self postDataWithUrl:@"http://192.168.1.101/json.php"];
 
     
 }

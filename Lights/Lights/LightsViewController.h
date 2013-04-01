@@ -12,7 +12,9 @@
 {
     NSURLConnection *_connection;
     NSMutableData *_httpData;
-
+    NSString *_key;
+    NSString *_secret;
+    
     
 }
 
