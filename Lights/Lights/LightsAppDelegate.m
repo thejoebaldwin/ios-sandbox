@@ -9,6 +9,7 @@
 #import "LightsAppDelegate.h"
 
 #import "LightsViewController.h"
+#import "ConfigViewController.h"
 
 @implementation LightsAppDelegate
 
@@ -16,8 +17,39 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    
+    
     self.viewController = [[LightsViewController alloc] initWithNibName:@"LightsViewController" bundle:nil];
-    self.window.rootViewController = self.viewController;
+    
+    
+    
+    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    
+       
+    [[self window] setRootViewController:tabBarController];
+
+    LightsViewController *main;
+    ConfigViewController *config;
+    
+    config = [[ConfigViewController alloc] initWithNibName:@"ConfigViewController" bundle:nil];
+
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+       main = [[LightsViewController alloc] initWithNibName:@"LightsViewController_iPhone" bundle:nil];
+    } else {
+        main = [[LightsViewController alloc] initWithNibName:@"LightsViewController" bundle:nil];
+    }
+
+    
+    
+    
+    NSArray *viewControllers = [NSArray arrayWithObjects: config, main, nil];
+    [tabBarController setViewControllers:viewControllers];
+
+    
+    
+    self.window.rootViewController = tabBarController;
     [self.window makeKeyAndVisible];
     return YES;
 }

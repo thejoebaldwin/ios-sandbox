@@ -26,6 +26,10 @@
     {
         _key = @"0d2c1fbc6feba8293955c34213448326";
         _secret = @"d7ed7e8dfb3dd6619fcb7dcdd096cd89";
+        UITabBarItem *tbi = [self tabBarItem];
+        // Give it a label
+        [tbi setTitle:@"Main"];
+             
         
     }
     

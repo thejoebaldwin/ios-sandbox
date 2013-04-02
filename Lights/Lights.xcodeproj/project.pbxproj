@@ -18,6 +18,11 @@
 		975C05CC170959F900E42226 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 975C05CB170959F900E42226 /* Default-568h@2x.png */; };
 		975C05CF170959F900E42226 /* LightsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 975C05CE170959F900E42226 /* LightsViewController.m */; };
 		975C05D2170959F900E42226 /* LightsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 975C05D0170959F900E42226 /* LightsViewController.xib */; };
+		D83C0813170B23D2003B2CE9 /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83C0811170B23D2003B2CE9 /* ConfigViewController.m */; };
+		D83C0814170B23D2003B2CE9 /* ConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83C0812170B23D2003B2CE9 /* ConfigViewController.xib */; };
+		D83C0816170B2565003B2CE9 /* LightsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83C0815170B2565003B2CE9 /* LightsViewController_iPhone.xib */; };
+		D83C084A170B2B22003B2CE9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83C0849170B2B22003B2CE9 /* QuartzCore.framework */; };
+		D83C084C170B3FB2003B2CE9 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83C084B170B3FB2003B2CE9 /* CoreImage.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +42,12 @@
 		975C05CD170959F900E42226 /* LightsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LightsViewController.h; sourceTree = "<group>"; };
 		975C05CE170959F900E42226 /* LightsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LightsViewController.m; sourceTree = "<group>"; };
 		975C05D1170959F900E42226 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LightsViewController.xib; sourceTree = "<group>"; };
+		D83C0810170B23D2003B2CE9 /* ConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigViewController.h; sourceTree = "<group>"; };
+		D83C0811170B23D2003B2CE9 /* ConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigViewController.m; sourceTree = "<group>"; };
+		D83C0812170B23D2003B2CE9 /* ConfigViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigViewController.xib; sourceTree = "<group>"; };
+		D83C0815170B2565003B2CE9 /* LightsViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LightsViewController_iPhone.xib; sourceTree = "<group>"; };
+		D83C0849170B2B22003B2CE9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D83C084B170B3FB2003B2CE9 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D83C084C170B3FB2003B2CE9 /* CoreImage.framework in Frameworks */,
+				D83C084A170B2B22003B2CE9 /* QuartzCore.framework in Frameworks */,
 				975C05B6170959F900E42226 /* UIKit.framework in Frameworks */,
 				975C05B8170959F900E42226 /* Foundation.framework in Frameworks */,
 				975C05BA170959F900E42226 /* CoreGraphics.framework in Frameworks */,
@@ -56,6 +69,8 @@
 		975C05A9170959F900E42226 = {
 			isa = PBXGroup;
 			children = (
+				D83C084B170B3FB2003B2CE9 /* CoreImage.framework */,
+				D83C0849170B2B22003B2CE9 /* QuartzCore.framework */,
 				975C05BB170959F900E42226 /* Lights */,
 				975C05B4170959F900E42226 /* Frameworks */,
 				975C05B3170959F900E42226 /* Products */,
@@ -83,11 +98,15 @@
 		975C05BB170959F900E42226 /* Lights */ = {
 			isa = PBXGroup;
 			children = (
+				D83C0810170B23D2003B2CE9 /* ConfigViewController.h */,
+				D83C0811170B23D2003B2CE9 /* ConfigViewController.m */,
+				D83C0812170B23D2003B2CE9 /* ConfigViewController.xib */,
 				975C05C4170959F900E42226 /* LightsAppDelegate.h */,
 				975C05C5170959F900E42226 /* LightsAppDelegate.m */,
 				975C05CD170959F900E42226 /* LightsViewController.h */,
 				975C05CE170959F900E42226 /* LightsViewController.m */,
 				975C05D0170959F900E42226 /* LightsViewController.xib */,
+				D83C0815170B2565003B2CE9 /* LightsViewController_iPhone.xib */,
 				975C05BC170959F900E42226 /* Supporting Files */,
 			);
 			path = Lights;
@@ -164,6 +183,8 @@
 				975C05CA170959F900E42226 /* Default@2x.png in Resources */,
 				975C05CC170959F900E42226 /* Default-568h@2x.png in Resources */,
 				975C05D2170959F900E42226 /* LightsViewController.xib in Resources */,
+				D83C0814170B23D2003B2CE9 /* ConfigViewController.xib in Resources */,
+				D83C0816170B2565003B2CE9 /* LightsViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +198,7 @@
 				975C05C2170959F900E42226 /* main.m in Sources */,
 				975C05C6170959F900E42226 /* LightsAppDelegate.m in Sources */,
 				975C05CF170959F900E42226 /* LightsViewController.m in Sources */,
+				D83C0813170B23D2003B2CE9 /* ConfigViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,7 +288,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Lights/Lights-Prefix.pch";
 				INFOPLIST_FILE = "Lights/Lights-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -277,7 +301,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Lights/Lights-Prefix.pch";
 				INFOPLIST_FILE = "Lights/Lights-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -301,6 +327,7 @@
 				975C05D7170959F900E42226 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
