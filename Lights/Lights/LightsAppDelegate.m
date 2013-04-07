@@ -10,6 +10,7 @@
 
 #import "LightsViewController.h"
 #import "ConfigViewController.h"
+#import "SwitchboardViewController.h"
 
 @implementation LightsAppDelegate
 
@@ -33,7 +34,7 @@
     ConfigViewController *config;
     
     config = [[ConfigViewController alloc] initWithNibName:@"ConfigViewController" bundle:nil];
-
+    SwitchboardViewController *switchBoard = [[SwitchboardViewController alloc] initWithNibName:@"SwitchboardViewController" bundle:nil];
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
        main = [[LightsViewController alloc] initWithNibName:@"LightsViewController_iPhone" bundle:nil];
@@ -44,7 +45,7 @@
     
     
     
-    NSArray *viewControllers = [NSArray arrayWithObjects: config, main, nil];
+    NSArray *viewControllers = [NSArray arrayWithObjects: config, main,switchBoard, nil];
     [tabBarController setViewControllers:viewControllers];
 
     

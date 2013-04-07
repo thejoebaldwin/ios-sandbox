@@ -11,5 +11,13 @@
 @interface ConfigViewController : UIViewController
 {
     NSArray *colors;
+    
+    NSURLConnection *_connection;
+    NSMutableData *_httpData;
+    NSString *LIGHTS_CONFIG_POST;
+    
 }
+- (IBAction)StartButtonClick:(id)sender;
+- (IBAction)NotUsedClick:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *CurrentLabel;
 @end
