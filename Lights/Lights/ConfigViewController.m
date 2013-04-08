@@ -261,7 +261,7 @@
         [self.view.layer addSublayer:label];
 
     }
-    [self postDataWithUrl:LIGHTS_CONFIG_POST withPostBody:[self startConfigJSON]];
+    //[self postDataWithUrl:LIGHTS_CONFIG_POST withPostBody:[self startConfigJSON]];
 
        
    }

@@ -57,6 +57,8 @@
     }
     
     
+    NSMutableString *lightsJSON = [[NSMutableString alloc] init];
+    
    for (UITouch *touch in [event allTouches]) {
        CGPoint p = [touch locationInView:self.view];
        
@@ -73,20 +75,16 @@
                
                if(CGPathContainsPoint(l.path, &transf, p, NO)){
                    
-                   // the touch is inside the shape
-                   //NSLog(@"touched:%@", l.name);
-                   
                    if (l.lineWidth == 8 * modifier)
                    {
                        l.lineWidth = 5;
                        l.strokeColor = [UIColor blackColor].CGColor;
-                       //l.shadowColor = l.strokeColor;
-                       //l.shadowRadius = 30;
-                       //l.shadowOffset = CGSizeMake(1.5f, 1.5f);
                        l.shadowOpacity = 0.0;
-                       NSString *postBody = [self lightControlJSON:l.name withState:@"off"];
-                       [self postDataWithUrl:LIGHTS_CONTROL_POST withPostBody:postBody];
-                       
+                       if (![lightsJSON isEqualToString:@""])
+                       {
+                           [lightsJSON appendString:@","];
+                       }
+                       [lightsJSON appendString:[self lightControlItemJSON:l.name withState:@"off"]];
                        
                    }
                    else
@@ -97,11 +95,11 @@
                        l.shadowRadius = 5 * modifier;
                        l.shadowOffset = CGSizeMake(1.5f, 1.5f);
                        l.shadowOpacity = 1.0;
-                       
-                       
-                       NSString *postBody = [self lightControlJSON:l.name withState:@"on"];
-                       [self postDataWithUrl:LIGHTS_CONTROL_POST withPostBody:postBody];
-                       
+                       if (![lightsJSON isEqualToString:@""])
+                       {
+                           [lightsJSON appendString:@","];
+                       }
+                       [lightsJSON appendString:[self lightControlItemJSON:l.name withState:@"on"]];
                        
                    }
                    
@@ -116,6 +114,12 @@
        
    }
     
+    if (![lightsJSON isEqualToString:@""])
+    {
+        NSString *postBody = [self lightControlJSON:lightsJSON];
+        [self postDataWithUrl:LIGHTS_CONTROL_POST withPostBody:postBody];
+    }
+   
     
     
     
@@ -124,15 +128,23 @@
 
 
 
--(NSString *) lightControlJSON:(NSString *) lightId withState:(NSString *) state
+-(NSString *) lightControlJSON:(NSString *) lightsJSON
+{
+    NSMutableString *json = [[NSMutableString alloc] init];
+    [json appendFormat:@" { \"lights\":[%@],", lightsJSON];
+    [json appendString:@"    \"mode\": \"control\" }" ];
+    return json;
+}
+
+
+-(NSString *) lightControlItemJSON:(NSString *) lightId withState:(NSString *) state
 {
     NSMutableString *json = [[NSMutableString alloc] init];
     [json appendFormat:@" { \"id\": \"%@\",", lightId];
-    [json appendFormat:@"  \"state\": \"%@\",", state];
-
-    [json appendString:@"     \"mode\": \"control\" }" ];
+    [json appendFormat:@"  \"state\": \"%@\"}", state];
     return json;
 }
+
 
 
 
@@ -234,38 +246,16 @@
     for (int i = 0; i < 15; i++)
     {
         float modifier = 1.0;
-        
         float y_offset = 200;
-        
-        
-        //if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-            
-        //} else {
             modifier = 2.0;
             //radius *= modifier;
             y_offset = 330;
-            
-        //}
-        
-        
         CGPoint p = CGPointMake(CGRectGetMidX(self.view.frame)-radius * modifier + ((i % 2  * 0) * 33 * modifier),
                                 CGRectGetMidY(self.view.frame)-radius * modifier + (i * 27  * modifier * 1.14) - y_offset);
         [self.view.layer addSublayer:[self NewCircleLayer:p withColor:[colors objectAtIndex:i % 6] withName: [NSString stringWithFormat: @"%i", i]]];
         
-        /*
-        CATextLayer *label = [[CATextLayer alloc] init];
-        [label setFont:@"Helvetica-Bold"];
-        [label setFontSize:10 * modifier];
-        [label setFrame:[self.view.layer frame]];
-        [label setString: [NSString stringWithFormat:  @"%i", i]];
-        [label setForegroundColor:[[UIColor blackColor] CGColor]];
-        [label setPosition:CGPointMake(p.x + 174,p.y + 285)];
-        [self.view.layer addSublayer:label];
-        */
+      
     }
-    //[self postDataWithUrl:LIGHTS_CONTROL_POST withPostBody:[self startConfigJSON]];
-
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -274,10 +264,112 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+
+
+-(void) tickRacerMethod
+{
+    NSLog(@"Logging Timer Here");
+    
+    NSMutableString *lightsJSON = [[NSMutableString alloc] init];
+    
+    NSString *currentIndex = [NSString stringWithFormat:@"%i", _lightIndex];
+   [lightsJSON appendString:[self lightControlItemJSON:currentIndex withState:@"off"]];
+    NSString *nextIndex = [NSString stringWithFormat:@"%i", _lightIndex + 1];
+    if (_lightIndex + 1 < 15)
+    {
+        [lightsJSON appendString:@","];
+        [lightsJSON appendString:[self lightControlItemJSON:nextIndex withState:@"on"]];
+        _lightIndex++;
+    }
+    else
+    {
+        [lightsJSON appendString:@","];
+
+        _lightIndex = 0;
+        [lightsJSON appendString:[self lightControlItemJSON:@"0" withState:@"on"]];
+    }
+    
+    
+    
+    
+    
+    NSString *postBody = [self lightControlJSON:lightsJSON];
+    [self postDataWithUrl:LIGHTS_CONTROL_POST withPostBody:postBody];
+    
+    
+}
+
+
+
+-(void) tickFlasherMethod
+{
+    NSLog(@"Logging Timer Here");
+    
+    NSMutableString *lightsJSON = [[NSMutableString alloc] init];
+    
+     
+    for (int i = 0; i < 15; i++)
+    {
+        if (![lightsJSON isEqualToString:@""])
+        {
+            [lightsJSON appendString:@","];
+        }
+
+        if (_lightsFlashingOn)
+        {
+         [lightsJSON appendString:[self lightControlItemJSON:[NSString stringWithFormat:@"%i", i] withState:@"on"]];
+        }
+        else
+        {
+         [lightsJSON appendString:[self lightControlItemJSON:[NSString stringWithFormat:@"%i", i] withState:@"off"]];
+        }
+    }
+    
+    _lightsFlashingOn = !_lightsFlashingOn;
+    
+    
+    
+    NSString *postBody = [self lightControlJSON:lightsJSON];
+    [self postDataWithUrl:LIGHTS_CONTROL_POST withPostBody:postBody];
+
+    
+}
+
 - (IBAction)LoopButtonClick:(id)sender {
     
-    [self postDataWithUrl:LIGHTS_LOOP_POST withPostBody:@""];
+    _lightIndex = 0;
+  _timer =     [NSTimer scheduledTimerWithTimeInterval:0.1
+                                     target:self
+                                   selector:@selector(tickRacerMethod)
+                                   userInfo:nil
+                                    repeats:YES];
+    //reset all lights to off, for when loop completes.
+    for (CAShapeLayer *l in self.view.layer.sublayers)
+    {
+        if ([l isKindOfClass:[CAShapeLayer class]]) {
+            l.lineWidth = 5;
+            l.strokeColor = [UIColor blackColor].CGColor;
+            l.shadowOpacity = 0.0;
+            }
+        }
+}
 
+
+
+
+- (IBAction)RedButtonClick:(id)sender {
+    
+
+    NSMutableString *lightsJSON = [[NSMutableString alloc] init];
+    [lightsJSON appendString:[self lightControlItemJSON:@"0" withState:@"on"]];
+    [lightsJSON appendString:@","];
+    [lightsJSON appendString:[self lightControlItemJSON:@"6" withState:@"on"]];
+    [lightsJSON appendString:@","];
+    [lightsJSON appendString:[self lightControlItemJSON:@"12" withState:@"on"]];
+
+    NSString *postBody = [self lightControlJSON:lightsJSON];
+    [self postDataWithUrl:LIGHTS_CONTROL_POST withPostBody:postBody];
     
 }
 @end

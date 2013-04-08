@@ -16,6 +16,10 @@
     NSMutableData *_httpData;
     NSString *LIGHTS_CONTROL_POST;
     NSString *LIGHTS_LOOP_POST;
+    NSTimer *_timer;
+    NSInteger _lightIndex;
+    BOOL _lightsFlashingOn;
 }
 - (IBAction)LoopButtonClick:(id)sender;
+- (IBAction)RedButtonClick:(id)sender;
 @end
