@@ -11,7 +11,7 @@
 @interface SwitchboardViewController : UIViewController
 {
     NSArray *colors;
-    
+    NSMutableString *_LightsAddress;
     NSURLConnection *_connection;
     NSMutableData *_httpData;
     NSString *LIGHTS_CONTROL_POST;

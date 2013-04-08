@@ -20,6 +20,8 @@
 		975C05D2170959F900E42226 /* LightsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 975C05D0170959F900E42226 /* LightsViewController.xib */; };
 		97E4936F1710B2910009BC21 /* SwitchboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97E4936D1710B2910009BC21 /* SwitchboardViewController.m */; };
 		97E493701710B2910009BC21 /* SwitchboardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97E4936E1710B2910009BC21 /* SwitchboardViewController.xib */; };
+		D804B53217132D74008C4CC0 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D804B53017132D74008C4CC0 /* AddressViewController.m */; };
+		D804B53317132D74008C4CC0 /* AddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D804B53117132D74008C4CC0 /* AddressViewController.xib */; };
 		D83C0813170B23D2003B2CE9 /* ConfigViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83C0811170B23D2003B2CE9 /* ConfigViewController.m */; };
 		D83C0814170B23D2003B2CE9 /* ConfigViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83C0812170B23D2003B2CE9 /* ConfigViewController.xib */; };
 		D83C0816170B2565003B2CE9 /* LightsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D83C0815170B2565003B2CE9 /* LightsViewController_iPhone.xib */; };
@@ -47,6 +49,9 @@
 		97E4936C1710B2910009BC21 /* SwitchboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwitchboardViewController.h; sourceTree = "<group>"; };
 		97E4936D1710B2910009BC21 /* SwitchboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwitchboardViewController.m; sourceTree = "<group>"; };
 		97E4936E1710B2910009BC21 /* SwitchboardViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SwitchboardViewController.xib; sourceTree = "<group>"; };
+		D804B52F17132D74008C4CC0 /* AddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressViewController.h; sourceTree = "<group>"; };
+		D804B53017132D74008C4CC0 /* AddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressViewController.m; sourceTree = "<group>"; };
+		D804B53117132D74008C4CC0 /* AddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddressViewController.xib; sourceTree = "<group>"; };
 		D83C0810170B23D2003B2CE9 /* ConfigViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfigViewController.h; sourceTree = "<group>"; };
 		D83C0811170B23D2003B2CE9 /* ConfigViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfigViewController.m; sourceTree = "<group>"; };
 		D83C0812170B23D2003B2CE9 /* ConfigViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfigViewController.xib; sourceTree = "<group>"; };
@@ -103,6 +108,9 @@
 		975C05BB170959F900E42226 /* Lights */ = {
 			isa = PBXGroup;
 			children = (
+				D804B52F17132D74008C4CC0 /* AddressViewController.h */,
+				D804B53017132D74008C4CC0 /* AddressViewController.m */,
+				D804B53117132D74008C4CC0 /* AddressViewController.xib */,
 				D83C0810170B23D2003B2CE9 /* ConfigViewController.h */,
 				D83C0811170B23D2003B2CE9 /* ConfigViewController.m */,
 				D83C0812170B23D2003B2CE9 /* ConfigViewController.xib */,
@@ -194,6 +202,7 @@
 				D83C0814170B23D2003B2CE9 /* ConfigViewController.xib in Resources */,
 				D83C0816170B2565003B2CE9 /* LightsViewController_iPhone.xib in Resources */,
 				97E493701710B2910009BC21 /* SwitchboardViewController.xib in Resources */,
+				D804B53317132D74008C4CC0 /* AddressViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +218,7 @@
 				975C05CF170959F900E42226 /* LightsViewController.m in Sources */,
 				D83C0813170B23D2003B2CE9 /* ConfigViewController.m in Sources */,
 				97E4936F1710B2910009BC21 /* SwitchboardViewController.m in Sources */,
+				D804B53217132D74008C4CC0 /* AddressViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

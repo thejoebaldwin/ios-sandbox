@@ -8,6 +8,7 @@
 
 #import "SwitchboardViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "AddressViewController.h"
 @interface SwitchboardViewController ()
 
 @end
@@ -33,8 +34,8 @@
                   [UIColor purpleColor],
                   nil];
         
-        LIGHTS_CONTROL_POST = @"http://192.168.1.84:8124?cmd=control";
-        LIGHTS_LOOP_POST = @"http://192.168.1.84:8124?cmd=loop";
+        LIGHTS_CONTROL_POST = @"http://192.168.1.102:8124?cmd=control";
+        LIGHTS_LOOP_POST = @"http://192.168.1.102:8124?cmd=loop";
         
     }
     return self;
@@ -126,12 +127,21 @@
 }
 
 
-
+-(NSString *)getUTCTrim
+{
+    float seconds = [[NSDate date] timeIntervalSince1970];
+    int FloorSeconds = (int) floor(seconds);
+    FloorSeconds = FloorSeconds / 1000;
+    NSString *t =  [NSString stringWithFormat:@"%i", FloorSeconds ];
+    return t;
+}
 
 -(NSString *) lightControlJSON:(NSString *) lightsJSON
 {
     NSMutableString *json = [[NSMutableString alloc] init];
+    NSString *timestamp = [self getUTCTrim];
     [json appendFormat:@" { \"lights\":[%@],", lightsJSON];
+    [json appendFormat:@"    \"timestamp\": \"%@\", ", timestamp ];
     [json appendString:@"    \"mode\": \"control\" }" ];
     return json;
 }
@@ -256,6 +266,17 @@
         
       
     }
+    
+    AddressViewController *address = [[AddressViewController alloc] init];
+    //_LightsAddress   = @"192.168.1.84";
+    _LightsAddress    = [[NSMutableString alloc] initWithString:@"192.168.1.84"];
+    [address SetLightsAddress:_LightsAddress];
+    
+    UINavigationController *navController  = [[UINavigationController alloc] initWithRootViewController:address];
+    
+    [self presentViewController:navController animated:YES completion:nil];
+
+    
 }
 
 - (void)didReceiveMemoryWarning
