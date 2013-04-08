@@ -45,7 +45,7 @@
     
     
     
-    NSArray *viewControllers = [NSArray arrayWithObjects: config, main,switchBoard, nil];
+    NSArray *viewControllers = [NSArray arrayWithObjects: switchBoard, config, main, nil];
     [tabBarController setViewControllers:viewControllers];
 
     

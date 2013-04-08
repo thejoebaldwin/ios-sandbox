@@ -208,6 +208,40 @@
 }
 
 
+
+-(CAShapeLayer *) NewLineLayer:(CGPoint) p withColor:(UIColor *) c withName:(NSString *) n
+{
+    
+      
+    CAShapeLayer *line = [CAShapeLayer layer];
+    
+    
+    
+    
+    // Make a circular shape
+    //line.path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, 2.0*radius * modifier, 2.0*radius * modifier)
+                                   //          cornerRadius:radius  * modifier].CGPath;
+    
+UIBezierPath *path= [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0,0)];
+    [path addLineToPoint:CGPointMake(700    , 700)];
+    [path closePath];
+    // Center the shape in self.view
+    line.position = p;
+    // Configure the apperence of the circle
+    line.fillColor = c.CGColor;
+    line.strokeColor =  [UIColor blackColor].CGColor;
+    ;
+    
+    line.lineWidth = 5;
+    
+    line.name = n;
+    line.path = [path CGPath];
+    return line;
+}
+
+
+
 -(CAShapeLayer *) NewCircleLayer:(CGPoint) p withColor:(UIColor *) c withName:(NSString *) n
 {
     
@@ -267,14 +301,17 @@
       
     }
     
+    [self.view.layer addSublayer:[self NewLineLayer:CGPointMake(50,50) withColor:[colors objectAtIndex:0] withName:@"blarg"]];
+
+    
     AddressViewController *address = [[AddressViewController alloc] init];
     //_LightsAddress   = @"192.168.1.84";
     _LightsAddress    = [[NSMutableString alloc] initWithString:@"192.168.1.84"];
     [address SetLightsAddress:_LightsAddress];
     
-    UINavigationController *navController  = [[UINavigationController alloc] initWithRootViewController:address];
+    //UINavigationController *navController  = [[UINavigationController alloc] initWithRootViewController:address];
     
-    [self presentViewController:navController animated:YES completion:nil];
+    //[self presentViewController:navController animated:YES completion:nil];
 
     
 }
