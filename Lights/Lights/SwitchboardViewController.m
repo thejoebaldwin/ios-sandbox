@@ -301,7 +301,7 @@ UIBezierPath *path= [UIBezierPath bezierPath];
       
     }
     
-    [self.view.layer addSublayer:[self NewLineLayer:CGPointMake(50,50) withColor:[colors objectAtIndex:0] withName:@"blarg"]];
+    //[self.view.layer addSublayer:[self NewLineLayer:CGPointMake(50,50) withColor:[colors objectAtIndex:0] withName:@"blarg"]];
 
     
     AddressViewController *address = [[AddressViewController alloc] init];
@@ -385,6 +385,7 @@ UIBezierPath *path= [UIBezierPath bezierPath];
     }
     
     _lightsFlashingOn = !_lightsFlashingOn;
+    
     
     
     
