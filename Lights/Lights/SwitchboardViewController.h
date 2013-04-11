@@ -19,7 +19,10 @@
     NSTimer *_timer;
     NSInteger _lightIndex;
     BOOL _lightsFlashingOn;
+    BOOL _goFlash;
 }
+- (IBAction)StopButtonClick:(id)sender;
 - (IBAction)LoopButtonClick:(id)sender;
 - (IBAction)RedButtonClick:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *StopButtonClick;
 @end

@@ -34,8 +34,8 @@
                   [UIColor purpleColor],
                   nil];
         
-        LIGHTS_CONTROL_POST = @"http://192.168.1.102:8124?cmd=control";
-        LIGHTS_LOOP_POST = @"http://192.168.1.102:8124?cmd=loop";
+        LIGHTS_CONTROL_POST = @"http://10.4.172.85:8124?cmd=control";
+        LIGHTS_LOOP_POST = @"http://10.4.172.85:8124?cmd=loop";
         
     }
     return self;
@@ -43,7 +43,7 @@
 
 
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event 
 {
     
     //CGPoint p = [[touches anyObject] locationInView:self.view];
@@ -377,10 +377,12 @@ UIBezierPath *path= [UIBezierPath bezierPath];
         if (_lightsFlashingOn)
         {
          [lightsJSON appendString:[self lightControlItemJSON:[NSString stringWithFormat:@"%i", i] withState:@"on"]];
+            [self toggleLight:YES withIndex:i];
         }
         else
         {
          [lightsJSON appendString:[self lightControlItemJSON:[NSString stringWithFormat:@"%i", i] withState:@"off"]];
+                  [self toggleLight:NO withIndex:i];
         }
     }
     
@@ -393,6 +395,56 @@ UIBezierPath *path= [UIBezierPath bezierPath];
     [self postDataWithUrl:LIGHTS_CONTROL_POST withPostBody:postBody];
 
     
+}
+
+
+-(void) toggleLight:(BOOL) isOn withIndex:(int) i
+{
+    
+    float modifier = 2.0;
+    int index = 0;
+    for (CAShapeLayer *l in self.view.layer.sublayers)
+    {
+        //TODO: build array of touches, then use that for JSON array in single request.
+        
+        if ([l isKindOfClass:[CAShapeLayer class]]) {
+            
+            if (index == i)
+            {
+
+                if (!isOn)
+                {
+                    l.lineWidth = 5;
+                    l.strokeColor = [UIColor blackColor].CGColor;
+                    l.shadowOpacity = 0.0;
+                  
+                    
+                }
+                else
+                {
+                    l.lineWidth = 8 * modifier;
+                    l.strokeColor = l.fillColor;
+                    l.shadowColor = l.strokeColor;
+                    l.shadowRadius = 5 * modifier;
+                    l.shadowOffset = CGSizeMake(1.5f, 1.5f);
+                    l.shadowOpacity = 1.0;
+                    
+                    
+                }
+            }
+            
+            }
+        index++;
+    
+    }
+    
+    
+}
+
+- (IBAction)StopButtonClick:(id)sender {
+    
+    [_timer invalidate];
+    _timer = nil;
 }
 
 - (IBAction)LoopButtonClick:(id)sender {
