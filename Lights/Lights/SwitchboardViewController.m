@@ -330,22 +330,28 @@ UIBezierPath *path= [UIBezierPath bezierPath];
     NSLog(@"Logging Timer Here");
     
     NSMutableString *lightsJSON = [[NSMutableString alloc] init];
-    
-    NSString *currentIndex = [NSString stringWithFormat:@"%i", _lightIndex];
-   [lightsJSON appendString:[self lightControlItemJSON:currentIndex withState:@"off"]];
+    if (_lightIndex > 0)
+    {
+        NSString *currentIndex = [NSString stringWithFormat:@"%i", _lightIndex];
+        [lightsJSON appendString:[self lightControlItemJSON:currentIndex withState:@"off"]];
+        [self toggleLight:NO withIndex:_lightIndex];
+    }
     NSString *nextIndex = [NSString stringWithFormat:@"%i", _lightIndex + 1];
-    if (_lightIndex + 1 < 15)
+    if (_lightIndex + 1 < 16)
     {
         [lightsJSON appendString:@","];
         [lightsJSON appendString:[self lightControlItemJSON:nextIndex withState:@"on"]];
+        [self toggleLight:YES withIndex:_lightIndex + 1];
+
         _lightIndex++;
     }
     else
     {
         [lightsJSON appendString:@","];
 
-        _lightIndex = 0;
-        [lightsJSON appendString:[self lightControlItemJSON:@"0" withState:@"on"]];
+        _lightIndex = 1;
+        [lightsJSON appendString:[self lightControlItemJSON:@"1 " withState:@"on"]];
+          [self toggleLight:YES withIndex:_lightIndex];
     }
     
     
@@ -359,37 +365,19 @@ UIBezierPath *path= [UIBezierPath bezierPath];
 }
 
 
-
--(void) tickFlasherMethod
+-(void) tickRandomMethod
 {
     NSLog(@"Logging Timer Here");
     
     NSMutableString *lightsJSON = [[NSMutableString alloc] init];
     
-     
-    for (int i = 0; i < 15; i++)
-    {
-        if (![lightsJSON isEqualToString:@""])
-        {
-            [lightsJSON appendString:@","];
-        }
-
-        if (_lightsFlashingOn)
-        {
-         [lightsJSON appendString:[self lightControlItemJSON:[NSString stringWithFormat:@"%i", i] withState:@"on"]];
-            [self toggleLight:YES withIndex:i];
-        }
-        else
-        {
-         [lightsJSON appendString:[self lightControlItemJSON:[NSString stringWithFormat:@"%i", i] withState:@"off"]];
-                  [self toggleLight:NO withIndex:i];
-        }
-    }
+    int randomOn = arc4random() % 15 + 1;
+    int randomOff = arc4random() % 15 + 1;
     
-    _lightsFlashingOn = !_lightsFlashingOn;
-    
-    
-    
+    [lightsJSON appendString:[self lightControlItemJSON:[NSString stringWithFormat:@"%i", randomOn] withState:@"on"]];
+    [self toggleLight:YES withIndex:randomOn];
+    [lightsJSON appendString:[self lightControlItemJSON:[NSString stringWithFormat:@"%i", randomOff] withState:@"off"]];
+    [self toggleLight:NO withIndex:randomOff];
     
     NSString *postBody = [self lightControlJSON:lightsJSON];
     [self postDataWithUrl:LIGHTS_CONTROL_POST withPostBody:postBody];
@@ -402,7 +390,7 @@ UIBezierPath *path= [UIBezierPath bezierPath];
 {
     
     float modifier = 2.0;
-    int index = 0;
+    int index = 1;
     for (CAShapeLayer *l in self.view.layer.sublayers)
     {
         //TODO: build array of touches, then use that for JSON array in single request.
@@ -432,9 +420,9 @@ UIBezierPath *path= [UIBezierPath bezierPath];
                     
                 }
             }
-            
+              index++;
             }
-        index++;
+      
     
     }
     
@@ -450,7 +438,7 @@ UIBezierPath *path= [UIBezierPath bezierPath];
 - (IBAction)LoopButtonClick:(id)sender {
     
     _lightIndex = 0;
-  _timer =     [NSTimer scheduledTimerWithTimeInterval:0.1
+  _timer =     [NSTimer scheduledTimerWithTimeInterval:0.15
                                      target:self
                                    selector:@selector(tickRacerMethod)
                                    userInfo:nil
@@ -481,6 +469,26 @@ UIBezierPath *path= [UIBezierPath bezierPath];
 
     NSString *postBody = [self lightControlJSON:lightsJSON];
     [self postDataWithUrl:LIGHTS_CONTROL_POST withPostBody:postBody];
+    
+}
+- (IBAction)RandomButtonClick:(id)sender {
+    
+    
+    _lightIndex = 0;
+    _timer =     [NSTimer scheduledTimerWithTimeInterval:0.15
+                                                  target:self
+                                                selector:@selector(tickRandomMethod)
+                                                userInfo:nil
+                                                 repeats:YES];
+    //reset all lights to off, for when loop completes.
+    for (CAShapeLayer *l in self.view.layer.sublayers)
+    {
+        if ([l isKindOfClass:[CAShapeLayer class]]) {
+            l.lineWidth = 5;
+            l.strokeColor = [UIColor blackColor].CGColor;
+            l.shadowOpacity = 0.0;
+        }
+    }
     
 }
 @end
