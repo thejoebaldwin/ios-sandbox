@@ -34,8 +34,8 @@
                   [UIColor purpleColor],
                   nil];
         
-        LIGHTS_CONTROL_POST = @"http://10.4.172.85:8124?cmd=control";
-        LIGHTS_LOOP_POST = @"http://10.4.172.85:8124?cmd=loop";
+        LIGHTS_CONTROL_POST = @"http://192.168.1.86:8124?cmd=control";
+        LIGHTS_LOOP_POST = @"http://192.168.1.86:8124?cmd=loop";
         
     }
     return self;
@@ -107,7 +107,7 @@
                }
            }
            
-           
+                                         
            
        }
 

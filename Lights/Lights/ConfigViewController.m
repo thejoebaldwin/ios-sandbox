@@ -38,7 +38,7 @@
                  [UIColor purpleColor],
                nil];
         
-        LIGHTS_CONFIG_POST = @"http://192.168.1.102:8124?cmd=config";
+        LIGHTS_CONFIG_POST = @"http://192.168.1.86:8124?cmd=config";
         
     }
     return self;
