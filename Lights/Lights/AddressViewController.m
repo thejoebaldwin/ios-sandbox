@@ -22,12 +22,21 @@
     {
         _LightsAddress = [[NSString alloc] init];
         
+        UITabBarItem *tbi = [self tabBarItem];
         
+        // Give it a label
+        [tbi setTitle:@"Address"];
     }
     
     return self;
     
 }
+
+-(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [AddressField resignFirstResponder];
+}
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -71,9 +80,19 @@
 - (IBAction)UpdateButtonClick:(id)sender {
     
     
-    [_LightsAddress setString:[AddressField text]];
+    _LightsAddress =[AddressField text];
 
+    _LightsAddress = [[NSMutableString alloc] initWithFormat:@"http://%@:8124", _LightsAddress];
+    
         NSLog(@"Changing Address to %@", _LightsAddress);
+    
+    
+    UITabBarController *tabs = [self tabBarController];
+    for (UIViewController *viewController in [tabs viewControllers])
+    {
+        [viewController performSelector:@selector(SetLightsAddress:) withObject:_LightsAddress];
+        
+    }
     
     [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
 
@@ -83,6 +102,11 @@
 -(void) SetLightsAddress:(NSMutableString *) url
 {
     _LightsAddress = url;
+}
+
+-(NSString *) LightsAddress
+{
+    return _LightsAddress;
 }
 
 @end

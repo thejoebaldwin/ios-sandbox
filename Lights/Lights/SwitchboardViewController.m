@@ -36,7 +36,7 @@
         
         LIGHTS_CONTROL_POST = @"http://192.168.1.86:8124?cmd=control";
         LIGHTS_LOOP_POST = @"http://192.168.1.86:8124?cmd=loop";
-        
+        _LightsAddress = [[NSMutableString alloc] initWithString: @"http://192.168.1.102:8124"];
     }
     return self;
 }
@@ -118,7 +118,9 @@
     if (![lightsJSON isEqualToString:@""])
     {
         NSString *postBody = [self lightControlJSON:lightsJSON];
-        [self postDataWithUrl:LIGHTS_CONTROL_POST withPostBody:postBody];
+        NSMutableString *postURL = [[NSMutableString alloc] initWithFormat:@"%@?cmd=control", _LightsAddress];
+
+        [self postDataWithUrl:postURL withPostBody:postBody];
     }
    
     
@@ -251,7 +253,7 @@ UIBezierPath *path= [UIBezierPath bezierPath];
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         
     } else {
-        modifier = 2.0;
+        modifier = 1.5;
         //radius *= modifier;
     }
     
@@ -287,13 +289,13 @@ UIBezierPath *path= [UIBezierPath bezierPath];
     
     int radius = 75;
     
-    for (int i = 0; i < 15; i++)
+    for (int i = 0; i < 17; i++)
     {
         float modifier = 1.0;
-        float y_offset = 200;
-            modifier = 2.0;
+        float y_offset = 300;
+            modifier = 1.5;
             //radius *= modifier;
-            y_offset = 330;
+            y_offset = 250;
         CGPoint p = CGPointMake(CGRectGetMidX(self.view.frame)-radius * modifier + ((i % 2  * 0) * 33 * modifier),
                                 CGRectGetMidY(self.view.frame)-radius * modifier + (i * 27  * modifier * 1.14) - y_offset);
         [self.view.layer addSublayer:[self NewCircleLayer:p withColor:[colors objectAtIndex:i % 6] withName: [NSString stringWithFormat: @"%i", i]]];
@@ -301,19 +303,7 @@ UIBezierPath *path= [UIBezierPath bezierPath];
       
     }
     
-    //[self.view.layer addSublayer:[self NewLineLayer:CGPointMake(50,50) withColor:[colors objectAtIndex:0] withName:@"blarg"]];
 
-    
-    AddressViewController *address = [[AddressViewController alloc] init];
-    //_LightsAddress   = @"192.168.1.84";
-    _LightsAddress    = [[NSMutableString alloc] initWithString:@"192.168.1.84"];
-    [address SetLightsAddress:_LightsAddress];
-    
-    //UINavigationController *navController  = [[UINavigationController alloc] initWithRootViewController:address];
-    
-    //[self presentViewController:navController animated:YES completion:nil];
-
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -330,16 +320,16 @@ UIBezierPath *path= [UIBezierPath bezierPath];
     NSLog(@"Logging Timer Here");
     
     NSMutableString *lightsJSON = [[NSMutableString alloc] init];
-    if (_lightIndex > 0)
+    if (_lightIndex >= 0)
     {
         NSString *currentIndex = [NSString stringWithFormat:@"%i", _lightIndex];
         [lightsJSON appendString:[self lightControlItemJSON:currentIndex withState:@"off"]];
         [self toggleLight:NO withIndex:_lightIndex];
     }
     NSString *nextIndex = [NSString stringWithFormat:@"%i", _lightIndex + 1];
-    if (_lightIndex + 1 < 16)
+    if (_lightIndex + 1 < 17)
     {
-        [lightsJSON appendString:@","];
+        if (![lightsJSON isEqualToString:@""]) [lightsJSON appendString:@","];
         [lightsJSON appendString:[self lightControlItemJSON:nextIndex withState:@"on"]];
         [self toggleLight:YES withIndex:_lightIndex + 1];
 
@@ -347,10 +337,9 @@ UIBezierPath *path= [UIBezierPath bezierPath];
     }
     else
     {
-        [lightsJSON appendString:@","];
-
-        _lightIndex = 1;
-        [lightsJSON appendString:[self lightControlItemJSON:@"1 " withState:@"on"]];
+        if (![lightsJSON isEqualToString:@""]) [lightsJSON appendString:@","];
+        _lightIndex = 0;
+        [lightsJSON appendString:[self lightControlItemJSON:@"0" withState:@"on"]];
           [self toggleLight:YES withIndex:_lightIndex];
     }
     
@@ -359,7 +348,9 @@ UIBezierPath *path= [UIBezierPath bezierPath];
     
     
     NSString *postBody = [self lightControlJSON:lightsJSON];
-    [self postDataWithUrl:LIGHTS_CONTROL_POST withPostBody:postBody];
+    NSMutableString *postURL = [[NSMutableString alloc] initWithFormat:@"%@?cmd=control", _LightsAddress];
+
+    [self postDataWithUrl:postURL withPostBody:postBody];
     
     
 }
@@ -371,21 +362,27 @@ UIBezierPath *path= [UIBezierPath bezierPath];
     
     NSMutableString *lightsJSON = [[NSMutableString alloc] init];
     
-    int randomOn = arc4random() % 15 + 1;
-    int randomOff = arc4random() % 15 + 1;
+    int randomOn = arc4random() % 16 + 1;
+    int randomOff = arc4random() % 16 + 1;
     
     [lightsJSON appendString:[self lightControlItemJSON:[NSString stringWithFormat:@"%i", randomOn] withState:@"on"]];
     [self toggleLight:YES withIndex:randomOn];
+    if (![lightsJSON isEqualToString:@""]) [lightsJSON appendString:@","];
+
     [lightsJSON appendString:[self lightControlItemJSON:[NSString stringWithFormat:@"%i", randomOff] withState:@"off"]];
     [self toggleLight:NO withIndex:randomOff];
     
     NSString *postBody = [self lightControlJSON:lightsJSON];
-    [self postDataWithUrl:LIGHTS_CONTROL_POST withPostBody:postBody];
+    NSMutableString *postURL = [[NSMutableString alloc] initWithFormat:@"%@?cmd=control", _LightsAddress];
+    [self postDataWithUrl:postURL withPostBody:postBody];
 
     
 }
 
-
+-(void) SetLightsAddress:(NSMutableString *) url
+{
+    _LightsAddress = url;
+}
 -(void) toggleLight:(BOOL) isOn withIndex:(int) i
 {
     
@@ -468,7 +465,9 @@ UIBezierPath *path= [UIBezierPath bezierPath];
     [lightsJSON appendString:[self lightControlItemJSON:@"12" withState:@"on"]];
 
     NSString *postBody = [self lightControlJSON:lightsJSON];
-    [self postDataWithUrl:LIGHTS_CONTROL_POST withPostBody:postBody];
+     NSMutableString *postURL = [[NSMutableString alloc] initWithFormat:@"%@?cmd=control", _LightsAddress];
+    
+    [self postDataWithUrl:postURL withPostBody:postBody];
     
 }
 - (IBAction)RandomButtonClick:(id)sender {

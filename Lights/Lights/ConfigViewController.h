@@ -15,9 +15,10 @@
     NSURLConnection *_connection;
     NSMutableData *_httpData;
     NSString *LIGHTS_CONFIG_POST;
-    
+     NSMutableString *_LightsAddress;
 }
 - (IBAction)StartButtonClick:(id)sender;
 - (IBAction)NotUsedClick:(id)sender;
+- (void) SetLightsAddress:(NSMutableString *) url;
 @property (weak, nonatomic) IBOutlet UILabel *CurrentLabel;
 @end

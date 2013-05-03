@@ -11,6 +11,7 @@
 #import "LightsViewController.h"
 #import "ConfigViewController.h"
 #import "SwitchboardViewController.h"
+#import "AddressViewController.h"
 
 @implementation LightsAppDelegate
 
@@ -43,9 +44,9 @@
     }
 
     
+    AddressViewController *address = [[AddressViewController alloc] init];
     
-    
-    NSArray *viewControllers = [NSArray arrayWithObjects: switchBoard,config, nil];
+    NSArray *viewControllers = [NSArray arrayWithObjects: switchBoard,config,address, nil];
     [tabBarController setViewControllers:viewControllers];
 
     

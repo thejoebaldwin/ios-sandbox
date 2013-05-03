@@ -14,7 +14,7 @@
     NSMutableData *_httpData;
     NSString *_key;
     NSString *_secret;
-    
+     NSMutableString *_LightsAddress;
     
 }
 
@@ -22,6 +22,7 @@
 - (IBAction)PostButtonClick:(id)sender;
 - (IBAction)ClearButtonClick:(id)sender;
 - (IBAction)SliderChanged:(id)sender;
+- (void) SetLightsAddress:(NSMutableString *) url;
 @property (weak, nonatomic) IBOutlet UISwitch *OnSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *SliderLabel;
 @property (weak, nonatomic) IBOutlet UISlider *OnSLider;

@@ -112,6 +112,11 @@
     
 }
 
+-(void) SetLightsAddress:(NSMutableString *) url
+{
+    _LightsAddress = url;
+}
+
 - (void) postDataWithUrl:(NSString *) urlString
 {
     // Create a new data container for the stuff that comes back from the service
@@ -172,7 +177,7 @@
 
 - (IBAction)PostButtonClick:(id)sender {
     
-    [self postDataWithUrl:@"http://192.168.1.101/json.php"];
+    [self postDataWithUrl:_LightsAddress];
 
     
 }

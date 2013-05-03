@@ -44,7 +44,10 @@
     return self;
 }
 
-
+-(void) SetLightsAddress:(NSMutableString *) url
+{
+    _LightsAddress = url;
+}
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     
@@ -106,7 +109,8 @@
                 
                 
                 NSString *postBody = [self lightConfigJSON:l.name];
-                [self postDataWithUrl:LIGHTS_CONFIG_POST withPostBody:postBody];
+                NSMutableString *postURL = [[NSMutableString alloc] initWithFormat:@"%@?cmd=config", _LightsAddress];
+                [self postDataWithUrl:postURL withPostBody:postBody];
                 
 
             }
@@ -229,7 +233,7 @@
     
     int radius = 75;
     
-    for (int i = 0; i < 15; i++)
+    for (int i = 0; i < 17; i++)
     {
         float modifier = 1.0;
         
@@ -311,9 +315,9 @@
         }
     }
 
+        NSMutableString *postURL = [[NSMutableString alloc] initWithFormat:@"%@?cmd=config", _LightsAddress];
     
-    
-    [self postDataWithUrl:LIGHTS_CONFIG_POST withPostBody:[self startConfigJSON]];
+    [self postDataWithUrl:postURL withPostBody:[self startConfigJSON]];
     
     
 }

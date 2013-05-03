@@ -21,5 +21,5 @@
 - (IBAction)UpdateButtonClick:(id)sender;
 
 - (void) SetLightsAddress:(NSMutableString *) url;
-
+- (NSString *) LightsAddress;
 @end

@@ -22,6 +22,7 @@
     BOOL _goFlash;
 }
 - (IBAction)RandomButtonClick:(id)sender;
+- (void) SetLightsAddress:(NSMutableString *) url;
 @property (weak, nonatomic) IBOutlet UIButton *RandomButtonClick;
 - (IBAction)StopButtonClick:(id)sender;
 - (IBAction)LoopButtonClick:(id)sender;
