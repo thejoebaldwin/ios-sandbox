@@ -8,15 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CameraViewController : UIViewController  <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
-
-- (IBAction)TakePhotoButtonClick:(id)sender;
+@interface CameraViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-
-- (IBAction)SelectPhoto:(id)sender;
-- (IBAction)UpdatePhoto:(id)sender;
-
-
-
+- (IBAction)TakePictureButtonClick:(id)sender;
+- (IBAction)SelectPictureButtonClick:(id)sender;
+- (IBAction)UploadPictureButtonClick:(id)sender;
 
 @end

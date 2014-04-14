@@ -318,7 +318,7 @@ NSString const *_hostname = @"http://itweb.fvtc.edu/kingbingo/service/v0";
                       @"{\"user_id\":\"%i\",\"authentication_token\":\"%@\", \"profile_image\":\"%@\"}",
                       _userID, _authToken, profileImage];
     NSLog(@"Post Data:%@", json);
-    [self PostDataWithOperation:@"updateprofileimage" withJSON:json];
+    [self PostDataWithOperation:@"updateuser" withJSON:json];
 }
 
 @end
