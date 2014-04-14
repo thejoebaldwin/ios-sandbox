@@ -97,11 +97,9 @@
 
 - (IBAction)UploadPictureButtonClick:(id)sender {
     
-    
     UIImage *image = [imageView image];
     void (^uploadImageComplete)(void) = ^{
         NSLog(@"Upload Image Complete!");
-     
     };
     
     NSString *profileImage = [GameStore ImageToNSString:image];

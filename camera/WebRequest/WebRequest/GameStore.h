@@ -42,7 +42,7 @@
 + (UIImage *)StringToUIImage:(NSString *)string;
 
 -(void) Authenticate:(NSString*) username withPassword:(NSString*) password withBlock:(void(^)(void)) block;
--(void) UpdateProfileImage:(NSString*) profileImage withBlock:(void(^)(void)) block;
+-(void) UpdateProfileImage:(UIImage*) profileImage withBlock:(void(^)(void)) block;
 
 
 -(void) JoinGame:(int) gameID withBlock:(void(^)(void)) block;

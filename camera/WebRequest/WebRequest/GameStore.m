@@ -90,6 +90,7 @@ NSString const *_hostname = @"http://itweb.fvtc.edu/kingbingo/service/v0";
     
     //post body here
     NSData *postData = [JSON dataUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"Operation:%@, Post JSON\n%@", operation, JSON);
     //[request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:@"text/html" forHTTPHeaderField:@"Content-Type"];
     //post body data length
@@ -284,7 +285,7 @@ NSString const *_hostname = @"http://itweb.fvtc.edu/kingbingo/service/v0";
     NSString *json = [[NSString alloc] initWithFormat:
                       @"{\"user_id\":\"%i\",\"authentication_token\":\"%@\", \"game_id\":\"%i\"}",
                       _userID, _authToken, gameID];
-    NSLog(@"Post Data:%@", json);
+   
     [self PostDataWithOperation:@"joingame" withJSON:json];
 
 }
@@ -296,8 +297,7 @@ NSString const *_hostname = @"http://itweb.fvtc.edu/kingbingo/service/v0";
     NSString *json = [[NSString alloc] initWithFormat:
                       @"{\"user_id\":\"%i\",\"authentication_token\":\"%@\", \"game_id\":\"%i\"}",
                       _userID, _authToken, gameID];
-    NSLog(@"Post Data:%@", json);
-    [self PostDataWithOperation:@"quitgame" withJSON:json];
+     [self PostDataWithOperation:@"quitgame" withJSON:json];
 }
 
 -(void) GetNextNumber:(int) gameID withBlock:(void(^)(void)) block
@@ -307,17 +307,18 @@ NSString const *_hostname = @"http://itweb.fvtc.edu/kingbingo/service/v0";
     NSString *json = [[NSString alloc] initWithFormat:
                       @"{\"user_id\":\"%i\",\"authentication_token\":\"%@\", \"game_id\":\"%i\"}",
                       _userID, _authToken, gameID];
-    NSLog(@"Post Data:%@", json);
+  
     [self PostDataWithOperation:@"getnumber" withJSON:json];
 }
 
--(void) UpdateProfileImage:(NSString*) profileImage withBlock:(void(^)(void)) block
+-(void) UpdateProfileImage:(UIImage *) profileImage withBlock:(void(^)(void)) block
 {
     completion = block;
+    NSString *image = [GameStore ImageToNSString:profileImage];
     NSString *json = [[NSString alloc] initWithFormat:
                       @"{\"user_id\":\"%i\",\"authentication_token\":\"%@\", \"profile_image\":\"%@\"}",
-                      _userID, _authToken, profileImage];
-    NSLog(@"Post Data:%@", json);
+                      _userID, _authToken, image];
+  
     [self PostDataWithOperation:@"updateuser" withJSON:json];
 }
 
